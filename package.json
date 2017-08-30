@@ -4,7 +4,7 @@
   "description": "UI for Merit Badge University app",
   "main": "server.js",
   "scripts": {
-    "local": "node src/server.js",
+    "local": "node src/server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/jmicmoore/merit-badge-university/issues"
   },
-  "homepage": "https://github.com/jmicmoore/merit-badge-university#readme"
+  "homepage": "https://github.com/jmicmoore/merit-badge-university#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
 }
