@@ -25,5 +25,8 @@
   "homepage": "https://github.com/jmicmoore/merit-badge-university#readme",
   "dependencies": {
     "express": "^4.15.3"
+  },
+  "devDependencies": {
+    "webpack": "^3.0.0"
   }
 }
