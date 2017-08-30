@@ -1,23 +1,14 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {setFirstName, setLastName} from './actions/userActions';
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            firstName: '',
-            lastName: ''
-        };
-
-        this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
-        this.handleLastNameChange = this.handleLastNameChange.bind(this);
-    };
-
     handleFirstNameChange(event){
-        this.setState({firstName: event.target.value});
+        setFirstName(event.target.value);
     };
 
     handleLastNameChange(event){
-        this.setState({lastName: event.target.value});
+        setLastName(event.target.value);
     };
 
     render(){
@@ -25,15 +16,22 @@ class App extends React.Component {
             <form>
                 <label>
                     First Name:
-                    <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange} />
+                    <input type="text" value={this.props.firstName} onChange={this.handleFirstNameChange} />
                 </label>
                 <label>
                     Last Name:
-                    <input type="text" value={this.state.lastName} onChange={this.handleLastNameChange} />
+                    <input type="text" value={this.props.lastName} onChange={this.handleLastNameChange} />
                 </label>
             </form>
         );
     };
 };
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        firstName: state.user.firstName,
+        lastName: state.user.lastName
+    };
+};
+
+export default connect(mapStateToProps)(App);
