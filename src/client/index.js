@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 import store from './store';
-import App from './App';
+import Routes from './routes';
 
-renderWithHotReload(App);
+renderWithHotReload(Routes);
 
-module.hot.accept('./App', () => {
-    const NextApp = require('./App').default;
+module.hot.accept('./routes', () => {
+    const NextApp = require('./routes').default;
     renderWithHotReload(NextApp);
 });
 
