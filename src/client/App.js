@@ -1,37 +1,18 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setFirstName, setLastName} from './actions/userActions';
+import {Route} from 'react-router-dom'
+import Home from './Home';
+import UserProfile from './UserProfile';
 
 class App extends React.Component {
-    handleFirstNameChange(event){
-        setFirstName(event.target.value);
-    };
-
-    handleLastNameChange(event){
-        setLastName(event.target.value);
-    };
-
     render(){
         return (
-            <form>
-                <label>
-                    First Name:
-                    <input type="text" value={this.props.firstName} onChange={this.handleFirstNameChange} />
-                </label>
-                <label>
-                    Last Name:
-                    <input type="text" value={this.props.lastName} onChange={this.handleLastNameChange} />
-                </label>
-            </form>
+            <div>
+                <Route exact path="/" component={Home}/>
+                <Route path="/profile" component={UserProfile}/>
+            </div>
         );
     };
 };
 
-const mapStateToProps = (state) => {
-    return {
-        firstName: state.user.firstName,
-        lastName: state.user.lastName
-    };
-};
-
-export default connect(mapStateToProps)(App);
+export default connect()(App);

@@ -1,24 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
+import Routes from './routes';
 import { Provider } from 'react-redux';
 import store from './store';
-import Routes from './routes';
 
-renderWithHotReload(Routes);
+renderApp(Routes);
 
-module.hot.accept('./routes', () => {
-    const NextApp = require('./routes').default;
-    renderWithHotReload(NextApp);
-});
-
-function renderWithHotReload(Component) {
+function renderApp(Component) {
     ReactDOM.render(
-        <AppContainer>
-            <Provider store={store}>
-                <Component/>
-            </Provider>
-        </AppContainer>,
+        <Provider store={store}>
+            <Component/>
+        </Provider>,
         document.getElementById('content')
     );
 };
+
+
+console.log("Hello World from the Client!");

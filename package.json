@@ -4,8 +4,10 @@
   "description": "UI for Merit Badge University app",
   "main": "server.js",
   "scripts": {
-    "local": "node src/server/server.js",
-    "bundle": "webpack"
+    "bundle": "webpack",
+    "local": "NODE_ENV=development node ./src/server/server.js",
+    "server": "NODE_ENV=production node ./src/server/server.js",
+    "start": "npm run server"
   },
   "repository": {
     "type": "git",
@@ -33,6 +35,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "opener": "^1.4.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-hot-loader": "^3.0.0-beta.2",
