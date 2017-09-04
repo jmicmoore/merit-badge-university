@@ -1,5 +1,7 @@
 var express = require('express');
 var app = express();
+const router = express.Router();
+const appBaseUrl =  '/merit-badge-university';
 
 if(process.env.NODE_ENV !== 'production'){
     console.log('Starting Development Environment...');
@@ -24,15 +26,14 @@ if(process.env.NODE_ENV !== 'production'){
     console.log('Starting Production Environment...');
 }
 
-
-app.use(express.static('./dist'));
-
 app.set('view engine', 'ejs');
 app.set('views', 'src/server'); // tell Express our templates are in a different folder than the default
 
-app.get('*', function(req, res) {
+router.use(express.static('./dist'));
+router.get('*', function(req, res) {
     res.render('index');
 });
+app.use(appBaseUrl, router);
 
 app.listen(process.env.PORT || 3000, () => {
     if(process.env.NODE_ENV === 'development') {
