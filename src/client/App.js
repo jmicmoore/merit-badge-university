@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Route} from 'react-router-dom'
 import Home from './Home';
 import UserProfile from './UserProfile';
+import Login from './profile/Login';
 
 class App extends React.Component {
     render(){
@@ -10,6 +11,7 @@ class App extends React.Component {
             <div>
                 <Route exact path="/" component={Home}/>
                 <Route path="/profile" component={UserProfile}/>
+                <Route path="/login" component={Login}/>
             </div>
         );
     };

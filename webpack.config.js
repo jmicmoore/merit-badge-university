@@ -8,12 +8,19 @@ module.exports = {
     },
     devtool: "source-map",
     module: {
-        loaders: [
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    {loader: "style-loader"},
+                    {loader: "css-loader"}
+                ]
+            },
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
-                query: {
+                options: {
                     presets: ['es2015', 'react', 'stage-0']
                 }
             }
