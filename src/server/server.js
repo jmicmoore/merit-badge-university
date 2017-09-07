@@ -37,6 +37,6 @@ app.use(appBaseUrl, router);
 
 app.listen(process.env.PORT || 3000, () => {
     if(process.env.NODE_ENV === 'development') {
-        require('opener')('http://localhost:3000');
+        require('opener')('http://localhost:3000' + appBaseUrl + '/login');
     }
 });
