@@ -34,30 +34,30 @@ class Register extends React.Component {
                                         <form>
                                             <div className="col-sm-6 col-xs-12">
                                                 <div className="form-group">
-                                                    <label htmlFor="firstNameInputRegistration">First Name <span className="text-danger">*</span></label>
+                                                    <label htmlFor="firstName">First Name <span className="text-danger">*</span></label>
                                                     <input
-                                                        value={this.props.firstNameInputRegistration}
+                                                        value={this.props.firstName}
                                                         type="firstNameInputRegistration"
                                                         className="form-control"
-                                                        id="firstNameInputRegistration"
+                                                        id="firstName"
                                                         placeholder="First Name"
                                                         onChange={(event) => {
-                                                            this.handleChange('firstNameInputRegistration', event.target.value);
+                                                            this.handleChange('firstName', event.target.value);
                                                         }}
                                                     />
                                                 </div>
                                             </div>
                                             <div className="col-sm-6 col-xs-12">
                                                 <div className="form-group">
-                                                    <label htmlFor="lastNameInputRegistration">Last Name <span className="text-danger">*</span></label>
+                                                    <label htmlFor="lastName">Last Name <span className="text-danger">*</span></label>
                                                     <input
-                                                        value={this.props.lastNameInputRegistration}
+                                                        value={this.props.lastName}
                                                         type="lastNameInputRegistration"
                                                         className="form-control"
-                                                        id="lastNameInputRegistration"
+                                                        id="lastName"
                                                         placeholder="Last Name"
                                                         onChange={(event) => {
-                                                            this.handleChange('lastNameInputRegistration', event.target.value);
+                                                            this.handleChange('lastName', event.target.value);
                                                         }}
                                                     />
                                                 </div>
@@ -65,30 +65,30 @@ class Register extends React.Component {
                                             <div className="clearfix"></div>
                                             <div className="col-sm-6 col-xs-12">
                                                 <div className="form-group">
-                                                    <label htmlFor="inputEmailRegistration">Email address <span className="text-danger">*</span></label>
+                                                    <label htmlFor="email">Email address <span className="text-danger">*</span></label>
                                                     <input
-                                                        value={this.props.inputEmailRegistration}
+                                                        value={this.props.email}
                                                         type="inputEmailRegistration"
                                                         className="form-control"
-                                                        id="inputEmailRegistration"
+                                                        id="email"
                                                         placeholder="Email"
                                                         onChange={(event) => {
-                                                            this.handleChange('inputEmailRegistration', event.target.value);
+                                                            this.handleChange('email', event.target.value);
                                                         }}
                                                     />
                                                 </div>
                                             </div>
                                             <div className="col-sm-6 col-xs-12">
                                                 <div className="form-group">
-                                                    <label htmlFor="inputEmailRegistrationConfirmation">Confirm Email address <span className="text-danger">*</span></label>
+                                                    <label htmlFor="emailConfirm">Confirm Email address <span className="text-danger">*</span></label>
                                                     <input
-                                                        value={this.props.inputEmailRegistrationConfirmation}
+                                                        value={this.props.emailConfirm}
                                                         type="inputEmailRegistrationConfirmation"
                                                         className="form-control"
-                                                        id="inputEmailRegistrationConfirmation"
+                                                        id="emailConfirm"
                                                         placeholder="Email"
                                                         onChange={(event) => {
-                                                            this.handleChange('inputEmailRegistrationConfirmation', event.target.value);
+                                                            this.handleChange('emailConfirm', event.target.value);
                                                         }}
                                                     />
                                                 </div>
@@ -96,30 +96,30 @@ class Register extends React.Component {
                                             <div className="clearfix"></div>
                                             <div className="col-sm-6 col-xs-12">
                                                 <div className="form-group">
-                                                    <label htmlFor="inputPasswordRegistration">Password <span className="text-danger">*</span></label>
+                                                    <label htmlFor="password">Password <span className="text-danger">*</span></label>
                                                     <input
-                                                        value={this.props.inputPasswordRegistration}
+                                                        value={this.props.password}
                                                         type="inputPasswordRegistration"
                                                         className="form-control"
-                                                        id="inputPasswordRegistration"
+                                                        id="password"
                                                         placeholder="Password"
                                                         onChange={(event) => {
-                                                            this.handleChange('inputPasswordRegistration', event.target.value);
+                                                            this.handleChange('password', event.target.value);
                                                         }}
                                                     />
                                                 </div>
                                             </div>
                                             <div className="col-sm-6 col-xs-12">
                                                 <div className="form-group">
-                                                    <label htmlFor="confirmInputPasswordRegistration">Confirm Password <span className="text-danger">*</span></label>
+                                                    <label htmlFor="passwordConfirm">Confirm Password <span className="text-danger">*</span></label>
                                                     <input
-                                                        value={this.props.confirmInputPasswordRegistration}
+                                                        value={this.props.passwordConfirm}
                                                         type="confirmInputPasswordRegistration"
                                                         className="form-control"
-                                                        id="confirmInputPasswordRegistration"
+                                                        id="passwordConfirm"
                                                         placeholder="Confirm Password"
                                                         onChange={(event) => {
-                                                            this.handleChange('confirmInputPasswordRegistration', event.target.value);
+                                                            this.handleChange('passwordConfirm', event.target.value);
                                                         }}
                                                     />
                                                 </div>
@@ -127,13 +127,13 @@ class Register extends React.Component {
                                             <div className="clearfix"></div>
                                             <div className="col-sm-4 col-xs-12">
                                                 <div className="form-group">
-                                                    <label htmlFor="scoutTypeRegistration">Who are You? <span className="text-danger">*</span></label>
+                                                    <label htmlFor="selectedProfileType">Who are You? <span className="text-danger">*</span></label>
                                                     <select
-                                                        value={this.props.scoutTypeRegistration}
+                                                        value={this.props.selectedProfileType}
                                                         className="form-control form-control-lg"
-                                                        id="scoutTypeRegistration"
+                                                        id="selectedProfileType"
                                                         onChange={(event) => {
-                                                            this.handleChange('scoutTypeRegistration', event.target.value);
+                                                            this.handleChange('selectedProfileType', event.target.value);
                                                         }}
                                                     >
                                                         {
@@ -144,13 +144,13 @@ class Register extends React.Component {
                                             </div>
                                             <div className="col-sm-4 col-xs-12">
                                                 <div className="form-group">
-                                                    <label htmlFor="councilRegistration">What Council Are You From? <span className="text-danger">*</span></label>
+                                                    <label htmlFor="selectedCouncil">What Council Are You From? <span className="text-danger">*</span></label>
                                                     <select
-                                                        value={this.props.councilRegistration}
+                                                        value={this.props.selectedCouncil}
                                                         className="form-control form-control-lg"
-                                                        id="councilRegistration"
+                                                        id="selectedCouncil"
                                                         onChange={(event) => {
-                                                            this.handleChange('councilRegistration', event.target.value);
+                                                            this.handleChange('selectedCouncil', event.target.value);
                                                         }}
                                                     >
                                                         {
@@ -159,19 +159,24 @@ class Register extends React.Component {
                                                     </select>
                                                 </div>
                                                 <div className="form-group">
-                                                    <label htmlFor="otherInputCouncilName">Other</label>
-                                                    <input type="otherInputCouncilName" className="form-control" id="otherInputCouncilName" placeholder="Other"/>
+                                                    <label htmlFor="otherCouncil">Other</label>
+                                                    <input
+                                                        type="otherCouncil"
+                                                        className="form-control"
+                                                        id="otherCouncil"
+                                                        placeholder="Other"
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="col-sm-4 col-xs-12">
                                                 <div className="form-group">
-                                                    <label htmlFor="districtRegistration">What District Are You From? <span className="text-danger">*</span></label>
+                                                    <label htmlFor="selectedDistrict">What District Are You From? <span className="text-danger">*</span></label>
                                                     <select
-                                                        value={this.props.districtRegistration}
+                                                        value={this.props.selectedDistrict}
                                                         className="form-control form-control-lg"
-                                                        id="districtRegistration"
+                                                        id="selectedDistrict"
                                                         onChange={(event) => {
-                                                            this.handleChange('districtRegistration', event.target.value);
+                                                            this.handleChange('selectedDistrict', event.target.value);
                                                         }}
                                                     >
                                                         {
@@ -180,8 +185,13 @@ class Register extends React.Component {
                                                     </select>
                                                 </div>
                                                 <div className="form-group">
-                                                    <label htmlFor="otherInputDistrictName">Other</label>
-                                                    <input type="otherInputDistrictName" className="form-control" id="otherInputDistrictName" placeholder="Other"/>
+                                                    <label htmlFor="otherDistrict">Other</label>
+                                                    <input
+                                                        type="otherDistrict"
+                                                        className="form-control"
+                                                        id="otherDistrict"
+                                                        placeholder="Other"
+                                                    />
                                                 </div>
                                             </div>
                                         </form>
