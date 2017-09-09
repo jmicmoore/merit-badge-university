@@ -1,7 +1,6 @@
 import store from '../store';
 import http from 'superagent';
-import {SET_REGISTER_FIELD, PROFILE_TYPES} from '../actions/constants';
-const mbuAPI = 'http://localhost:3099/mbu-api';
+import {mbuAPI, SET_REGISTER_FIELD, PROFILE_TYPES} from '../actions/constants';
 
 export const setField = (field, value) => {
     store.dispatch({
