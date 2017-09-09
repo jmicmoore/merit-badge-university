@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setField} from './registerActions';
+import {setField, getProfileTypes} from './registerActions';
 
 class Register extends React.Component {
 
@@ -8,6 +8,10 @@ class Register extends React.Component {
         super();
         this.handleChange = this.handleChange.bind(this);
     }
+
+    componentDidMount() {
+        getProfileTypes();
+    };
 
     handleChange(field, value) {
         setField(field, value);
