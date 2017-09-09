@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setField, getProfileTypes} from './registerActions';
+import {setField, getProfileTypes, getCouncils, getDistricts} from './registerActions';
 
 class Register extends React.Component {
 
@@ -11,6 +11,8 @@ class Register extends React.Component {
 
     componentDidMount() {
         getProfileTypes();
+        getCouncils();
+        getDistricts();
     };
 
     handleChange(field, value) {
@@ -134,14 +136,9 @@ class Register extends React.Component {
                                                             this.handleChange('scoutTypeRegistration', event.target.value);
                                                         }}
                                                     >
-                                                        <option value='BoyScout'>Boy Scout</option>
-                                                        <option value='VentureScout'>Venture Scout</option>
-                                                        <option value='ScoutMaster'>Scout Master / Adult Leader</option>
-                                                        <option value='CrewAdviser'>Crew Adviser / Adult Leader</option>
-                                                        <option value='MeritBadgeCounselor'>Merit Badge Counselor</option>
-                                                        <option value='YoungAdultInstructor'>Youth / Young Adult Instructor</option>
-                                                        <option value='Parent'>Parent</option>
-                                                        <option value='Staff'>Staff</option>
+                                                        {
+                                                            this.props.profileTypes.map( type => <option key={type.value} value={type.value}>{type.label}</option>)
+                                                        }
                                                     </select>
                                                 </div>
                                             </div>
@@ -156,8 +153,9 @@ class Register extends React.Component {
                                                             this.handleChange('councilRegistration', event.target.value);
                                                         }}
                                                     >
-                                                        <option value='GSLAC'>Greater St. Louis Area Council (GSLAC)</option>
-                                                        <option value='Other'>Other</option>
+                                                        {
+                                                            this.props.councils.map( type => <option key={type.value} value={type.value}>{type.label}</option>)
+                                                        }
                                                     </select>
                                                 </div>
                                                 <div className="form-group">
@@ -176,27 +174,9 @@ class Register extends React.Component {
                                                             this.handleChange('districtRegistration', event.target.value);
                                                         }}
                                                     >
-                                                        <option value='BigMuddy'>Big Muddy</option>
-                                                        <option value='BlackGold'>Black Gold</option>
-                                                        <option value='BooneTrails'>Boone Trails</option>
-                                                        <option value='CahokiaMounds'>Cahokia Mounds</option>
-                                                        <option value='Cherokee'>Cherokee</option>
-                                                        <option value='Egyptian'>Egyptian</option>
-                                                        <option value='GrandTowers'>Grand Towers</option>
-                                                        <option value='GravoisTrail'>Gravois Trail</option>
-                                                        <option value='Kaskaskia'>Kaskaskia</option>
-                                                        <option value='NewHorizons'>New Horizons</option>
-                                                        <option value='NorthStar'>North Star</option>
-                                                        <option value='Osage'>Osage</option>
-                                                        <option value='OzarkTrailblazers'>Ozark Trailblazers</option>
-                                                        <option value='Pathfinder'>Pathfinder</option>
-                                                        <option value='PisaBird'>Pisa Bird</option>
-                                                        <option value='RiverTrails'>River Trails</option>
-                                                        <option value='Shawnee'>Shawnee</option>
-                                                        <option value='Sioux'>Sioux</option>
-                                                        <option value='StClair'>St. Clair</option>
-                                                        <option value='Thunderbird'>Thunderbird</option>
-                                                        <option value='Other'>Other</option>
+                                                        {
+                                                            this.props.districts.map( type => <option key={type.value} value={type.value}>{type.label}</option>)
+                                                        }
                                                     </select>
                                                 </div>
                                                 <div className="form-group">
