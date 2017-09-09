@@ -37,7 +37,7 @@ class Register extends React.Component {
                                                     <label htmlFor="firstName">First Name <span className="text-danger">*</span></label>
                                                     <input
                                                         value={this.props.firstName}
-                                                        type="firstNameInputRegistration"
+                                                        type="text"
                                                         className="form-control"
                                                         id="firstName"
                                                         placeholder="First Name"
@@ -52,7 +52,7 @@ class Register extends React.Component {
                                                     <label htmlFor="lastName">Last Name <span className="text-danger">*</span></label>
                                                     <input
                                                         value={this.props.lastName}
-                                                        type="lastNameInputRegistration"
+                                                        type="text"
                                                         className="form-control"
                                                         id="lastName"
                                                         placeholder="Last Name"
@@ -68,7 +68,7 @@ class Register extends React.Component {
                                                     <label htmlFor="email">Email address <span className="text-danger">*</span></label>
                                                     <input
                                                         value={this.props.email}
-                                                        type="inputEmailRegistration"
+                                                        type="text"
                                                         className="form-control"
                                                         id="email"
                                                         placeholder="Email"
@@ -83,7 +83,7 @@ class Register extends React.Component {
                                                     <label htmlFor="emailConfirm">Confirm Email address <span className="text-danger">*</span></label>
                                                     <input
                                                         value={this.props.emailConfirm}
-                                                        type="inputEmailRegistrationConfirmation"
+                                                        type="text"
                                                         className="form-control"
                                                         id="emailConfirm"
                                                         placeholder="Email"
@@ -99,7 +99,7 @@ class Register extends React.Component {
                                                     <label htmlFor="password">Password <span className="text-danger">*</span></label>
                                                     <input
                                                         value={this.props.password}
-                                                        type="inputPasswordRegistration"
+                                                        type="password"
                                                         className="form-control"
                                                         id="password"
                                                         placeholder="Password"
@@ -114,7 +114,7 @@ class Register extends React.Component {
                                                     <label htmlFor="passwordConfirm">Confirm Password <span className="text-danger">*</span></label>
                                                     <input
                                                         value={this.props.passwordConfirm}
-                                                        type="confirmInputPasswordRegistration"
+                                                        type="password"
                                                         className="form-control"
                                                         id="passwordConfirm"
                                                         placeholder="Confirm Password"
@@ -161,7 +161,7 @@ class Register extends React.Component {
                                                 <div className="form-group">
                                                     <label htmlFor="otherCouncil">Other</label>
                                                     <input
-                                                        type="otherCouncil"
+                                                        type="text"
                                                         className="form-control"
                                                         id="otherCouncil"
                                                         placeholder="Other"
@@ -187,7 +187,7 @@ class Register extends React.Component {
                                                 <div className="form-group">
                                                     <label htmlFor="otherDistrict">Other</label>
                                                     <input
-                                                        type="otherDistrict"
+                                                        type="text"
                                                         className="form-control"
                                                         id="otherDistrict"
                                                         placeholder="Other"
