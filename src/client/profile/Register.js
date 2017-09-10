@@ -2,6 +2,50 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {getProfileTypes, getCouncils, getDistricts} from './registerActions';
 
+const otherDistrict = (value, handleChange, visible) => {
+    if(visible){
+        return (
+            <div className="form-group">
+                <label htmlFor="otherDistrict">Other District</label>
+                <input
+                    value={value}
+                    type="text"
+                    className="form-control"
+                    id="otherDistrict"
+                    placeholder="Other District"
+                    onChange={(event) => {
+                        handleChange('otherDistrict', event.target.value);
+                    }}
+                />
+            </div>
+        );
+    }
+
+    return null;
+};
+
+const otherCouncil = (value, handleChange, visible) => {
+    if(visible){
+        return (
+            <div className="form-group">
+                <label htmlFor="otherCouncil">Other Council</label>
+                <input
+                    value={value}
+                    type="text"
+                    className="form-control"
+                    id="otherCouncil"
+                    placeholder="Other Council"
+                    onChange={(event) => {
+                        handleChange('otherCouncil', event.target.value);
+                    }}
+                />
+            </div>
+        );
+    }
+
+    return null;
+};
+
 class Register extends React.Component {
 
     constructor() {
@@ -33,6 +77,21 @@ class Register extends React.Component {
     }
 
     render() {
+
+        const EMPTY_ITEM = {value: '', label: ''};
+
+        const profileTypes = this.props.profileTypes.slice();
+        profileTypes.unshift(EMPTY_ITEM);
+
+        const councils = this.props.councils.slice();
+        councils.unshift(EMPTY_ITEM);
+
+        const districts = this.props.districts.slice();
+        districts.unshift(EMPTY_ITEM);
+
+        const showOtherCouncil = this.state.selectedCouncil === 'Other';
+        const showOtherDistrict = this.state.selectedDistrict === 'Other';
+
         return (
                 <div className="container-fluid">
                     <div className="row">
@@ -150,7 +209,7 @@ class Register extends React.Component {
                                                         }}
                                                     >
                                                         {
-                                                            this.props.profileTypes.map( type => <option key={type.value} value={type.value}>{type.label}</option>)
+                                                            profileTypes.map( item => <option key={item.value} value={item.value}>{item.label}</option>)
                                                         }
                                                     </select>
                                                 </div>
@@ -167,19 +226,13 @@ class Register extends React.Component {
                                                         }}
                                                     >
                                                         {
-                                                            this.props.councils.map( type => <option key={type.value} value={type.value}>{type.label}</option>)
+                                                            councils.map( item => <option key={item.value} value={item.value}>{item.label}</option>)
                                                         }
                                                     </select>
                                                 </div>
-                                                <div className="form-group">
-                                                    <label htmlFor="otherCouncil">Other</label>
-                                                    <input
-                                                        type="text"
-                                                        className="form-control"
-                                                        id="otherCouncil"
-                                                        placeholder="Other"
-                                                    />
-                                                </div>
+                                                {
+                                                    otherCouncil(this.state.otherCouncil, this.handleChange, showOtherCouncil)
+                                                }
                                             </div>
                                             <div className="col-sm-4 col-xs-12">
                                                 <div className="form-group">
@@ -193,19 +246,13 @@ class Register extends React.Component {
                                                         }}
                                                     >
                                                         {
-                                                            this.props.districts.map( type => <option key={type.value} value={type.value}>{type.label}</option>)
+                                                            districts.map( item => <option key={item.value} value={item.value}>{item.label}</option>)
                                                         }
                                                     </select>
                                                 </div>
-                                                <div className="form-group">
-                                                    <label htmlFor="otherDistrict">Other</label>
-                                                    <input
-                                                        type="text"
-                                                        className="form-control"
-                                                        id="otherDistrict"
-                                                        placeholder="Other"
-                                                    />
-                                                </div>
+                                                {
+                                                    otherDistrict(this.state.otherDistrict, this.handleChange, showOtherDistrict)
+                                                }
                                             </div>
                                         </form>
                                     </div>
