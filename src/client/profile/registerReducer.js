@@ -1,17 +1,6 @@
 import {SET_REGISTER_FIELD, PROFILE_TYPES, COUNCILS, DISTRICTS} from '../actions/constants';
 
 const INITIAL_STATE = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    emailConfirm: '',
-    password: '',
-    passwordConfirm: '',
-    selectedProfileType: '',
-    selectedCouncil: '',
-    otherInputCouncilName: '',
-    selectedDistrict: '',
-    otherInputDistrictName: '',
     profileTypes: [],
     councils: [],
     districts: []
@@ -20,11 +9,6 @@ const INITIAL_STATE = {
 
 export const registerReducer = ( state = INITIAL_STATE, action) => {
     let newState = {...state};
-
-    if (action.type === SET_REGISTER_FIELD){
-        newState[action.payload.field] = action.payload.value;
-    }
-
 
     if (action.type === `${PROFILE_TYPES}_PENDING`) {
         newState.profileTypes = [];

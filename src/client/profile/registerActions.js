@@ -1,13 +1,6 @@
 import store from '../store';
 import http from 'superagent';
-import {mbuAPI, SET_REGISTER_FIELD, PROFILE_TYPES, COUNCILS, DISTRICTS} from '../actions/constants';
-
-export const setField = (field, value) => {
-    store.dispatch({
-        type: SET_REGISTER_FIELD,
-        payload: {field, value}
-    });
-};
+import {mbuAPI, PROFILE_TYPES, COUNCILS, DISTRICTS} from '../actions/constants';
 
 export const getProfileTypes = () => {
     store.dispatch({

@@ -1,11 +1,24 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setField, getProfileTypes, getCouncils, getDistricts} from './registerActions';
+import {getProfileTypes, getCouncils, getDistricts} from './registerActions';
 
 class Register extends React.Component {
 
     constructor() {
         super();
+        this.state = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            emailConfirm: '',
+            password: '',
+            passwordConfirm: '',
+            selectedProfileType: '',
+            selectedCouncil: '',
+            otherCouncil: '',
+            selectedDistrict: '',
+            otherDistrict: ''
+        };
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -16,7 +29,7 @@ class Register extends React.Component {
     };
 
     handleChange(field, value) {
-        setField(field, value);
+        this.setState({[field]: value});
     }
 
     render() {
@@ -36,7 +49,7 @@ class Register extends React.Component {
                                                 <div className="form-group">
                                                     <label htmlFor="firstName">First Name <span className="text-danger">*</span></label>
                                                     <input
-                                                        value={this.props.firstName}
+                                                        value={this.state.firstName}
                                                         type="text"
                                                         className="form-control"
                                                         id="firstName"
@@ -51,7 +64,7 @@ class Register extends React.Component {
                                                 <div className="form-group">
                                                     <label htmlFor="lastName">Last Name <span className="text-danger">*</span></label>
                                                     <input
-                                                        value={this.props.lastName}
+                                                        value={this.state.lastName}
                                                         type="text"
                                                         className="form-control"
                                                         id="lastName"
@@ -67,7 +80,7 @@ class Register extends React.Component {
                                                 <div className="form-group">
                                                     <label htmlFor="email">Email address <span className="text-danger">*</span></label>
                                                     <input
-                                                        value={this.props.email}
+                                                        value={this.state.email}
                                                         type="text"
                                                         className="form-control"
                                                         id="email"
@@ -82,7 +95,7 @@ class Register extends React.Component {
                                                 <div className="form-group">
                                                     <label htmlFor="emailConfirm">Confirm Email address <span className="text-danger">*</span></label>
                                                     <input
-                                                        value={this.props.emailConfirm}
+                                                        value={this.state.emailConfirm}
                                                         type="text"
                                                         className="form-control"
                                                         id="emailConfirm"
@@ -98,7 +111,7 @@ class Register extends React.Component {
                                                 <div className="form-group">
                                                     <label htmlFor="password">Password <span className="text-danger">*</span></label>
                                                     <input
-                                                        value={this.props.password}
+                                                        value={this.state.password}
                                                         type="password"
                                                         className="form-control"
                                                         id="password"
@@ -113,7 +126,7 @@ class Register extends React.Component {
                                                 <div className="form-group">
                                                     <label htmlFor="passwordConfirm">Confirm Password <span className="text-danger">*</span></label>
                                                     <input
-                                                        value={this.props.passwordConfirm}
+                                                        value={this.state.passwordConfirm}
                                                         type="password"
                                                         className="form-control"
                                                         id="passwordConfirm"
@@ -129,7 +142,7 @@ class Register extends React.Component {
                                                 <div className="form-group">
                                                     <label htmlFor="selectedProfileType">Who are You? <span className="text-danger">*</span></label>
                                                     <select
-                                                        value={this.props.selectedProfileType}
+                                                        value={this.state.selectedProfileType}
                                                         className="form-control form-control-lg"
                                                         id="selectedProfileType"
                                                         onChange={(event) => {
@@ -146,7 +159,7 @@ class Register extends React.Component {
                                                 <div className="form-group">
                                                     <label htmlFor="selectedCouncil">What Council Are You From? <span className="text-danger">*</span></label>
                                                     <select
-                                                        value={this.props.selectedCouncil}
+                                                        value={this.state.selectedCouncil}
                                                         className="form-control form-control-lg"
                                                         id="selectedCouncil"
                                                         onChange={(event) => {
@@ -172,7 +185,7 @@ class Register extends React.Component {
                                                 <div className="form-group">
                                                     <label htmlFor="selectedDistrict">What District Are You From? <span className="text-danger">*</span></label>
                                                     <select
-                                                        value={this.props.selectedDistrict}
+                                                        value={this.state.selectedDistrict}
                                                         className="form-control form-control-lg"
                                                         id="selectedDistrict"
                                                         onChange={(event) => {
