@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getProfileTypes, getCouncils, getDistricts} from './registerActions';
+import {getProfileTypes, getCouncils, getDistricts, createProfile} from './registerActions';
 
 const otherDistrict = (value, handleChange, visible) => {
     if(visible){
@@ -64,6 +64,7 @@ class Register extends React.Component {
             otherDistrict: ''
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -74,7 +75,12 @@ class Register extends React.Component {
 
     handleChange(field, value) {
         this.setState({[field]: value});
-    }
+    };
+
+    handleSubmit(event) {
+        event.preventDefault();
+        createProfile(this.state);
+    };
 
     render() {
 
@@ -103,7 +109,7 @@ class Register extends React.Component {
                                 <div className="row">
                                     <div className="col-sm-offset-1 col-sm-10 well">
                                         <h2 className="text-info">Registration</h2>
-                                        <form>
+                                        <form onSubmit={this.handleSubmit} noValidate>
                                             <div className="col-sm-6 col-xs-12">
                                                 <div className="form-group">
                                                     <label htmlFor="firstName">First Name <span className="text-danger">*</span></label>
@@ -253,6 +259,14 @@ class Register extends React.Component {
                                                 {
                                                     otherDistrict(this.state.otherDistrict, this.handleChange, showOtherDistrict)
                                                 }
+                                            </div>
+                                            <div className="clearfix"></div>
+                                            <div className="col-sm-offset-4 col-sm-4 col-xs-12">
+                                                <button
+                                                    className="btn btn-success btn-lg btn-block"
+                                                >
+                                                    Register
+                                                </button>
                                             </div>
                                         </form>
                                     </div>

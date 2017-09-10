@@ -1,4 +1,4 @@
-import {SET_REGISTER_FIELD, PROFILE_TYPES, COUNCILS, DISTRICTS} from '../actions/constants';
+import {PROFILE_TYPES, COUNCILS, DISTRICTS, CREATE_PROFILE} from '../actions/constants';
 
 const INITIAL_STATE = {
     profileTypes: [],
@@ -41,9 +41,19 @@ export const registerReducer = ( state = INITIAL_STATE, action) => {
         newState.districts = action.payload.body;
     }
     if (action.type === `${DISTRICTS}_REJECTED`) {
-        console.log('Error getting councils', action.payload);
+        console.log('Error getting districts', action.payload);
         newState.districts = [];
     }
+
+
+    if (action.type === `${CREATE_PROFILE}_PENDING`) {
+    }
+    if (action.type === `${CREATE_PROFILE}_FULFILLED`) {
+    }
+    if (action.type === `${CREATE_PROFILE}_REJECTED`) {
+        console.log('Error creating user profile', action.payload);
+    }
+
 
     return newState;
 };
