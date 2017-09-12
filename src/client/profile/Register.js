@@ -3,6 +3,41 @@ import {connect} from 'react-redux';
 import {getProfileTypes, getCouncils, getDistricts, createProfile} from './registerActions';
 import TextField from '../common/components/TextField';
 import SingleSelect from '../common/components/SingleSelect';
+import {isValid, REQUIRED, EMAIL, SAME, PASSWORD} from '../common/util/validation';
+
+const validationConfig = {
+    firstName: { type: REQUIRED },
+    lastName:  { type: REQUIRED },
+    email:  [
+        { type: REQUIRED },
+        { type: EMAIL }
+    ],
+    emailConfirm: [
+        { type: REQUIRED, },
+        { type: EMAIL },
+        {
+            type: SAME,
+            firstField: 'email',
+            secondField: 'emailConfirm'
+        }
+    ],
+    password: [
+        { type: REQUIRED },
+        { type: PASSWORD }
+    ],
+    passwordConfirm: [
+        { type: REQUIRED },
+        { type: PASSWORD },
+        {
+            type: SAME,
+            firstField: 'password',
+            secondField: 'passwordConfirm'
+        }
+    ],
+    selectedProfileType: { type: REQUIRED },
+    selectedCouncil: { type: REQUIRED },
+    selectedDistrict: { type: REQUIRED }
+};
 
 class Register extends React.Component {
 
@@ -47,7 +82,11 @@ class Register extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        createProfile(this.state);
+        if(isValid(this.state, validationConfig)){
+            createProfile(this.state);
+        } else {
+            alert("There are validation errors: ");
+        }
     };
 
     render() {
