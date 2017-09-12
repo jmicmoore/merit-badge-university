@@ -1,50 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {getProfileTypes, getCouncils, getDistricts, createProfile} from './registerActions';
-
-const otherDistrict = (value, handleChange, visible) => {
-    if(visible){
-        return (
-            <div className="form-group">
-                <label htmlFor="otherDistrict">Other District</label>
-                <input
-                    value={value}
-                    type="text"
-                    className="form-control"
-                    id="otherDistrict"
-                    placeholder="Other District"
-                    onChange={(event) => {
-                        handleChange('otherDistrict', event.target.value);
-                    }}
-                />
-            </div>
-        );
-    }
-
-    return null;
-};
-
-const otherCouncil = (value, handleChange, visible) => {
-    if(visible){
-        return (
-            <div className="form-group">
-                <label htmlFor="otherCouncil">Other Council</label>
-                <input
-                    value={value}
-                    type="text"
-                    className="form-control"
-                    id="otherCouncil"
-                    placeholder="Other Council"
-                    onChange={(event) => {
-                        handleChange('otherCouncil', event.target.value);
-                    }}
-                />
-            </div>
-        );
-    }
-
-    return null;
-};
+import TextField from '../common/components/TextField';
+import SingleSelect from '../common/components/SingleSelect';
 
 class Register extends React.Component {
 
@@ -65,6 +23,8 @@ class Register extends React.Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.clearOtherCouncil = this.clearOtherCouncil.bind(this);
+        this.clearOtherDistrict = this.clearOtherDistrict.bind(this);
     }
 
     componentDidMount() {
@@ -77,23 +37,20 @@ class Register extends React.Component {
         this.setState({[field]: value});
     };
 
+    clearOtherCouncil(){
+        this.setState({otherCouncil: ''});
+    };
+
+    clearOtherDistrict(){
+        this.setState({otherDistrict: ''});
+    };
+
     handleSubmit(event) {
         event.preventDefault();
         createProfile(this.state);
     };
 
     render() {
-
-        const EMPTY_ITEM = {value: '', label: ''};
-
-        const profileTypes = this.props.profileTypes.slice();
-        profileTypes.unshift(EMPTY_ITEM);
-
-        const councils = this.props.councils.slice();
-        councils.unshift(EMPTY_ITEM);
-
-        const districts = this.props.districts.slice();
-        districts.unshift(EMPTY_ITEM);
 
         const showOtherCouncil = this.state.selectedCouncil === 'Other';
         const showOtherDistrict = this.state.selectedDistrict === 'Other';
@@ -111,162 +68,48 @@ class Register extends React.Component {
                                         <h2 className="text-info">Registration</h2>
                                         <form onSubmit={this.handleSubmit} noValidate>
                                             <div className="col-sm-6 col-xs-12">
-                                                <div className="form-group">
-                                                    <label htmlFor="firstName">First Name <span className="text-danger">*</span></label>
-                                                    <input
-                                                        value={this.state.firstName}
-                                                        type="text"
-                                                        className="form-control"
-                                                        id="firstName"
-                                                        placeholder="First Name"
-                                                        onChange={(event) => {
-                                                            this.handleChange('firstName', event.target.value);
-                                                        }}
-                                                    />
-                                                </div>
+                                                <TextField propertyName='firstName' propertyValue={this.state.firstName} displayName='First Name' changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="col-sm-6 col-xs-12">
-                                                <div className="form-group">
-                                                    <label htmlFor="lastName">Last Name <span className="text-danger">*</span></label>
-                                                    <input
-                                                        value={this.state.lastName}
-                                                        type="text"
-                                                        className="form-control"
-                                                        id="lastName"
-                                                        placeholder="Last Name"
-                                                        onChange={(event) => {
-                                                            this.handleChange('lastName', event.target.value);
-                                                        }}
-                                                    />
-                                                </div>
+                                                <TextField propertyName='lastName' propertyValue={this.state.lastName} displayName='Last Name' changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-6 col-xs-12">
-                                                <div className="form-group">
-                                                    <label htmlFor="email">Email address <span className="text-danger">*</span></label>
-                                                    <input
-                                                        value={this.state.email}
-                                                        type="text"
-                                                        className="form-control"
-                                                        id="email"
-                                                        placeholder="Email"
-                                                        onChange={(event) => {
-                                                            this.handleChange('email', event.target.value);
-                                                        }}
-                                                    />
-                                                </div>
+                                                <TextField propertyName='email' inputType='email' propertyValue={this.state.email} displayName='Email address' changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="col-sm-6 col-xs-12">
-                                                <div className="form-group">
-                                                    <label htmlFor="emailConfirm">Confirm Email address <span className="text-danger">*</span></label>
-                                                    <input
-                                                        value={this.state.emailConfirm}
-                                                        type="text"
-                                                        className="form-control"
-                                                        id="emailConfirm"
-                                                        placeholder="Email"
-                                                        onChange={(event) => {
-                                                            this.handleChange('emailConfirm', event.target.value);
-                                                        }}
-                                                    />
-                                                </div>
+                                                <TextField propertyName='emailConfirm' inputType='email' propertyValue={this.state.emailConfirm} displayName='Confirm Email address' changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-6 col-xs-12">
-                                                <div className="form-group">
-                                                    <label htmlFor="password">Password <span className="text-danger">*</span></label>
-                                                    <input
-                                                        value={this.state.password}
-                                                        type="password"
-                                                        className="form-control"
-                                                        id="password"
-                                                        placeholder="Password"
-                                                        onChange={(event) => {
-                                                            this.handleChange('password', event.target.value);
-                                                        }}
-                                                    />
-                                                </div>
+                                                <TextField propertyName='password' inputType='password' propertyValue={this.state.password} displayName='Password' changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="col-sm-6 col-xs-12">
-                                                <div className="form-group">
-                                                    <label htmlFor="passwordConfirm">Confirm Password <span className="text-danger">*</span></label>
-                                                    <input
-                                                        value={this.state.passwordConfirm}
-                                                        type="password"
-                                                        className="form-control"
-                                                        id="passwordConfirm"
-                                                        placeholder="Confirm Password"
-                                                        onChange={(event) => {
-                                                            this.handleChange('passwordConfirm', event.target.value);
-                                                        }}
-                                                    />
-                                                </div>
+                                                <TextField propertyName='passwordConfirm' inputType='password' propertyValue={this.state.passwordConfirm} displayName='Confirm Password' changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-4 col-xs-12">
-                                                <div className="form-group">
-                                                    <label htmlFor="selectedProfileType">Who are You? <span className="text-danger">*</span></label>
-                                                    <select
-                                                        value={this.state.selectedProfileType}
-                                                        className="form-control form-control-lg"
-                                                        id="selectedProfileType"
-                                                        onChange={(event) => {
-                                                            this.handleChange('selectedProfileType', event.target.value);
-                                                        }}
-                                                    >
-                                                        {
-                                                            profileTypes.map( item => <option key={item.value} value={item.value}>{item.label}</option>)
-                                                        }
-                                                    </select>
-                                                </div>
+                                                <SingleSelect propertyName='selectedProfileType' propertyValue={this.state.selectedProfileType} displayName='Who Are You?' options={this.props.profileTypes} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="col-sm-4 col-xs-12">
-                                                <div className="form-group">
-                                                    <label htmlFor="selectedCouncil">What Council Are You From? <span className="text-danger">*</span></label>
-                                                    <select
-                                                        value={this.state.selectedCouncil}
-                                                        className="form-control form-control-lg"
-                                                        id="selectedCouncil"
-                                                        onChange={(event) => {
-                                                            this.handleChange('selectedCouncil', event.target.value);
-                                                        }}
-                                                    >
-                                                        {
-                                                            councils.map( item => <option key={item.value} value={item.value}>{item.label}</option>)
-                                                        }
-                                                    </select>
-                                                </div>
-                                                {
-                                                    otherCouncil(this.state.otherCouncil, this.handleChange, showOtherCouncil)
-                                                }
+                                                <SingleSelect propertyName='selectedCouncil' propertyValue={this.state.selectedCouncil} displayName='What Council Are You From?' options={this.props.councils}
+                                                              changeHandler={(field, value) => {
+                                                                  this.handleChange(field, value);
+                                                                  if(!showOtherCouncil) this.clearOtherCouncil();
+                                                              }}/>
+                                                <TextField propertyName='otherCouncil' propertyValue={this.state.otherCouncil} displayName='Other Council' changeHandler={this.handleChange} hidden={!showOtherCouncil}/>
                                             </div>
                                             <div className="col-sm-4 col-xs-12">
-                                                <div className="form-group">
-                                                    <label htmlFor="selectedDistrict">What District Are You From? <span className="text-danger">*</span></label>
-                                                    <select
-                                                        value={this.state.selectedDistrict}
-                                                        className="form-control form-control-lg"
-                                                        id="selectedDistrict"
-                                                        onChange={(event) => {
-                                                            this.handleChange('selectedDistrict', event.target.value);
-                                                        }}
-                                                    >
-                                                        {
-                                                            districts.map( item => <option key={item.value} value={item.value}>{item.label}</option>)
-                                                        }
-                                                    </select>
-                                                </div>
-                                                {
-                                                    otherDistrict(this.state.otherDistrict, this.handleChange, showOtherDistrict)
-                                                }
+                                                <SingleSelect propertyName='selectedDistrict' propertyValue={this.state.selectedDistrict} displayName='What District Are You From?' options={this.props.districts}
+                                                              changeHandler={(field, value) => {
+                                                                  this.handleChange(field, value);
+                                                                  if(!showOtherDistrict) this.clearOtherDistrict();
+                                                              }}/>
+                                                <TextField propertyName='otherDistrict' propertyValue={this.state.otherDistrict} displayName='Other District' changeHandler={this.handleChange} hidden={!showOtherDistrict}/>
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-offset-4 col-sm-4 col-xs-12">
-                                                <button
-                                                    className="btn btn-success btn-lg btn-block"
-                                                >
-                                                    Register
-                                                </button>
+                                                <button className="btn btn-success btn-lg btn-block"> Register </button>
                                             </div>
                                         </form>
                                     </div>
