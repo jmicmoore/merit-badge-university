@@ -1,13 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {getErrorMessageForField} from '../util/validation';
+
+const showErrorFeedback = (message) => {
+    if(message){
+        return (
+            <div className="invalid-feedback">
+                {message}
+            </div>
+        );
+    } else {
+        return null;
+    }
+};
 
 class TextField extends React.Component {
 
     render() {
         const propertyName = this.props.propertyName;
-        const propertyValue = this.props.propertyValue;
         const displayName = this.props.displayName;
-        const changeHandler = this.props.changeHandler;
         const inputType = this.props.inputType || 'text';
         const hidden = this.props.hidden || false;
 
@@ -16,15 +27,18 @@ class TextField extends React.Component {
                 <div className="form-group">
                     <label htmlFor={propertyName}>{displayName} <span className="text-danger">*</span></label>
                     <input
-                        value={propertyValue}
+                        value={this.props.propertyValue}
                         type={inputType}
                         className="form-control"
                         id={propertyName}
                         placeholder={displayName}
                         onChange={(event) => {
-                            changeHandler(propertyName, event.target.value);
+                            this.props.changeHandler(propertyName, event.target.value);
                         }}
                     />
+                    {
+                        showErrorFeedback(getErrorMessageForField(this.props.errors, propertyName))
+                    }
                 </div>
             );
         }

@@ -1,60 +1,32 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import update from 'immutability-helper';
 import {getProfileTypes, getCouncils, getDistricts, createProfile} from './registerActions';
 import TextField from '../common/components/TextField';
 import SingleSelect from '../common/components/SingleSelect';
-import {isValid, REQUIRED, EMAIL, SAME, PASSWORD} from '../common/util/validation';
+import {isValid, validate} from '../common/util/validation';
+import validationConfig from './RegisterValidationConfig';
 
-const validationConfig = {
-    firstName: { type: REQUIRED },
-    lastName:  { type: REQUIRED },
-    email:  [
-        { type: REQUIRED },
-        { type: EMAIL }
-    ],
-    emailConfirm: [
-        { type: REQUIRED, },
-        { type: EMAIL },
-        {
-            type: SAME,
-            firstField: 'email',
-            secondField: 'emailConfirm'
-        }
-    ],
-    password: [
-        { type: REQUIRED },
-        { type: PASSWORD }
-    ],
-    passwordConfirm: [
-        { type: REQUIRED },
-        { type: PASSWORD },
-        {
-            type: SAME,
-            firstField: 'password',
-            secondField: 'passwordConfirm'
-        }
-    ],
-    selectedProfileType: { type: REQUIRED },
-    selectedCouncil: { type: REQUIRED },
-    selectedDistrict: { type: REQUIRED }
-};
 
 class Register extends React.Component {
 
     constructor() {
         super();
         this.state = {
-            firstName: '',
-            lastName: '',
-            email: '',
-            emailConfirm: '',
-            password: '',
-            passwordConfirm: '',
-            selectedProfileType: '',
-            selectedCouncil: '',
-            otherCouncil: '',
-            selectedDistrict: '',
-            otherDistrict: ''
+            profile: {
+                firstName: '',
+                lastName: '',
+                email: '',
+                emailConfirm: '',
+                password: '',
+                passwordConfirm: '',
+                selectedProfileType: '',
+                selectedCouncil: '',
+                otherCouncil: '',
+                selectedDistrict: '',
+                otherDistrict: ''
+            },
+            errorReport: null
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -69,30 +41,41 @@ class Register extends React.Component {
     };
 
     handleChange(field, value) {
-        this.setState({[field]: value});
+        const newState = update(this.state, {profile: {[field]: {$set: value}}});
+
+        this.clearOtherCouncil(newState);
+        this.clearOtherDistrict(newState);
+
+        this.setState(newState);
     };
 
-    clearOtherCouncil(){
-        this.setState({otherCouncil: ''});
+    clearOtherCouncil(stateCopy){
+        if(stateCopy.profile.selectedCouncil !== 'Other'){
+            stateCopy.profile.otherCouncil = '';
+        }
     };
 
-    clearOtherDistrict(){
-        this.setState({otherDistrict: ''});
+    clearOtherDistrict(stateCopy){
+        if(stateCopy.profile.selectedDistrict !== 'Other'){
+            stateCopy.profile.otherDistrict = '';
+        }
     };
 
     handleSubmit(event) {
         event.preventDefault();
-        if(isValid(this.state, validationConfig)){
-            createProfile(this.state);
+        const report = validate(this.state.profile, validationConfig);
+        if(report.allValid){
+            createProfile(this.state.profile);
         } else {
-            alert("There are validation errors: ");
+            this.setState({errorReport: report});
         }
     };
 
     render() {
+        const profile = this.state.profile;
 
-        const showOtherCouncil = this.state.selectedCouncil === 'Other';
-        const showOtherDistrict = this.state.selectedDistrict === 'Other';
+        const showOtherCouncil = profile.selectedCouncil === 'Other';
+        const showOtherDistrict = profile.selectedDistrict === 'Other';
 
         return (
                 <div className="container-fluid">
@@ -107,44 +90,36 @@ class Register extends React.Component {
                                         <h2 className="text-info">Registration</h2>
                                         <form onSubmit={this.handleSubmit} noValidate>
                                             <div className="col-sm-6 col-xs-12">
-                                                <TextField propertyName='firstName' propertyValue={this.state.firstName} displayName='First Name' changeHandler={this.handleChange}/>
+                                                <TextField propertyName='firstName' propertyValue={profile.firstName} displayName='First Name' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="col-sm-6 col-xs-12">
-                                                <TextField propertyName='lastName' propertyValue={this.state.lastName} displayName='Last Name' changeHandler={this.handleChange}/>
+                                                <TextField propertyName='lastName' propertyValue={profile.lastName} displayName='Last Name' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-6 col-xs-12">
-                                                <TextField propertyName='email' inputType='email' propertyValue={this.state.email} displayName='Email address' changeHandler={this.handleChange}/>
+                                                <TextField propertyName='email' inputType='email' propertyValue={profile.email} displayName='Email address' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="col-sm-6 col-xs-12">
-                                                <TextField propertyName='emailConfirm' inputType='email' propertyValue={this.state.emailConfirm} displayName='Confirm Email address' changeHandler={this.handleChange}/>
+                                                <TextField propertyName='emailConfirm' inputType='email' propertyValue={profile.emailConfirm} displayName='Confirm Email address' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-6 col-xs-12">
-                                                <TextField propertyName='password' inputType='password' propertyValue={this.state.password} displayName='Password' changeHandler={this.handleChange}/>
+                                                <TextField propertyName='password' inputType='password' propertyValue={profile.password} displayName='Password' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="col-sm-6 col-xs-12">
-                                                <TextField propertyName='passwordConfirm' inputType='password' propertyValue={this.state.passwordConfirm} displayName='Confirm Password' changeHandler={this.handleChange}/>
+                                                <TextField propertyName='passwordConfirm' inputType='password' propertyValue={profile.passwordConfirm} displayName='Confirm Password' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-4 col-xs-12">
-                                                <SingleSelect propertyName='selectedProfileType' propertyValue={this.state.selectedProfileType} displayName='Who Are You?' options={this.props.profileTypes} changeHandler={this.handleChange}/>
+                                                <SingleSelect propertyName='selectedProfileType' propertyValue={profile.selectedProfileType} displayName='Who Are You?' options={this.props.profileTypes} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="col-sm-4 col-xs-12">
-                                                <SingleSelect propertyName='selectedCouncil' propertyValue={this.state.selectedCouncil} displayName='What Council Are You From?' options={this.props.councils}
-                                                              changeHandler={(field, value) => {
-                                                                  this.handleChange(field, value);
-                                                                  if(!showOtherCouncil) this.clearOtherCouncil();
-                                                              }}/>
-                                                <TextField propertyName='otherCouncil' propertyValue={this.state.otherCouncil} displayName='Other Council' changeHandler={this.handleChange} hidden={!showOtherCouncil}/>
+                                                <SingleSelect propertyName='selectedCouncil' propertyValue={profile.selectedCouncil} displayName='What Council Are You From?' options={this.props.councils} errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                                <TextField propertyName='otherCouncil' propertyValue={profile.otherCouncil} displayName='Other Council' changeHandler={this.handleChange} hidden={!showOtherCouncil}/>
                                             </div>
                                             <div className="col-sm-4 col-xs-12">
-                                                <SingleSelect propertyName='selectedDistrict' propertyValue={this.state.selectedDistrict} displayName='What District Are You From?' options={this.props.districts}
-                                                              changeHandler={(field, value) => {
-                                                                  this.handleChange(field, value);
-                                                                  if(!showOtherDistrict) this.clearOtherDistrict();
-                                                              }}/>
-                                                <TextField propertyName='otherDistrict' propertyValue={this.state.otherDistrict} displayName='Other District' changeHandler={this.handleChange} hidden={!showOtherDistrict}/>
+                                                <SingleSelect propertyName='selectedDistrict' propertyValue={profile.selectedDistrict} displayName='What District Are You From?' options={this.props.districts} errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                                <TextField propertyName='otherDistrict' propertyValue={profile.otherDistrict} displayName='Other District' changeHandler={this.handleChange} hidden={!showOtherDistrict}/>
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-offset-4 col-sm-4 col-xs-12">

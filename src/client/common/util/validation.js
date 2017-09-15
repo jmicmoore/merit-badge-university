@@ -32,6 +32,61 @@ const areFieldsSame = (object, fieldConfig) => {
     return object[fieldConfig.firstField] === object[fieldConfig.secondField];
 };
 
+const getValidationMessagesForField = (objectToValidate, value, fieldConfigs) => {
+    return fieldConfigs.map( config => {
+        if(!config.type){
+            throw 'Invalid configuration:  Missing type for "' + field + '".';
+        }
+        const type = config.type;
+
+        if(type === REQUIRED){
+            return isEmpty(value) ? config.message : '';
+        } else if(type === EMAIL) {
+            return !isEmail(value) ? config.message : '';
+        } else if(type === PASSWORD){
+            return !isPassword(value) ? config.message : '';
+        } else if(type === SAME){
+            return !areFieldsSame(objectToValidate, config) ? config.message : '';
+        }
+    });
+};
+
+module.exports.validate = (objectToValidate, validationConfig) => {
+    const fields = _.keys(validationConfig);
+
+    const fieldResults = fields.map( field => {
+        const value = objectToValidate[field];
+        let fieldConfigs = validationConfig[field];
+
+        if(!Array.isArray(fieldConfigs)){
+            fieldConfigs = [fieldConfigs];
+        }
+
+        const allMessages = getValidationMessagesForField(objectToValidate, value, fieldConfigs);
+        const validationMessage = _.find(allMessages, message => !_.isEmpty(message));
+        return {
+            fieldName: field,
+            valid: !validationMessage,
+            message: validationMessage
+        }
+    });
+
+    const report = {
+        allValid: _.every(fieldResults, 'valid'),
+        fieldResults: fieldResults
+    };
+
+    return report;
+};
+
+module.exports.getErrorMessageForField = (validationReport, fieldName) => {
+    if(_.isEmpty(validationReport)){
+        return null;
+    }
+    const result = _.find(validationReport.fieldResults, result => result.fieldName === fieldName);
+    return result ? result.message : null;
+};
+
 module.exports.isValid = (objectToValidate, validationConfig) => {
     const fields = _.keys(validationConfig);
 
