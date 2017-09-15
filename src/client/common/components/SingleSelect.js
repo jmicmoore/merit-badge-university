@@ -21,6 +21,9 @@ class SingleSelect extends React.Component {
     render(){
         const propertyName = this.props.propertyName;
 
+        const errorMessage = getErrorMessageForField(this.props.errors, propertyName);
+        const validStyle = errorMessage ? 'invalid' : 'valid';
+
         const options = this.props.options.slice();
         options.unshift(EMPTY_ITEM);
 
@@ -29,7 +32,7 @@ class SingleSelect extends React.Component {
                 <label htmlFor={propertyName}>{this.props.displayName} <span className="text-danger">*</span></label>
                 <select
                     value={this.props.propertyValue}
-                    className="form-control form-control-lg"
+                    className={`form-control form-control-lg ${validStyle}`}
                     id={propertyName}
                     onChange={(event) => {
                         this.props.changeHandler(propertyName, event.target.value);
@@ -40,7 +43,7 @@ class SingleSelect extends React.Component {
                     }
                 </select>
                 {
-                    showErrorFeedback(getErrorMessageForField(this.props.errors, propertyName))
+                    showErrorFeedback(errorMessage)
                 }
             </div>
         );

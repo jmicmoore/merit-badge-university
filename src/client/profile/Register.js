@@ -26,7 +26,8 @@ class Register extends React.Component {
                 selectedDistrict: '',
                 otherDistrict: ''
             },
-            errorReport: null
+            errorReport: null,
+            displayErrors: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -66,9 +67,11 @@ class Register extends React.Component {
         const report = validate(this.state.profile, validationConfig);
         if(report.allValid){
             createProfile(this.state.profile);
+            this.setState({ displayErrors: false });
         } else {
-            this.setState({errorReport: report});
+            this.setState({ displayErrors: true });
         }
+        this.setState({errorReport: report});
     };
 
     render() {
@@ -88,7 +91,7 @@ class Register extends React.Component {
                                 <div className="row">
                                     <div className="col-sm-offset-1 col-sm-10 well">
                                         <h2 className="text-info">Registration</h2>
-                                        <form onSubmit={this.handleSubmit} noValidate>
+                                        <form onSubmit={this.handleSubmit} noValidate className={this.state.displayErrors ? 'displayErrors' : ''} >
                                             <div className="col-sm-6 col-xs-12">
                                                 <TextField propertyName='firstName' propertyValue={profile.firstName} displayName='First Name' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>

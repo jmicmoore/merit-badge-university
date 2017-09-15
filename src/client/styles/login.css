@@ -17,3 +17,15 @@ header, footer {
 .padding {
     padding-top: .5em;
 }
+
+.displayErrors input.invalid, .displayErrors select.invalid {
+    border-color: red;
+}
+
+.displayErrors input.valid, .displayErrors select.valid {
+    border-color: green;
+}
+
+.displayErrors .invalid-feedback {
+    color: red;
+}

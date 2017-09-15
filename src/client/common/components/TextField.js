@@ -22,6 +22,9 @@ class TextField extends React.Component {
         const inputType = this.props.inputType || 'text';
         const hidden = this.props.hidden || false;
 
+        const errorMessage = getErrorMessageForField(this.props.errors, propertyName);
+        const validStyle = errorMessage ? 'invalid' : 'valid';
+
         if(!hidden){
             return (
                 <div className="form-group">
@@ -29,7 +32,7 @@ class TextField extends React.Component {
                     <input
                         value={this.props.propertyValue}
                         type={inputType}
-                        className="form-control"
+                        className={`form-control ${validStyle}`}
                         id={propertyName}
                         placeholder={displayName}
                         onChange={(event) => {
@@ -37,7 +40,7 @@ class TextField extends React.Component {
                         }}
                     />
                     {
-                        showErrorFeedback(getErrorMessageForField(this.props.errors, propertyName))
+                        showErrorFeedback(errorMessage)
                     }
                 </div>
             );
