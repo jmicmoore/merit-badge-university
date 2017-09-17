@@ -79,6 +79,22 @@ module.exports.validate = (objectToValidate, validationConfig) => {
     return report;
 };
 
+module.exports.convertErrorToReport = (errorMessage, fieldName) => {
+    if(!errorMessage){
+        return null;
+    }
+    return {
+        allValid: false,
+        fieldResults: [
+            {
+                fieldName,
+                valid: false,
+                message: errorMessage
+            }
+        ]
+    };
+};
+
 module.exports.getErrorMessageForField = (validationReport, fieldName) => {
     if(_.isEmpty(validationReport)){
         return null;

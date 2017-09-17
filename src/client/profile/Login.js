@@ -1,8 +1,50 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import '../styles/login.css';
 import {Link} from 'react-router-dom'
+import {login} from './registerActions';
+import TextField from '../common/components/TextField';
+import {validate, convertErrorToReport} from '../common/util/validation';
+import loginConfig from './LoginValidationConfig';
 
 class Login extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            email: '',
+            password: '',
+            errorReport: null,
+            displayErrors: false
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let report = convertErrorToReport(nextProps.loginError, 'email');
+        this.setState({
+            displayErrors: !!report,
+            errorReport: report
+        });
+    }
+
+    handleChange(field, value) {
+        this.setState({[field]: value});
+    };
+
+    handleSubmit(event) {
+        event.preventDefault();
+        const user = {email: this.state.email, password: this.state.password};
+        const report = validate(user, loginConfig);
+        if(report.allValid){
+            login(user);
+            this.setState({ displayErrors: false });
+        } else {
+            this.setState({ displayErrors: true });
+        }
+        this.setState({errorReport: report});
+    };
+
     render() {
 
         return (
@@ -17,14 +59,13 @@ class Login extends React.Component {
 
                                 <div className="col-sm-offset-2 col-sm-8 col-xs-12 well">
                                     <h2 className="text-primary text-center">Log In</h2>
-                                    <form>
-                                        <div className="form-group">
-                                            <label htmlFor="exampleInputEmail1">Email Address</label>
-                                            <input type="email" className="form-control" id="registrationInputEmail" placeholder="Email"/>
+                                    <form onSubmit={this.handleSubmit} noValidate className={this.state.displayErrors ? 'displayErrors' : ''} >
+                                        <div className="col-sm-12 col-xs-12">
+                                            <TextField propertyName='email' propertyValue={this.state.email} displayName='E-mail Address' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                         </div>
-                                        <div className="form-group">
-                                            <label htmlFor="exampleInputPassword1">Password</label>
-                                            <input type="password" className="form-control" id="registrationInputPassword" placeholder="Password"/>
+                                        <div className="clearfix"></div>
+                                        <div className="col-sm-12 col-xs-12">
+                                            <TextField propertyName='password' inputType='password' propertyValue={this.state.password} displayName='Password' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                         </div>
                                         <div className="col-sm-offset-4 col-sm-4 col-xs-12 text-center">
                                             <button type="submit" className="btn btn-primary btn-lg btn-block">Login</button>
@@ -50,4 +91,8 @@ class Login extends React.Component {
     }
 };
 
-export default Login;
+const mapStateToProps = ({register}) => {
+    return register;
+};
+
+export default connect(mapStateToProps)(Login);

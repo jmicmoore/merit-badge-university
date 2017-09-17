@@ -1,6 +1,6 @@
 import store from '../store';
 import http from 'superagent';
-import {mbuAPI, PROFILE_TYPES, COUNCILS, DISTRICTS, CREATE_PROFILE} from '../actions/constants';
+import {mbuAPI, PROFILE_TYPES, COUNCILS, DISTRICTS, CREATE_PROFILE, LOGIN_USER} from '../actions/constants';
 
 export const getProfileTypes = () => {
     store.dispatch({
@@ -27,5 +27,12 @@ export const createProfile = (user) => {
     store.dispatch({
         type: CREATE_PROFILE,
         payload: http.post(`${mbuAPI}/profiles`).send(user)
+    });
+};
+
+export const login = (user) => {
+    store.dispatch({
+        type: LOGIN_USER,
+        payload: http.post(`${mbuAPI}/login`).send(user)
     });
 };

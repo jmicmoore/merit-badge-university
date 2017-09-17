@@ -6,3 +6,4 @@ export const COUNCILS = 'profile/COUNCILS';
 export const DISTRICTS = 'profile/DISTRICTS';
 
 export const CREATE_PROFILE = 'profile/CREATE_PROFILE';
+export const LOGIN_USER = 'profile/LOGIN_USER';

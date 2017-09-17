@@ -1,10 +1,10 @@
-import {PROFILE_TYPES, COUNCILS, DISTRICTS, CREATE_PROFILE} from '../actions/constants';
+import {PROFILE_TYPES, COUNCILS, DISTRICTS, CREATE_PROFILE, LOGIN_USER} from '../actions/constants';
 
 const INITIAL_STATE = {
     profileTypes: [],
     councils: [],
-    districts: []
-
+    districts: [],
+    loginError: ''
 };
 
 export const registerReducer = ( state = INITIAL_STATE, action) => {
@@ -17,7 +17,7 @@ export const registerReducer = ( state = INITIAL_STATE, action) => {
         newState.profileTypes = action.payload.body;
     }
     if (action.type === `${PROFILE_TYPES}_REJECTED`) {
-        console.log('Error getting profileTypes', action.payload);
+        console.log('Error getting profileTypes.');
         newState.profileTypes = [];
     }
 
@@ -29,7 +29,7 @@ export const registerReducer = ( state = INITIAL_STATE, action) => {
         newState.councils = action.payload.body;
     }
     if (action.type === `${COUNCILS}_REJECTED`) {
-        console.log('Error getting councils', action.payload);
+        console.log('Error getting councils.');
         newState.councils = [];
     }
 
@@ -41,7 +41,7 @@ export const registerReducer = ( state = INITIAL_STATE, action) => {
         newState.districts = action.payload.body;
     }
     if (action.type === `${DISTRICTS}_REJECTED`) {
-        console.log('Error getting districts', action.payload);
+        console.log('Error getting districts.');
         newState.districts = [];
     }
 
@@ -51,9 +51,18 @@ export const registerReducer = ( state = INITIAL_STATE, action) => {
     if (action.type === `${CREATE_PROFILE}_FULFILLED`) {
     }
     if (action.type === `${CREATE_PROFILE}_REJECTED`) {
-        console.log('Error creating user profile', action.payload);
+        console.log('Error creating user profile.');
     }
 
+
+    if (action.type === `${LOGIN_USER}_PENDING`) {
+        newState.loginError = ''
+    }
+    if (action.type === `${LOGIN_USER}_FULFILLED`) {
+    }
+    if (action.type === `${LOGIN_USER}_REJECTED`) {
+        newState.loginError = 'Either e-mail or password was incorrect';
+    }
 
     return newState;
 };
