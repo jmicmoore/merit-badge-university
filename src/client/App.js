@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Route, withRouter} from 'react-router-dom'
 import Home from './Home';
-import UserProfile from './UserProfile';
 import Login from './profile/Login';
 import Register from './profile/Register';
 import Welcome from './welcome/Welcome';
@@ -12,7 +11,6 @@ class App extends React.Component {
         return (
             <div>
                 <Route exact path="/" component={Home}/>
-                <Route path="/profile" component={UserProfile}/>
                 <Route path="/login" component={Login}/>
                 <Route path="/register" component={Register}/>
                 <Route path="/welcome" component={Welcome}/>

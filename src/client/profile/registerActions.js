@@ -1,6 +1,6 @@
 import store from '../store';
 import http from 'superagent';
-import {mbuAPI, PROFILE_TYPES, COUNCILS, DISTRICTS, CREATE_PROFILE, LOGIN_USER} from '../actions/constants';
+import {mbuAPI, PROFILE_TYPES, COUNCILS, DISTRICTS, CREATE_PROFILE, LOGIN_USER} from '../common/constants';
 
 export const getProfileTypes = () => {
     store.dispatch({

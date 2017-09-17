@@ -1,4 +1,4 @@
-import {PROFILE_TYPES, COUNCILS, DISTRICTS, CREATE_PROFILE, LOGIN_USER} from '../actions/constants';
+import {PROFILE_TYPES, COUNCILS, DISTRICTS, CREATE_PROFILE, LOGIN_USER} from '../common/constants';
 
 const INITIAL_STATE = {
     profileTypes: [],
