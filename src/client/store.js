@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import promiseMiddleware from 'redux-promise-middleware';
-import { registerReducer } from './profile/registerReducer';
+import { registerReducer } from './register/registerReducer';
 
 const reducers = {
     register: registerReducer

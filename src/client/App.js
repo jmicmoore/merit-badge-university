@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Route, withRouter} from 'react-router-dom'
 import Home from './Home';
-import Login from './profile/Login';
-import Register from './profile/Register';
+import Login from './register/Login';
+import Register from './register/Register';
 import Welcome from './welcome/Welcome';
 
 class App extends React.Component {
