@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 class Welcome extends React.Component {
 
     render() {
-
+        const welcomeMessage = `Welcome ${this.props.firstName || 'Stranger!  You should log in first.'}`;
         return (
             <div className="container-fluid">
                 <div className="row">
@@ -16,7 +16,7 @@ class Welcome extends React.Component {
                             <div className="row" id="form-container">
 
                                 <div className="col-sm-offset-2 col-sm-8 col-xs-12 well">
-                                    <h2 className="text-primary text-center">Welcome</h2>
+                                    <h2 className="text-primary text-center">{welcomeMessage}</h2>
                                 </div>
                             </div>
                         </div>
@@ -30,8 +30,8 @@ class Welcome extends React.Component {
     }
 };
 
-const mapStateToProps = ({register}) => {
-    return register;
+const mapStateToProps = ({user}) => {
+    return user.profile;
 };
 
 export default connect(mapStateToProps)(Welcome);
