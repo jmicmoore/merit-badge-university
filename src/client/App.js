@@ -5,6 +5,7 @@ import Home from './Home';
 import UserProfile from './UserProfile';
 import Login from './profile/Login';
 import Register from './profile/Register';
+import Welcome from './welcome/Welcome';
 
 class App extends React.Component {
     render(){
@@ -14,6 +15,7 @@ class App extends React.Component {
                 <Route path="/profile" component={UserProfile}/>
                 <Route path="/login" component={Login}/>
                 <Route path="/register" component={Register}/>
+                <Route path="/welcome" component={Welcome}/>
             </div>
         );
     };
