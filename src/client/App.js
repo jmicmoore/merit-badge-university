@@ -2,9 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Route, withRouter} from 'react-router-dom'
 import Home from './Home';
-import Login from './register/Login';
+import Login from './user/Login';
 import Register from './register/Register';
-import Welcome from './welcome/Welcome';
+import Welcome from './user/Welcome';
 
 class App extends React.Component {
     render(){

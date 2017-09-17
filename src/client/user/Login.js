@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import '../styles/login.css';
 import {Link} from 'react-router-dom'
-import {login} from './registerActions';
+import {login} from '../register/registerActions';
 import TextField from '../common/components/TextField';
 import {validate, convertErrorToReport} from '../common/util/validation';
 import loginConfig from './LoginValidationConfig';
