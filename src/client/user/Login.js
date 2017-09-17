@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import '../styles/login.css';
 import {Link} from 'react-router-dom'
-import {login} from '../register/registerActions';
+import {login} from '../user/userActions';
 import TextField from '../common/components/TextField';
 import {validate, convertErrorToReport} from '../common/util/validation';
 import loginConfig from './LoginValidationConfig';
@@ -91,8 +91,8 @@ class Login extends React.Component {
     }
 };
 
-const mapStateToProps = ({register}) => {
-    return register;
+const mapStateToProps = ({user}) => {
+    return user;
 };
 
 export default connect(mapStateToProps)(Login);

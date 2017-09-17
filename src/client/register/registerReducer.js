@@ -1,10 +1,9 @@
-import {PROFILE_TYPES, COUNCILS, DISTRICTS, CREATE_PROFILE, LOGIN_USER} from '../common/constants';
+import {PROFILE_TYPES, COUNCILS, DISTRICTS, CREATE_PROFILE} from '../common/constants';
 
 const INITIAL_STATE = {
     profileTypes: [],
     councils: [],
-    districts: [],
-    loginError: ''
+    districts: []
 };
 
 export const registerReducer = ( state = INITIAL_STATE, action) => {
@@ -52,16 +51,6 @@ export const registerReducer = ( state = INITIAL_STATE, action) => {
     }
     if (action.type === `${CREATE_PROFILE}_REJECTED`) {
         console.log('Error creating user profile.');
-    }
-
-
-    if (action.type === `${LOGIN_USER}_PENDING`) {
-        newState.loginError = ''
-    }
-    if (action.type === `${LOGIN_USER}_FULFILLED`) {
-    }
-    if (action.type === `${LOGIN_USER}_REJECTED`) {
-        newState.loginError = 'Either e-mail or password was incorrect';
     }
 
     return newState;
