@@ -17,7 +17,7 @@ class App extends React.Component {
 
                 <Route exact path="/login" render={() => ( this.props.isAuthenticated ? ( <Welcome/> ) : ( <Login/> ) )}/>
 
-                <Route path="/admin/merit-badges" component={MeritBadges}/>
+                <Route path="/merit-badges" component={MeritBadges}/>
             </div>
         );
     };

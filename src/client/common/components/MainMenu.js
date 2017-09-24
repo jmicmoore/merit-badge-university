@@ -22,7 +22,7 @@ class MainMenu extends React.Component {
                             <li className="dropdown">
                                 <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span className="caret"></span></a>
                                 <ul className="dropdown-menu">
-                                    <li><Link to="/admin/merit-badges">Setup Merit Badges</Link></li>
+                                    <li><Link to="/merit-badges">Setup Merit Badges</Link></li>
                                     <li><a href="#">Another action</a></li>
                                     <li><a href="#">Something else here</a></li>
                                     <li role="separator" className="divider"></li>
