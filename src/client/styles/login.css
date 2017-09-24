@@ -18,6 +18,10 @@ header, footer {
     padding-top: .5em;
 }
 
+body {
+    padding-top: 70px;
+}
+
 .displayErrors input.invalid, .displayErrors select.invalid {
     border-color: red;
 }

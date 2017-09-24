@@ -5,6 +5,7 @@ import Home from './Home';
 import Login from './user/Login';
 import Register from './register/Register';
 import Welcome from './user/Welcome';
+import MeritBadges from './admin/MeritBadges';
 
 class App extends React.Component {
     render(){
@@ -16,6 +17,7 @@ class App extends React.Component {
 
                 <Route exact path="/login" render={() => ( this.props.isAuthenticated ? ( <Welcome/> ) : ( <Login/> ) )}/>
 
+                <Route path="/admin/merit-badges" component={MeritBadges}/>
             </div>
         );
     };
