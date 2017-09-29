@@ -56,7 +56,8 @@ TextField.propTypes = {
     displayName: PropTypes.string.isRequired,
     changeHandler: PropTypes.func.isRequired,
     inputType: PropTypes.string,
-    hidden: PropTypes.bool
+    hidden: PropTypes.bool,
+    errors: PropTypes.object
 };
 
 export default TextField;
