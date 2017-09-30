@@ -10,6 +10,7 @@ module.exports = {
     ],
     output: {
         path: path.resolve(__dirname, 'dist'),
+        publicPath: "/merit-badge-university",
         filename: 'bundle.js'
     },
     devtool: "source-map",

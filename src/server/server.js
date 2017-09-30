@@ -13,7 +13,7 @@ if(process.env.NODE_ENV !== 'production'){
     const webpackDevMiddleware = require('webpack-dev-middleware');
     app.use(webpackDevMiddleware(compiler, {
         noInfo: true,
-        publicPath: appBaseUrl,
+        publicPath: webpackConfig.output.publicPath,
         stats: {
             colors: true
         },
@@ -31,7 +31,9 @@ app.set('views', 'src/server'); // tell Express our templates are in a different
 
 router.use(express.static('./dist'));
 router.get('*', function(req, res) {
-    res.render('index');
+    res.render('index', {
+        appBaseUrl
+    });
 });
 app.use(appBaseUrl, router);
 

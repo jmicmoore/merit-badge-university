@@ -5,6 +5,7 @@ module.exports = {
     entry: './src/client/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
+        publicPath: "/merit-badge-university",
         filename: 'bundle.js'
     },
     devtool: "source-map",
