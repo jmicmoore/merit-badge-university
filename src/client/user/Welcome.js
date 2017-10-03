@@ -7,8 +7,6 @@ class Welcome extends React.Component {
     render() {
         const person =  this.props.profile ? this.props.profile.firstName : 'Stranger';
         return (
-        <div>
-            <MainMenu/>
             <div className="container">
                 <div className="jumbotron">
                     <h1>Hello {person}!</h1>
@@ -16,17 +14,7 @@ class Welcome extends React.Component {
                     <p/>
                     <p>Select from the menu above to get started.</p>
                 </div>
-
-                <div className="row">
-                    <div className="col-sm-12">
-                        <footer>
-                            2015-17 Copyright &copy; mbu.com
-                        </footer>
-                    </div>
-                </div>
             </div>
-        </div>
-
         );
     }
 };

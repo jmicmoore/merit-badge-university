@@ -6,6 +6,11 @@ header, footer {
     text-align: center;
 }
 
+.mbu-menu {
+    background-color: #000080;
+    color: white;
+}
+
 #form-container {
     padding: 1em;
 }

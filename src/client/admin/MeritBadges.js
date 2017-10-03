@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import MainMenu from '../common/components/MainMenu';
 import {getMeritBadges} from './adminActions';
 import {mbuAPI} from '../common/constants';
 
@@ -74,7 +73,6 @@ class MeritBadges extends React.Component {
 
         return (
             <div>
-                <MainMenu/>
                 <h1>Merit Badges</h1>
 
                 {
