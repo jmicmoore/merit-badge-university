@@ -4,7 +4,8 @@ import _ from 'lodash';
 import TextField from '../common/components/TextField';
 import ErrorAlert from '../common/components/ErrorAlert';
 import {Table} from 'react-bootstrap';
-import {addClassroom, getClassrooms} from './adminActions';
+import FontAwesome from 'react-fontawesome';
+import {addClassroom, getClassrooms, deleteClassroom} from './adminActions';
 
 class Classrooms extends React.Component {
 
@@ -61,11 +62,27 @@ class Classrooms extends React.Component {
         }
     };
 
+    handleDeleteClassroom(classroomId){
+        deleteClassroom(classroomId);
+    }
+
     classroomRow(classroom){
         return (
             <tr key={classroom.name}>
                 <td>{classroom.name}</td>
                 <td>{classroom.capacity}</td>
+                <td>
+                    <button id="deleteClassroom" onClick={() => {this.handleDeleteClassroom(classroom._id)}}>
+                        <a>
+                            <FontAwesome
+                                style={{ paddingRight : '5px', paddingLeft : '5px', color : 'darkred' }}
+                                name="trash"
+                                title="Delete Classroom"
+                                size="lg"/>
+                            Delete
+                        </a>
+                    </button>
+                </td>
             </tr>
         );
     };
@@ -99,6 +116,7 @@ class Classrooms extends React.Component {
                                 <tr>
                                     <th>Classroom Name</th>
                                     <th>Capacity</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>

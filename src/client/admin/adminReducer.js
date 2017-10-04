@@ -1,4 +1,4 @@
-import {MERIT_BADGES, ADD_CLASSROOM, GET_CLASSROOMS} from '../common/constants';
+import {MERIT_BADGES, ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM} from '../common/constants';
 
 const INITIAL_STATE = {
     meritBadges: [],
@@ -26,6 +26,15 @@ export const adminReducer = ( state = INITIAL_STATE, action) => {
     }
     if (action.type === `${ADD_CLASSROOM}_REJECTED`) {
         console.log('Error saving new classroom.');
+    }
+
+
+    if (action.type === `${DELETE_CLASSROOM}_PENDING`) {
+    }
+    if (action.type === `${DELETE_CLASSROOM}_FULFILLED`) {
+    }
+    if (action.type === `${DELETE_CLASSROOM}_REJECTED`) {
+        console.log('Error deleting classroom.');
     }
 
 
