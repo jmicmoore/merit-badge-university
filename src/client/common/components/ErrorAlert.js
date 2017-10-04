@@ -1,30 +1,28 @@
 import React from 'react';
-import { Alert } from 'react-bootstrap';
+import { Alert, Fade } from 'react-bootstrap';
 
 class ErrorAlert extends React.Component {
     render() {
-        if (this.props.errorMessage) {
-            if(this.props.dismissible){
-                return (
-                    <div>
-                        <br/>
+        if(this.props.dismissCallback){
+            return (
+                <div>
+                    <Fade in={this.props.errorMessage}>
                         <Alert bsStyle="danger" onDismiss={this.props.dismissCallback}>
                             <strong>Error: </strong>{this.props.errorMessage}
                         </Alert>
-                    </div>
-                );
-            } else {
-                return (
-                    <div>
-                        <br/>
+                    </Fade>
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <Fade in={this.props.errorMessage}>
                         <Alert bsStyle="danger">
                             <strong>Error: </strong>{this.props.errorMessage}
                         </Alert>
-                    </div>
-                );
-            }
-        } else {
-            return (<div></div>);
+                    </Fade>
+                </div>
+            );
         }
     }
 };

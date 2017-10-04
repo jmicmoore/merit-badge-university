@@ -17,6 +17,7 @@ class Classrooms extends React.Component {
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleCapacityChange = this.handleCapacityChange.bind(this);
         this.handleNewClassroom = this.handleNewClassroom.bind(this);
+        this.clearError = this.clearError.bind(this);
     };
 
     handleNameChange(propertyName, newName){
@@ -26,8 +27,6 @@ class Classrooms extends React.Component {
     handleCapacityChange(propertyName, newCapacity){
         this.setState({capacity: newCapacity})
     };
-
-    is
 
     validate(name, capacity){
         if(!name){
@@ -39,6 +38,10 @@ class Classrooms extends React.Component {
         } else {
             return "";
         }
+    };
+
+    clearError() {
+        this.setState({errorMessage: ""})
     };
 
     handleNewClassroom(){
@@ -56,10 +59,13 @@ class Classrooms extends React.Component {
     render() {
         return (
             <div>
-                <h1>Classrooms</h1>
                 <div className='row'>
-                    <div className="col-sm-offset-1 col-sm-10 col-xs-12">
-                        <ErrorAlert errorMessage={this.state.errorMessage}/>
+
+                    <div className="col-sm-3 col-xs-12">
+                        <h1>Classrooms</h1>
+                    </div>
+                    <div className="col-sm-8 col-xs-12">
+                        <ErrorAlert errorMessage={this.state.errorMessage} dismissCallback={this.clearError}/>
                     </div>
                 </div>
                 <div className='row'>
