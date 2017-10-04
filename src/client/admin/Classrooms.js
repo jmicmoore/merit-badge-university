@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import _ from 'lodash';
 import TextField from '../common/components/TextField';
 import ErrorAlert from '../common/components/ErrorAlert';
-import {addClassroom} from './adminActions';
+import {Table} from 'react-bootstrap';
+import {addClassroom, getClassrooms} from './adminActions';
 
 class Classrooms extends React.Component {
 
@@ -18,6 +19,10 @@ class Classrooms extends React.Component {
         this.handleCapacityChange = this.handleCapacityChange.bind(this);
         this.handleNewClassroom = this.handleNewClassroom.bind(this);
         this.clearError = this.clearError.bind(this);
+    };
+
+    componentDidMount() {
+        getClassrooms();
     };
 
     handleNameChange(propertyName, newName){
@@ -56,11 +61,19 @@ class Classrooms extends React.Component {
         }
     };
 
+    classroomRow(classroom){
+        return (
+            <tr key={classroom.name}>
+                <td>{classroom.name}</td>
+                <td>{classroom.capacity}</td>
+            </tr>
+        );
+    };
+
     render() {
         return (
-            <div>
+            <div className="container-fluid">
                 <div className='row'>
-
                     <div className="col-sm-3 col-xs-12">
                         <h1>Classrooms</h1>
                     </div>
@@ -69,7 +82,7 @@ class Classrooms extends React.Component {
                     </div>
                 </div>
                 <div className='row'>
-                    <div className="col-sm-offset-1 col-sm-2 col-xs-12">
+                    <div className="col-sm-2 col-xs-12">
                         <TextField propertyName='name' propertyValue={this.state.name} displayName='Name' changeHandler={this.handleNameChange}/>
                     </div>
                     <div className="col-sm-1 col-xs-12">
@@ -77,6 +90,23 @@ class Classrooms extends React.Component {
                     </div>
                     <div className='col-sm-1'>
                         <button className="btn btn-success" style={{marginTop: '25px'}} onClick={this.handleNewClassroom}>Add New</button>
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className="col-sm-12 col-xs-12">
+                        <Table striped bordered condensed hover>
+                            <thead>
+                                <tr>
+                                    <th>Classroom Name</th>
+                                    <th>Capacity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {
+                                _.map(this.props.classrooms, classroom => this.classroomRow(classroom))
+                            }
+                            </tbody>
+                        </Table>
                     </div>
                 </div>
             </div>

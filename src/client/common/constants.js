@@ -7,6 +7,7 @@ export const DISTRICTS = 'profile/DISTRICTS';
 
 export const MERIT_BADGES = 'admin/MERIT_BADGES';
 export const ADD_CLASSROOM = 'admin/ADD_CLASSROOM';
+export const GET_CLASSROOMS = 'admin/GET_CLASSROOMS';
 
 export const CREATE_PROFILE = 'profile/CREATE_PROFILE';
 
