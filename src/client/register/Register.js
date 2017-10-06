@@ -1,10 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import update from 'immutability-helper';
-import {getProfileTypes, getCouncils, getDistricts, createProfile} from './registerActions';
+import {getProfileTypes, getCouncils, getDistricts, createUserProfile} from './registerActions';
 import TextField from '../common/components/TextField';
 import SingleSelect from '../common/components/SingleSelect';
-import {isValid, validate} from '../common/util/validation';
+import {validate} from '../common/util/validation';
 import validationConfig from './RegisterValidationConfig';
 
 
@@ -66,7 +66,7 @@ class Register extends React.Component {
         event.preventDefault();
         const report = validate(this.state.profile, validationConfig);
         if(report.allValid){
-            createProfile(this.state.profile);
+            createUserProfile(this.state.profile);
             this.setState({ displayErrors: false });
         } else {
             this.setState({ displayErrors: true });

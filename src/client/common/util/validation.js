@@ -5,6 +5,9 @@ export const REQUIRED = 'validation/required';
 export const SAME = 'validation/same';
 export const EMAIL = 'validaton/email';
 export const PASSWORD = 'validaton/password';
+export const PHONE = 'validation/phone';
+export const ZIP = 'validation/zip';
+export const DATE = 'validation/date';
 
 const isEmpty = (str) => {
     return _.isEmpty(str);
@@ -25,6 +28,22 @@ const isPassword = (str) => {
     return pwdValidation.isPassword(str);
 };
 
+const isPhoneNumber = (str) => {
+    const re = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    return re.test(str);
+};
+
+const isZipCode = (str) => {
+    const re = /^\d{5}?$/;
+    return re.test(str);
+};
+
+// Tests between 1900 and 2099
+function isDate(str) {
+    const re = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/ ;
+    return re.test(str);
+}
+
 const areFieldsSame = (object, fieldConfig) => {
     if(isEmpty(object[fieldConfig.firstField]) || isEmpty(object[fieldConfig.secondField])){
         return true;
@@ -43,6 +62,12 @@ const getValidationMessagesForField = (objectToValidate, value, fieldConfigs) =>
             return isEmpty(value) ? config.message : '';
         } else if(type === EMAIL) {
             return !isEmail(value) ? config.message : '';
+        } else if(type === PHONE) {
+            return !isPhoneNumber(value) ? config.message : '';
+        } else if(type === ZIP) {
+            return !isZipCode(value) ? config.message : '';
+        } else if(type === DATE) {
+            return !isDate(value) ? config.message : '';
         } else if(type === PASSWORD){
             return !isPassword(value) ? config.message : '';
         } else if(type === SAME){
@@ -123,6 +148,12 @@ module.exports.isValid = (objectToValidate, validationConfig) => {
                 return fieldValid && !isEmpty(value);
             } else if(fieldConfig.type === EMAIL) {
                 return fieldValid && isEmail(value);
+            } else if(fieldConfig.type === PHONE) {
+                return fieldValid && isPhoneNumber(value);
+            } else if(fieldConfig.type === ZIP) {
+                return fieldValid && isZipCode(value);
+            } else if(fieldConfig.type === DATE) {
+                return fieldValid && isDate(value);
             } else if(fieldConfig.type === PASSWORD){
                 return fieldValid && isPassword(value);
             } else if(fieldConfig.type === SAME){

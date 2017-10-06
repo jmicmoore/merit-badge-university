@@ -1,9 +1,11 @@
-import {PROFILE_TYPES, COUNCILS, DISTRICTS, CREATE_PROFILE} from '../common/constants';
+import {PROFILE_TYPES, COUNCILS, DISTRICTS, STATES, CREATE_USER_PROFILE, GET_USER_PROFILE, UPDATE_USER_PROFILE} from '../common/constants';
 
 const INITIAL_STATE = {
     profileTypes: [],
     councils: [],
-    districts: []
+    districts: [],
+    states: [],
+    userProfile: null
 };
 
 export const registerReducer = ( state = INITIAL_STATE, action) => {
@@ -45,13 +47,47 @@ export const registerReducer = ( state = INITIAL_STATE, action) => {
     }
 
 
-    if (action.type === `${CREATE_PROFILE}_PENDING`) {
+    if (action.type === `${STATES}_PENDING`) {
+        newState.states = [];
     }
-    if (action.type === `${CREATE_PROFILE}_FULFILLED`) {
+    if (action.type === `${STATES}_FULFILLED`) {
+        newState.states = action.payload.body;
     }
-    if (action.type === `${CREATE_PROFILE}_REJECTED`) {
+    if (action.type === `${STATES}_REJECTED`) {
+        console.log('Error getting states.');
+        newState.states = [];
+    }
+
+
+    if (action.type === `${CREATE_USER_PROFILE}_PENDING`) {
+    }
+    if (action.type === `${CREATE_USER_PROFILE}_FULFILLED`) {
+    }
+    if (action.type === `${CREATE_USER_PROFILE}_REJECTED`) {
         console.log('Error creating user profile.');
     }
+
+
+    if (action.type === `${UPDATE_USER_PROFILE}_PENDING`) {
+    }
+    if (action.type === `${UPDATE_USER_PROFILE}_FULFILLED`) {
+    }
+    if (action.type === `${UPDATE_USER_PROFILE}_REJECTED`) {
+        console.log('Error updating user profile.');
+    }
+
+
+    if (action.type === `${GET_USER_PROFILE}_PENDING`) {
+        newState.userProfile = null;
+    }
+    if (action.type === `${GET_USER_PROFILE}_FULFILLED`) {
+        newState.userProfile = action.payload.body;
+    }
+    if (action.type === `${GET_USER_PROFILE}_REJECTED`) {
+        console.log('Error retrieving user profile.');
+        newState.userProfile = null;
+    }
+
 
     return newState;
 };
