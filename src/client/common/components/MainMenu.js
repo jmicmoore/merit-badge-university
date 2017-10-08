@@ -33,6 +33,14 @@ class MainMenu extends React.Component {
                                 </ul>
                             </li>
                         </ul>
+                        <ul className="nav navbar-nav">
+                            <li className="dropdown">
+                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Counselor<span className="caret"></span></a>
+                                <ul className="dropdown-menu">
+                                    <li><Link to="/admin/classes">Setup Classes</Link></li>
+                                </ul>
+                            </li>
+                        </ul>
 
                         <ul className="nav navbar-nav navbar-right">
                             <li><a href="#">Link</a></li>

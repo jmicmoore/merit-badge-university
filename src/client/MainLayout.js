@@ -5,6 +5,7 @@ import './common/components/MainMenu';
 import MainMenu from "./common/components/MainMenu";
 import MeritBadges from './admin/MeritBadges';
 import Classrooms from './admin/Classrooms';
+import Classes from './admin/Classes';
 import Welcome from './user/Welcome';
 
 class Home extends React.Component {
@@ -18,6 +19,7 @@ class Home extends React.Component {
                 <Switch>
                     <Route path='/admin/merit-badges' component={MeritBadges}/>
                     <Route path='/admin/classrooms' component={Classrooms}/>
+                    <Route path='/admin/classes' component={Classes}/>
                     <Route path="/welcome" component={Welcome}/>
                 </Switch>
                 <footer>
