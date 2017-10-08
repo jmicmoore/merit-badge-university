@@ -20,10 +20,10 @@ class Register extends React.Component {
                 emailConfirm: '',
                 password: '',
                 passwordConfirm: '',
-                selectedProfileType: '',
-                selectedCouncil: '',
+                profileType: '',
+                council: '',
                 otherCouncil: '',
-                selectedDistrict: '',
+                district: '',
                 otherDistrict: ''
             },
             errorReport: null,
@@ -51,13 +51,13 @@ class Register extends React.Component {
     };
 
     clearOtherCouncil(stateCopy){
-        if(stateCopy.profile.selectedCouncil !== 'Other'){
+        if(stateCopy.profile.council !== 'Other'){
             stateCopy.profile.otherCouncil = '';
         }
     };
 
     clearOtherDistrict(stateCopy){
-        if(stateCopy.profile.selectedDistrict !== 'Other'){
+        if(stateCopy.profile.district !== 'Other'){
             stateCopy.profile.otherDistrict = '';
         }
     };
@@ -66,7 +66,7 @@ class Register extends React.Component {
         event.preventDefault();
         const report = validate(this.state.profile, validationConfig);
         if(report.allValid){
-            createUserProfile(this.state.profile);
+            createUserProfile(_.omit(this.state.profile, ['emailConfirm', 'passwordConfirm']));
             this.setState({ displayErrors: false });
         } else {
             this.setState({ displayErrors: true });
@@ -77,8 +77,8 @@ class Register extends React.Component {
     render() {
         const profile = this.state.profile;
 
-        const showOtherCouncil = profile.selectedCouncil === 'Other';
-        const showOtherDistrict = profile.selectedDistrict === 'Other';
+        const showOtherCouncil = profile.council === 'Other';
+        const showOtherDistrict = profile.district === 'Other';
 
         return (
                 <div className="container-fluid">
@@ -114,14 +114,14 @@ class Register extends React.Component {
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-4 col-xs-12">
-                                                <SingleSelect propertyName='selectedProfileType' propertyValue={profile.selectedProfileType} displayName='Who Are You?' options={this.props.profileTypes} errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                                <SingleSelect propertyName='profileType' propertyValue={profile.profileType} displayName='Who Are You?' options={this.props.profileTypes} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="col-sm-4 col-xs-12">
-                                                <SingleSelect propertyName='selectedCouncil' propertyValue={profile.selectedCouncil} displayName='What Council Are You From?' options={this.props.councils} errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                                <SingleSelect propertyName='council' propertyValue={profile.council} displayName='What Council Are You From?' options={this.props.councils} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                                 <TextField propertyName='otherCouncil' propertyValue={profile.otherCouncil} displayName='Other Council' changeHandler={this.handleChange} hidden={!showOtherCouncil}/>
                                             </div>
                                             <div className="col-sm-4 col-xs-12">
-                                                <SingleSelect propertyName='selectedDistrict' propertyValue={profile.selectedDistrict} displayName='What District Are You From?' options={this.props.districts} errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                                <SingleSelect propertyName='district' propertyValue={profile.district} displayName='What District Are You From?' options={this.props.districts} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                                 <TextField propertyName='otherDistrict' propertyValue={profile.otherDistrict} displayName='Other District' changeHandler={this.handleChange} hidden={!showOtherDistrict}/>
                                             </div>
                                             <div className="clearfix"></div>

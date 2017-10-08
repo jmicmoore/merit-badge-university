@@ -53,15 +53,15 @@ const config = {
             message: 'Please make sure your password and confirmation both match.'
         }
     ],
-    selectedProfileType: {
+    profileType: {
         type: REQUIRED,
         message: 'Please provide your user profile type.'
     },
-    selectedCouncil: {
+    council: {
         type: REQUIRED,
         message: 'Please provide your council.  If your council is not listed, then please select Other and enter it below.'
     },
-    selectedDistrict: {
+    district: {
         type: REQUIRED,
         message: 'Please provide your district.  If your district is not listed, then please select Other and enter it below.'
     }
