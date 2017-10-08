@@ -8,6 +8,7 @@ export const PASSWORD = 'validaton/password';
 export const PHONE = 'validation/phone';
 export const ZIP = 'validation/zip';
 export const DATE = 'validation/date';
+export const ARRAY_MAX = 'validation/array_max';
 
 const isEmpty = (str) => {
     return _.isEmpty(str);
@@ -22,7 +23,7 @@ const isEmail = (str) => {
 };
 
 const isPassword = (str) => {
-    if(_.isEmpty(str)){
+    if(isEmpty(str)){
         return true;
     }
     return pwdValidation.isPassword(str);
@@ -42,6 +43,13 @@ const isZipCode = (str) => {
 function isDate(str) {
     const re = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/ ;
     return re.test(str);
+}
+
+function isArrayWithinMax(array, max){
+    if(isEmpty(array)){
+        return true;
+    }
+    return array.length <= max;
 }
 
 const areFieldsSame = (object, fieldConfig) => {
@@ -72,6 +80,8 @@ const getValidationMessagesForField = (objectToValidate, value, fieldConfigs) =>
             return !isPassword(value) ? config.message : '';
         } else if(type === SAME){
             return !areFieldsSame(objectToValidate, config) ? config.message : '';
+        } else if(type === ARRAY_MAX){
+            return !isArrayWithinMax(value, config.max) ? config.message : '';
         }
     });
 };
@@ -88,7 +98,7 @@ module.exports.validate = (objectToValidate, validationConfig) => {
         }
 
         const allMessages = getValidationMessagesForField(objectToValidate, value, fieldConfigs);
-        const validationMessage = _.find(allMessages, message => !_.isEmpty(message));
+        const validationMessage = _.find(allMessages, message => !isEmpty(message));
         return {
             fieldName: field,
             valid: !validationMessage,
@@ -121,7 +131,7 @@ module.exports.convertErrorToReport = (errorMessage, fieldName) => {
 };
 
 module.exports.getErrorMessageForField = (validationReport, fieldName) => {
-    if(_.isEmpty(validationReport)){
+    if(isEmpty(validationReport)){
         return null;
     }
     const result = _.find(validationReport.fieldResults, result => result.fieldName === fieldName);
@@ -158,6 +168,8 @@ module.exports.isValid = (objectToValidate, validationConfig) => {
                 return fieldValid && isPassword(value);
             } else if(fieldConfig.type === SAME){
                 return fieldValid && areFieldsSame(objectToValidate, fieldConfig);
+            } else if(fieldConfig.type === ARRAY_MAX){
+                return fieldValid && isArrayWithinMax(value, fieldConfig.max);
             }
         }, true);
 

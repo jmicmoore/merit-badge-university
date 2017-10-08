@@ -1,12 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import update from 'immutability-helper';
-import {getStates, getUserProfile, updateUserProfile} from './registerActions';
+import {getStates, getUserProfile, getMeritBadgeNames, updateUserProfile} from './registerActions';
 import TextField from '../common/components/TextField';
 import SingleSelect from '../common/components/SingleSelect';
 import CheckBox from '../common/components/CheckBox';
 import {validate} from '../common/util/validation';
 import validationConfig from './RegisterCounselorValidationConfig';
+import MultiSelect from "../common/components/MultiSelect";
 
 
 class RegisterCounselor extends React.Component {
@@ -17,11 +18,15 @@ class RegisterCounselor extends React.Component {
             counselorInfo: {
                 address: '',
                 city: '',
-                selectedState: '',
+                state: '',
                 zip: '',
                 phone: '',
+                contactMethod: '',
                 youthProtectionTrained: false,
                 ypTrainingDate: '',
+                timeAvailable: '',
+                maxNumberOfClasses: '',
+                meritBadges: []
             },
             errorReport: null,
             displayErrors: false
@@ -32,6 +37,7 @@ class RegisterCounselor extends React.Component {
 
     componentDidMount() {
         getStates();
+        getMeritBadgeNames();
         getUserProfile('jmicmoore@gmail.com');
     };
 
@@ -42,9 +48,13 @@ class RegisterCounselor extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const report = validate(this.state.counselorInfo, validationConfig);
+
+        const counselorInfo = Object.assign({}, this.state.counselorInfo);
+        counselorInfo.meritBadges = counselorInfo.meritBadges.map(badge => {return(badge.value)});
+
+        const report = validate(counselorInfo, validationConfig);
         if(report.allValid){
-            const newProfile = Object.assign({}, this.props.userProfile, this.state.counselorInfo);
+            const newProfile = Object.assign({}, this.props.userProfile, counselorInfo);
             updateUserProfile(newProfile);
             this.setState({ displayErrors: false });
         } else {
@@ -54,12 +64,6 @@ class RegisterCounselor extends React.Component {
     };
 
     render() {
-        // const basicProfile = {
-        //     firstName: 'Jerry',
-        //     lastName: 'Moore',
-        //     email: 'jmicmoore@gmail.com'
-        // };
-
         const basicProfile = this.props.userProfile;
 
         const firstName = basicProfile ? basicProfile.firstName : '';
@@ -68,7 +72,20 @@ class RegisterCounselor extends React.Component {
 
         const counselorInfo = this.state.counselorInfo;
 
-        const states = this.props.states.map(state => {return ({value: state.abbreviation, label: state.name})});
+        const stateChoices = this.props.states.map(state => {return ({value: state.abbreviation, label: state.name})});
+        const contactChoices = [
+            {value: 'Text', label: 'Text'},
+            {value: 'Phone', label: 'Phone'},
+            {value: 'Email', label: 'E-mail'}
+        ];
+        const availabilityChoices = [
+            {value: 'MorningOnly', label: 'Morning Only'},
+            {value: 'AfternoonOnly', label: 'Afternoon Only'},
+            {value: 'AllDay', label: 'All Day'}
+        ];
+        const numClassChoices = ['1','2','3','4','5','6','7'].map( item => {return({value: item, label: item})});
+        const meritBadgeChoices = this.props.meritBadgeNames.map( item => {return({value: item.name, label: item.name})});
+
 
         return (
                 <div className="container-fluid">
@@ -80,17 +97,14 @@ class RegisterCounselor extends React.Component {
                             <div className="container" id="form-container-registration">
                                 <div className="row">
                                     <div className="col-sm-offset-1 col-sm-10 well">
-                                        <h2 className="text-info">Merit Badge Counselor</h2>
                                         <form onSubmit={this.handleSubmit} noValidate className={this.state.displayErrors ? 'displayErrors' : ''} >
+
+                                            <h2 className="text-info">Merit Badge Counselor</h2>
                                             <div className="col-sm-6 col-xs-12">
                                                 <TextField propertyName='firstName' disabled={true} propertyValue={firstName} displayName='First Name'/>
                                             </div>
                                             <div className="col-sm-6 col-xs-12">
                                                 <TextField propertyName='lastName' disabled={true} propertyValue={lastName} displayName='Last Name'/>
-                                            </div>
-                                            <div className="clearfix"></div>
-                                            <div className="col-sm-6 col-xs-12">
-                                                <TextField propertyName='email' disabled={true} inputType='email' propertyValue={email} displayName='Email address'/>
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-12 col-xs-12">
@@ -101,15 +115,22 @@ class RegisterCounselor extends React.Component {
                                                 <TextField propertyName='city' propertyValue={counselorInfo.city} displayName='City' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="col-sm-4 col-xs-12">
-                                                <SingleSelect propertyName='selectedState' propertyValue={counselorInfo.selectedState} displayName='State' options={states} errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                                <SingleSelect propertyName='state' propertyValue={counselorInfo.state} displayName='State' options={stateChoices} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="col-sm-3 col-xs-12">
                                                 <TextField propertyName='zip' propertyValue={counselorInfo.zip} displayName='Zip Code' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-6 col-xs-12">
-                                                <TextField propertyName='phone' propertyValue={counselorInfo.phone} displayName='Phone Number' placeholder='(XXX) XXX-XXXX' errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                                <TextField propertyName='email' disabled={true} inputType='email' propertyValue={email} displayName='Email address'/>
                                             </div>
+                                            <div className="col-sm-3 col-xs-12">
+                                                <TextField propertyName='phone' propertyValue={counselorInfo.phone} displayName='Cell Number' placeholder='(XXX) XXX-XXXX' errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                            </div>
+                                            <div className="col-sm-3 col-xs-12">
+                                                <SingleSelect propertyName='contactMethod' propertyValue={counselorInfo.contactMethod} displayName='Preferred Contact Method' options={contactChoices} errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                            </div>
+                                            <div className="clearfix"></div>
                                             <div className="col-sm-3 col-xs-12">
                                                 <CheckBox propertyName='youthProtectionTrained' propertyValue={counselorInfo.youthProtectionTrained}
                                                           displayName='Yes!  My Youth Protection Training is up to date!'
@@ -118,6 +139,21 @@ class RegisterCounselor extends React.Component {
                                             <div className="col-sm-3 col-xs-12">
                                                 <TextField propertyName='ypTrainingDate' propertyValue={counselorInfo.ypTrainingDate} displayName='YPT Date' placeholder='MM/DD/YYYY' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
+                                            <div className="clearfix"></div>
+
+                                            <h2 className="text-info">Availability</h2>
+                                            <div className="col-sm-12 col-xs-12">
+                                                <MultiSelect propertyName='meritBadges' propertyValue={counselorInfo.meritBadges} displayName='I can teach these merit badges (select up to 4)' options={meritBadgeChoices} errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                            </div>
+                                            <div className="clearfix"></div>
+                                            <div className="col-sm-3 col-xs-12">
+                                                <SingleSelect propertyName='timeAvailable' propertyValue={counselorInfo.timeAvailable} displayName='I am available' options={availabilityChoices} errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                            </div>
+                                            <div className="col-sm-5 col-xs-12">
+                                                <SingleSelect propertyName='maxNumberOfClasses' propertyValue={counselorInfo.maxNumberOfClasses} displayName="I'm willing to teach this many classes" options={numClassChoices} errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                            </div>
+                                            <div className="clearfix"></div>
+
                                             <div className="col-sm-offset-10 col-sm-2 col-xs-12">
                                                 <button className="btn btn-success btn-lg btn-block">Submit</button>
                                             </div>

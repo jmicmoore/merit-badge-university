@@ -1,19 +1,19 @@
-import {REQUIRED, EMAIL, PHONE, ZIP, DATE} from '../common/util/validation';
+import {REQUIRED, PHONE, ZIP, DATE, ARRAY_MAX} from '../common/util/validation';
 
 const config = {
     address: {
         type: REQUIRED,
         message: 'Please provide your address.'
     },
-    city:  {
+    city: {
         type: REQUIRED,
         message: 'Please provide your city.'
     },
-    selectedState:  {
+    state: {
         type: REQUIRED,
         message: 'Please provide your state.'
     },
-    zip:  [
+    zip: [
         {
             type: REQUIRED,
             message: 'Please provide your zip code.'
@@ -23,17 +23,21 @@ const config = {
             message: 'Please provide a valid zip code.  Ex:  12345'
         }
     ],
-    phone:  [
+    phone: [
         {
             type: REQUIRED,
-            message: 'Please provide your phone number.'
+            message: 'Please provide your cell number.'
         },
         {
             type: PHONE,
-            message: 'Please provide a valid phone number.  Ex: (314) 333-4444'
+            message: 'Please provide a valid cell number.  Ex: (314) 333-4444'
         }
     ],
-    ypTrainingDate:  [
+    contactMethod: {
+        type: REQUIRED,
+        message: 'Please provide your preferred contact method.'
+    },
+    ypTrainingDate: [
         {
             type: REQUIRED,
             message: 'Please provide your Youth Protection Training date.'
@@ -42,6 +46,25 @@ const config = {
             type: DATE,
             message: 'Please provide a valid Youth Protection Training date.  Ex: MM/DD/YYYY'
         }
+    ],
+    timeAvailable: {
+        type: REQUIRED,
+        message: 'Please provide your availability.'
+    },
+    maxNumberOfClasses: {
+        type: REQUIRED,
+        message: 'Please provide how many classes you can teach.'
+    },
+    meritBadges: [
+        {
+            type: REQUIRED,
+            message: 'Please provide which merit badges you can teach.'
+        },
+        {
+            type: ARRAY_MAX,
+            max: 4,
+            message: 'Please provide 1 to 4 merit badges.'
+        },
     ]
 };
 

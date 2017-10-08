@@ -5,6 +5,7 @@ export const PROFILE_TYPES = 'profile/PROFILE_TYPES';
 export const COUNCILS = 'profile/COUNCILS';
 export const DISTRICTS = 'profile/DISTRICTS';
 export const STATES = 'profile/STATES';
+export const MERIT_BADGE_NAMES = 'profile/MERIT_BADGE_NAMES';
 
 export const MERIT_BADGES = 'admin/MERIT_BADGES';
 export const ADD_CLASSROOM = 'admin/ADD_CLASSROOM';

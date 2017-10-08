@@ -55,6 +55,7 @@
     "react-hot-loader": "^3.0.0-beta.2",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
+    "react-select-plus": "^1.0.0-rc.5",
     "redux": "^3.7.0",
     "style-loader": "^0.18.2",
     "webpack": "^3.6.0",
