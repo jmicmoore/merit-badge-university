@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import update from 'immutability-helper';
-import {getStates, getUserProfile, getMeritBadgeNames, updateUserProfile} from './registerActions';
+import {getMeritBadgeNames} from '../common/redux/referenceActions';
+import {getStates, getUserProfile, updateUserProfile} from './registerActions';
 import TextField from '../common/components/TextField';
 import SingleSelect from '../common/components/SingleSelect';
 import CheckBox from '../common/components/CheckBox';
@@ -54,7 +55,7 @@ class RegisterCounselor extends React.Component {
 
         const report = validate(counselorInfo, validationConfig);
         if(report.allValid){
-            const newProfile = Object.assign({}, this.props.userProfile, counselorInfo);
+            const newProfile = Object.assign({}, this.props.register.userProfile, counselorInfo);
             updateUserProfile(newProfile);
             this.setState({ displayErrors: false });
         } else {
@@ -64,7 +65,7 @@ class RegisterCounselor extends React.Component {
     };
 
     render() {
-        const basicProfile = this.props.userProfile;
+        const basicProfile = this.props.register.userProfile;
 
         const firstName = basicProfile ? basicProfile.firstName : '';
         const lastName = basicProfile ? basicProfile.lastName : '';
@@ -72,7 +73,7 @@ class RegisterCounselor extends React.Component {
 
         const counselorInfo = this.state.counselorInfo;
 
-        const stateChoices = this.props.states.map(state => {return ({value: state.abbreviation, label: state.name})});
+        const stateChoices = this.props.register.states.map(state => {return ({value: state.abbreviation, label: state.name})});
         const contactChoices = [
             {value: 'Text', label: 'Text'},
             {value: 'Phone', label: 'Phone'},
@@ -84,7 +85,9 @@ class RegisterCounselor extends React.Component {
             {value: 'AllDay', label: 'All Day'}
         ];
         const numClassChoices = ['1','2','3','4','5','6','7'].map( item => {return({value: item, label: item})});
-        const meritBadgeChoices = this.props.meritBadgeNames.map( item => {return({value: item.name, label: item.name})});
+        const meritBadgeChoices = this.props.reference
+            ? this.props.reference.meritBadgeNames.map( item => {return({value: item.name, label: item.name})})
+            : [];
 
 
         return (
@@ -172,8 +175,8 @@ class RegisterCounselor extends React.Component {
     }
 };
 
-const mapStateToProps = ({register}) => {
-    return register;
+const mapStateToProps = ({reference, register}) => {
+    return {reference, register};
 };
 
 export default connect(mapStateToProps)(RegisterCounselor);

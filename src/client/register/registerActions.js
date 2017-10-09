@@ -30,13 +30,6 @@ export const getStates = () => {
     });
 };
 
-export const getMeritBadgeNames = () => {
-    store.dispatch({
-        type: MERIT_BADGE_NAMES,
-        payload: http.get(`${mbuAPI}/merit-badge-names`)
-    });
-};
-
 export const createUserProfile = (user) => {
     store.dispatch({
         type: CREATE_USER_PROFILE,

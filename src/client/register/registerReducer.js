@@ -1,11 +1,10 @@
-import {PROFILE_TYPES, COUNCILS, DISTRICTS, STATES, MERIT_BADGE_NAMES, CREATE_USER_PROFILE, GET_USER_PROFILE, UPDATE_USER_PROFILE} from '../common/constants';
+import {PROFILE_TYPES, COUNCILS, DISTRICTS, STATES, CREATE_USER_PROFILE, GET_USER_PROFILE, UPDATE_USER_PROFILE} from '../common/constants';
 
 const INITIAL_STATE = {
     profileTypes: [],
     councils: [],
     districts: [],
     states: [],
-    meritBadgeNames: [],
     userProfile: null
 };
 
@@ -57,18 +56,6 @@ export const registerReducer = ( state = INITIAL_STATE, action) => {
     if (action.type === `${STATES}_REJECTED`) {
         console.log('Error getting states.');
         newState.states = [];
-    }
-
-
-    if (action.type === `${MERIT_BADGE_NAMES}_PENDING`) {
-        newState.meritBadgeNames = [];
-    }
-    if (action.type === `${MERIT_BADGE_NAMES}_FULFILLED`) {
-        newState.meritBadgeNames = action.payload.body;
-    }
-    if (action.type === `${MERIT_BADGE_NAMES}_REJECTED`) {
-        console.log('Error getting merit badge names.');
-        newState.meritBadgeNames = [];
     }
 
 

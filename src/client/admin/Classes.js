@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom'
+import MeritBadgeClass from './MeritBadgeClass';
 import {getMeritBadges} from './adminActions';
-import {mbuAPI} from '../common/constants';
 
 const createMeritBadgeRow = (meritBadgeRow) => {
     return (
@@ -10,41 +11,13 @@ const createMeritBadgeRow = (meritBadgeRow) => {
                 meritBadgeRow.map(badge => {
                     return (
                         <div className="col-sm-3 col-xs-12">
-                            {createMeritBadge(badge)}
+                            <MeritBadgeClass meritBadge={badge}/>
                         </div>
                     )
                 })
             }
         </div>
     );
-};
-
-const createMeritBadge = (meritBadge) => {
-    return (
-
-        <div className="panel panel-default" key={meritBadge.name}>
-            <div className="panel-body">
-                <div className='row'>
-                    <div className='col-sm-7'>
-                        <h3>{meritBadge.name}</h3>
-                    </div>
-                    <div className='col-sm-5'>
-                        <img src={`${mbuAPI}${meritBadge.imageUrl}`} alt={meritBadge.name} width="100px" height="100px"/>
-                    </div>
-                </div>
-                <div className='row'>
-                    <div className='col-sm-10'>
-                        <h5>{meritBadge.requirements.length} Requirements</h5>
-                    </div>
-                    <div className='col-sm-2'>
-                        <button type="button" className="btn btn-default" aria-label="Left Align">
-                            <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
 };
 
 const create2DArray = (numCols, list) => {
@@ -73,8 +46,18 @@ class Classes extends React.Component {
 
         return (
             <div className="container-fluid">
-                <h1>Classes</h1>
-
+                <div className="row">
+                    <div className="col-sm-2 col-xs-12">
+                        <h1>Classes</h1>
+                    </div>
+                    <div className="col-sm-2 col-xs-12">
+                        <button id="addNewClass" type="button" className="btn btn-success btn-lg btn-block" aria-label="Left Align">
+                            <Link to={`/admin/edit-class`}>
+                                Add New
+                            </Link>
+                        </button>
+                    </div>
+                </div>
                 {
                     meritBadges.map(meritBadgeRow => createMeritBadgeRow(meritBadgeRow))
                 }
