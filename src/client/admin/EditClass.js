@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import TextField from '../common/components/TextField';
+import TextArea from "../common/components/TextArea";
 import SingleSelect from '../common/components/SingleSelect';
 import {getMeritBadgeNames} from '../common/redux/referenceActions';
 import {validate} from '../common/util/validation';
@@ -73,15 +74,15 @@ class EditClass extends React.Component {
                             <div className="col-sm-4 col-xs-12">
                                 <SingleSelect propertyName='meritBadge' propertyValue={classInfo.meritBadge} displayName='Merit Badge' options={meritBadgeChoices} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                             </div>
-                            <div className="col-sm-3 col-xs-12">
+                            <div className="col-sm-4 col-xs-12">
                                 <SingleSelect propertyName='recommendedLength' propertyValue={classInfo.recommendedLength} displayName='Recommended Class Length' options={recommendedLengthChoices} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                             </div>
                             <div className="col-sm-4 col-xs-12">
                                 <SingleSelect propertyName='recommendedSize' propertyValue={classInfo.recommendedSize} displayName='Recommended Number of Students' options={recommendedSizeChoices} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                             </div>
                             <div className="clearfix"></div>
-                            <div className="col-sm-6 col-xs-12">
-                                <TextField propertyName='notes' propertyValue={classInfo.notes} displayName='Notes' errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                            <div className="col-sm-12 col-xs-12">
+                                <TextArea propertyName='notes' propertyValue={classInfo.notes} displayName='Notes' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                             </div>
                             <div className="clearfix"></div>
 
