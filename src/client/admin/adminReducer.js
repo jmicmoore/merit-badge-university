@@ -1,8 +1,10 @@
-import {MERIT_BADGES, ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM} from '../common/constants';
+import {MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM, ADD_CLASS, GET_CLASSES} from '../common/constants';
 
 const INITIAL_STATE = {
     meritBadges: [],
-    classrooms: []
+    currentMeritBadge: null,
+    classrooms: [],
+    classes: []
 };
 
 export const adminReducer = ( state = INITIAL_STATE, action) => {
@@ -17,6 +19,18 @@ export const adminReducer = ( state = INITIAL_STATE, action) => {
     if (action.type === `${MERIT_BADGES}_REJECTED`) {
         console.log('Error getting merit badges.');
         newState.meritBadges = [];
+    }
+
+
+    if (action.type === `${GET_MERIT_BADGE_BY_NAME}_PENDING`) {
+        newState.currentMeritBadge = null;
+    }
+    if (action.type === `${GET_MERIT_BADGE_BY_NAME}_FULFILLED`) {
+        newState.currentMeritBadge = action.payload.body;
+    }
+    if (action.type === `${GET_MERIT_BADGE_BY_NAME}_REJECTED`) {
+        console.log('Error getting merit badge by name.');
+        newState.currentMeritBadge = null;
     }
 
 
@@ -48,6 +62,28 @@ export const adminReducer = ( state = INITIAL_STATE, action) => {
         console.log('Error getting classrooms.');
         newState.classrooms = [];
     }
+
+
+    if (action.type === `${ADD_CLASS}_PENDING`) {
+    }
+    if (action.type === `${ADD_CLASS}_FULFILLED`) {
+    }
+    if (action.type === `${ADD_CLASS}_REJECTED`) {
+        console.log('Error saving new class.');
+    }
+
+
+    if (action.type === `${GET_CLASSES}_PENDING`) {
+        newState.classes = [];
+    }
+    if (action.type === `${GET_CLASSES}_FULFILLED`) {
+        newState.classes = action.payload.body;
+    }
+    if (action.type === `${GET_CLASSES}_REJECTED`) {
+        console.log('Error getting classes.');
+        newState.classes = [];
+    }
+
 
     return newState;
 };

@@ -1,11 +1,18 @@
 import store from '../store';
 import http from 'superagent';
-import {mbuAPI, MERIT_BADGES, ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM} from '../common/constants';
+import {mbuAPI, MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM, ADD_CLASS, GET_CLASSES} from '../common/constants';
 
 export const getMeritBadges = () => {
     store.dispatch({
         type: MERIT_BADGES,
         payload: http.get(`${mbuAPI}/merit-badges`)
+    });
+};
+
+export const getMeritBadgeByName = (name) => {
+    store.dispatch({
+        type: GET_MERIT_BADGE_BY_NAME,
+        payload: http.get(`${mbuAPI}/merit-badges/${name}`)
     });
 };
 
@@ -31,5 +38,19 @@ export const getClassrooms = () => {
     return store.dispatch({
         type: GET_CLASSROOMS,
         payload: http.get(`${mbuAPI}/classrooms`)
+    });
+};
+
+export const addClass = (mbuClass) => {
+    store.dispatch({
+        type: ADD_CLASS,
+        payload: http.post(`${mbuAPI}/classes`).send(mbuClass)
+    });
+};
+
+export const getClasses = () => {
+    return store.dispatch({
+        type: GET_CLASSES,
+        payload: http.get(`${mbuAPI}/classes`)
     });
 };

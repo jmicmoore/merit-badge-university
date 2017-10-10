@@ -6,6 +6,7 @@ class CheckBox extends React.Component {
     render() {
         const propertyName = this.props.propertyName;
         const hidden = this.props.hidden || false;
+        const checked = !!this.props.propertyValue
 
         if(!hidden){
             return (
@@ -13,7 +14,7 @@ class CheckBox extends React.Component {
                     <label>
                         <input
                             className="input-lg"
-                            checked={this.props.propertyValue}
+                            checked={checked}
                             type="checkbox"
                             id={propertyName}
                             onClick={(event) => {
@@ -31,9 +32,9 @@ class CheckBox extends React.Component {
 
 CheckBox.propTypes = {
     propertyName: PropTypes.string.isRequired,
-    propertyValue: PropTypes.bool.isRequired,
     displayName: PropTypes.string.isRequired,
     changeHandler: PropTypes.func.isRequired,
+    propertyValue: PropTypes.bool,
     hidden: PropTypes.bool,
 };
 

@@ -10,9 +10,13 @@ export const DISTRICTS = 'profile/DISTRICTS';
 export const STATES = 'profile/STATES';
 
 export const MERIT_BADGES = 'admin/MERIT_BADGES';
+export const GET_MERIT_BADGE_BY_NAME = 'admin/GET_MERIT_BADGE_BY_NAME';
 export const ADD_CLASSROOM = 'admin/ADD_CLASSROOM';
 export const GET_CLASSROOMS = 'admin/GET_CLASSROOMS';
 export const DELETE_CLASSROOM = 'admin/DELETE_CLASSROOM';
+
+export const ADD_CLASS = 'admin/ADD_CLASS';
+export const GET_CLASSES = 'admin/GET_CLASSES';
 
 export const CREATE_USER_PROFILE = 'profile/CREATE_USER_PROFILE';
 export const GET_USER_PROFILE = 'profile/GET_USER_PROFILE';
