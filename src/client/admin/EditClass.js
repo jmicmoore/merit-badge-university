@@ -50,10 +50,19 @@ class EditClass extends React.Component {
         event.preventDefault();
         const report = validate(this.state, validationConfig);
         if(report.allValid){
-            // TODO:
-            // save current user as the teacher!!!
+            // TODO: save current user as the teacher!!!
+            const badge = this.props.admin.currentMeritBadge || {};
             const prerequisiteList = this.convertTruePropsToStringArray(this.state.preRequisites);
-            const newClass = Object.assign({}, this.state, {preRequisites: prerequisiteList, counselor: 'Jerry Moore'});
+            const newClass = Object.assign(
+                {},
+                this.state,
+                    {
+                        preRequisites: prerequisiteList,
+                        counselors: ['Jerry Moore', 'Joe Smith'],
+                        numRequirements: badge.requirements.length,
+                        imageUrl: badge.imageUrl
+                    }
+            );
             addClass(newClass);
             this.setState({ displayErrors: false });
         } else {

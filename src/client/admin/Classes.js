@@ -2,16 +2,16 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom'
 import MeritBadgeClass from './MeritBadgeClass';
-import {getMeritBadges} from './adminActions';
+import {getClasses} from './adminActions';
 
-const createMeritBadgeRow = (meritBadgeRow) => {
+const createRow = (row) => {
     return (
         <div className='row'>
             {
-                meritBadgeRow.map(badge => {
+                row.map(mbuClass => {
                     return (
                         <div className="col-sm-3 col-xs-12">
-                            <MeritBadgeClass meritBadge={badge}/>
+                            <MeritBadgeClass key={mbuClass.meritBadge} mbuClass={mbuClass}/>
                         </div>
                     )
                 })
@@ -37,12 +37,12 @@ const create2DArray = (numCols, list) => {
 class Classes extends React.Component {
 
     componentDidMount() {
-        getMeritBadges();
+        getClasses();
     };
 
     render() {
 
-        const meritBadges = create2DArray(4, this.props.meritBadges);
+        const classes = create2DArray(4, this.props.classes);
 
         return (
             <div className="container-fluid">
@@ -59,7 +59,7 @@ class Classes extends React.Component {
                     </div>
                 </div>
                 {
-                    meritBadges.map(meritBadgeRow => createMeritBadgeRow(meritBadgeRow))
+                    classes.map(mbuClass => createRow(mbuClass))
                 }
             </div>
         )

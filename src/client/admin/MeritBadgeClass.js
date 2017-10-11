@@ -14,31 +14,62 @@ class MeritBadgeClass extends React.Component {
     }
 
     render() {
-        const meritBadge = this.props.meritBadge;
+        const mbuClass = this.props.mbuClass;
 
         return (
-            <div className="panel panel-default" key={meritBadge.name}>
+            <div className="panel panel-default">
                 <div className="panel-body">
                     <div className='row'>
                         <div className='col-sm-7'>
-                            <h3>{meritBadge.name}</h3>
+                            <h3>{mbuClass.meritBadge}</h3>
                         </div>
                         <div className='col-sm-5'>
-                            <img src={`${mbuAPI}${meritBadge.imageUrl}`} alt={meritBadge.name} width="100px" height="100px"/>
+                            <img src={`${mbuAPI}${mbuClass.imageUrl}`} alt={mbuClass.name} width="100px" height="100px"/>
                         </div>
                     </div>
                     <div className='row'>
-                        <div className='col-sm-9'>
-                            <h5>{meritBadge.requirements.length} Requirements</h5>
+                        <div className='col-sm-12'>
+                            {mbuClass.numRequirements} Requirements
                         </div>
-                        <div className='col-sm-3'>
+                    </div>
+                    <div className='row'>
+                        <div className='col-sm-8'>
+                            {mbuClass.recommendedLength}
+                        </div>
+                    </div>
+                    <div className='row'>
+                        <div className='col-sm-8'>
+                            {mbuClass.recommendedSize}
+                        </div>
+                    </div>
+                    <div className='row'>
+                        <div className='col-md-offset-7 col-sm-2'>
+                            <button id="addCounselor" onClick={() => {this.handleAddCounselor(meritBadge._id)}}>
+                                <FontAwesome
+                                    style={{ paddingRight : '5px', paddingLeft : '5px', color : 'blue' }}
+                                    name="user"
+                                    title="Add Counselor"
+                                    size="lg"/>
+                            </button>
+                        </div>
+                        <div className='col-sm-2'>
                             <button id="editClass" onClick={() => {this.handleEditClass(meritBadge._id)}}>
                                 <FontAwesome
                                     style={{ paddingRight : '5px', paddingLeft : '5px', color : 'blue' }}
-                                    name="trash"
+                                    name="pencil"
                                     title="Edit Class"
                                     size="lg"/>
                             </button>
+                        </div>
+                    </div>
+                    <div className='row'>
+                        <div className='col-sm-12'>
+                            <strong>Pre-requisites:&nbsp;&nbsp;</strong>{mbuClass.preRequisites.join(', ')}
+                        </div>
+                    </div>
+                    <div className='row'>
+                        <div className='col-sm-12'>
+                            <strong>Counselors:&nbsp;&nbsp;</strong>{mbuClass.counselors.join(', ')}
                         </div>
                     </div>
                 </div>
