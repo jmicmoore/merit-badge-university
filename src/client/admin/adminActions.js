@@ -1,6 +1,6 @@
 import store from '../store';
 import http from 'superagent';
-import {mbuAPI, MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM, ADD_CLASS, GET_CLASSES} from '../common/constants';
+import {mbuAPI, MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM, ADD_CLASS, DELETE_CLASS, GET_CLASSES} from '../common/constants';
 
 export const getMeritBadges = () => {
     store.dispatch({
@@ -45,7 +45,18 @@ export const addClass = (mbuClass) => {
     store.dispatch({
         type: ADD_CLASS,
         payload: http.post(`${mbuAPI}/classes`).send(mbuClass)
-    });
+    }).then(() => {
+        return getClasses();
+    })
+};
+
+export const deleteClass = (classId) => {
+    store.dispatch({
+        type: DELETE_CLASS,
+        payload: http.delete(`${mbuAPI}/classes/${classId}`)
+    }).then(() => {
+        return getClasses();
+    })
 };
 
 export const getClasses = () => {

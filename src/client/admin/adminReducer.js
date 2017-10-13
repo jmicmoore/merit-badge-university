@@ -1,4 +1,4 @@
-import {MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM, ADD_CLASS, GET_CLASSES} from '../common/constants';
+import {MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM, ADD_CLASS, DELETE_CLASS, GET_CLASSES} from '../common/constants';
 
 const INITIAL_STATE = {
     meritBadges: [],
@@ -70,6 +70,15 @@ export const adminReducer = ( state = INITIAL_STATE, action) => {
     }
     if (action.type === `${ADD_CLASS}_REJECTED`) {
         console.log('Error saving new class.');
+    }
+
+
+    if (action.type === `${DELETE_CLASS}_PENDING`) {
+    }
+    if (action.type === `${DELETE_CLASS}_FULFILLED`) {
+    }
+    if (action.type === `${DELETE_CLASS}_REJECTED`) {
+        console.log('Error deleting class.');
     }
 
 

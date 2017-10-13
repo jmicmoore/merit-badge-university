@@ -16,6 +16,7 @@ export const GET_CLASSROOMS = 'admin/GET_CLASSROOMS';
 export const DELETE_CLASSROOM = 'admin/DELETE_CLASSROOM';
 
 export const ADD_CLASS = 'admin/ADD_CLASS';
+export const DELETE_CLASS = 'admin/DELETE_CLASS';
 export const GET_CLASSES = 'admin/GET_CLASSES';
 
 export const CREATE_USER_PROFILE = 'profile/CREATE_USER_PROFILE';

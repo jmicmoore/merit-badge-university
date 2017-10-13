@@ -1,16 +1,17 @@
 import React from 'react';
 import {mbuAPI} from '../common/constants';
 import FontAwesome from 'react-fontawesome';
+import {Link} from 'react-router-dom';
 
 class MeritBadgeClass extends React.Component {
 
     constructor(){
         super();
-        this.handleEditClass = this.handleEditClass.bind(this);
+        this.handleDeleteClass = this.handleDeleteClass.bind(this);
     }
 
-    handleEditClass(){
-        console.log("Edit clicked");
+    handleDeleteClass(mbuClass){
+        this.props.deleteCallback(mbuClass);
     }
 
     render() {
@@ -24,7 +25,7 @@ class MeritBadgeClass extends React.Component {
                             <h3>{mbuClass.meritBadge}</h3>
                         </div>
                         <div className='col-sm-5'>
-                            <img src={`${mbuAPI}${mbuClass.imageUrl}`} alt={mbuClass.name} width="100px" height="100px"/>
+                            <img src={`${mbuAPI}${mbuClass.imageUrl}`} alt={mbuClass.meritBadge} width="100px" height="100px"/>
                         </div>
                     </div>
                     <div className='row'>
@@ -43,23 +44,21 @@ class MeritBadgeClass extends React.Component {
                         </div>
                     </div>
                     <div className='row'>
-                        <div className='col-md-offset-7 col-sm-2'>
-                            <button id="addCounselor" onClick={() => {this.handleAddCounselor(meritBadge._id)}}>
+                        <div className='col-md-offset-8 col-sm-4'>
+                            <Link to="/admin/edit-class">
                                 <FontAwesome
-                                    style={{ paddingRight : '5px', paddingLeft : '5px', color : 'blue' }}
-                                    name="user"
-                                    title="Add Counselor"
-                                    size="lg"/>
-                            </button>
-                        </div>
-                        <div className='col-sm-2'>
-                            <button id="editClass" onClick={() => {this.handleEditClass(meritBadge._id)}}>
-                                <FontAwesome
-                                    style={{ paddingRight : '5px', paddingLeft : '5px', color : 'blue' }}
+                                    style={{ paddingRight : '5px', paddingLeft : '5px', color : 'darkblue' }}
                                     name="pencil"
                                     title="Edit Class"
-                                    size="lg"/>
-                            </button>
+                                    size="2x"/>
+                            </Link>
+                            <a href='#' onClick={() => {this.handleDeleteClass(mbuClass);}}>
+                                <FontAwesome
+                                    style={{ paddingRight : '5px', paddingLeft : '5px', color : 'darkred' }}
+                                    name="trash"
+                                    title="Delete Class"
+                                    size="2x"/>
+                            </a>
                         </div>
                     </div>
                     <div className='row'>

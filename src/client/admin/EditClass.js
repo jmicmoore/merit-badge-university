@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 import update from 'immutability-helper';
 import {Table} from 'react-bootstrap';
 import TextField from '../common/components/TextField';
@@ -65,6 +66,7 @@ class EditClass extends React.Component {
             );
             addClass(newClass);
             this.setState({ displayErrors: false });
+            this.props.history.push('/admin/classes'); // go back to classes screen
         } else {
             this.setState({ displayErrors: true });
         }
@@ -209,4 +211,4 @@ const mapStateToProps = ({reference, admin}) => {
     return {reference, admin};
 };
 
-export default connect(mapStateToProps)(EditClass);
+export default withRouter(connect(mapStateToProps)(EditClass));
