@@ -14,6 +14,14 @@ class MeritBadgeClass extends React.Component {
         this.props.deleteCallback(mbuClass);
     }
 
+    showEagle(eagleRequired){
+        if(eagleRequired){
+            return (<img src={`${mbuAPI}/images/EagleRequired.png`} alt='Eagle' width="30px" height="30px" />);
+        } else {
+            return null;
+        }
+    }
+
     render() {
         const mbuClass = this.props.mbuClass;
 
@@ -21,10 +29,13 @@ class MeritBadgeClass extends React.Component {
             <div className="panel panel-default">
                 <div className="panel-body">
                     <div className='row'>
-                        <div className='col-sm-7'>
-                            <h3>{mbuClass.meritBadge}</h3>
+                        <div className='col-sm-1'>
+                            {this.showEagle(mbuClass.eagleRequired)}
                         </div>
-                        <div className='col-sm-5'>
+                        <div className='col-sm-6'>
+                            <h4>{mbuClass.meritBadge}</h4>
+                        </div>
+                        <div className='col-sm-4'>
                             <img src={`${mbuAPI}${mbuClass.imageUrl}`} alt={mbuClass.meritBadge} width="100px" height="100px"/>
                         </div>
                     </div>

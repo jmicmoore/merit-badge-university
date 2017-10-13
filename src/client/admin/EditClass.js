@@ -58,6 +58,7 @@ class EditClass extends React.Component {
                 {},
                 this.state,
                     {
+                        eagleRequired: badge.eagleRequired,
                         preRequisites: prerequisiteList,
                         counselors: ['Jerry Moore', 'Joe Smith'],
                         numRequirements: badge.requirements.length,

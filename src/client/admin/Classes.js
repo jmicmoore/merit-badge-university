@@ -84,11 +84,11 @@ class Classes extends React.Component {
                         <h1>Classes</h1>
                     </div>
                     <div className="col-sm-2 col-xs-12">
-                        <button id="addNewClass" type="button" className="btn btn-success btn-lg btn-block" aria-label="Left Align">
-                            <Link to={`/admin/edit-class`}>
+                        <Link to={`/admin/edit-class`}>
+                            <button id="addNewClass" type="button" className="btn btn-success btn-lg btn-block" aria-label="Left Align">
                                 Add New
-                            </Link>
-                        </button>
+                            </button>
+                        </Link>
                     </div>
                 </div>
                 {
