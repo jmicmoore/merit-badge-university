@@ -22,7 +22,7 @@ class RegisterCounselor extends React.Component {
                 state: '',
                 zip: '',
                 phone: '',
-                contactMethod: '',
+                contactMethods: [],
                 youthProtectionTrained: false,
                 ypTrainingDate: '',
                 timeAvailable: '',
@@ -52,6 +52,7 @@ class RegisterCounselor extends React.Component {
 
         const counselorInfo = Object.assign({}, this.state.counselorInfo);
         counselorInfo.meritBadges = counselorInfo.meritBadges.map(badge => {return(badge.value)});
+        counselorInfo.contactMethods = counselorInfo.contactMethods.map(method => {return(method.value)});
 
         const report = validate(counselorInfo, validationConfig);
         if(report.allValid){
@@ -127,11 +128,11 @@ class RegisterCounselor extends React.Component {
                                             <div className="col-sm-6 col-xs-12">
                                                 <TextField propertyName='email' disabled={true} inputType='email' propertyValue={email} displayName='Email address'/>
                                             </div>
-                                            <div className="col-sm-3 col-xs-12">
-                                                <TextField propertyName='phone' propertyValue={counselorInfo.phone} displayName='Cell Number' placeholder='(XXX) XXX-XXXX' errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                            <div className="col-sm-2 col-xs-12">
+                                                <TextField propertyName='phone' propertyValue={counselorInfo.phone} displayName='Cell Number' placeholder='XXX-XXX-XXXX' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
-                                            <div className="col-sm-3 col-xs-12">
-                                                <SingleSelect propertyName='contactMethod' propertyValue={counselorInfo.contactMethod} displayName='Preferred Contact Method' options={contactChoices} errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                            <div className="col-sm-4 col-xs-12">
+                                                <MultiSelect propertyName='contactMethods' propertyValue={counselorInfo.contactMethods} displayName='Preferred Contact Method' options={contactChoices} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-3 col-xs-12">

@@ -33,9 +33,9 @@ const config = {
             message: 'Please provide a valid cell number.  Ex: (314) 333-4444'
         }
     ],
-    contactMethod: {
+    contactMethods: {
         type: REQUIRED,
-        message: 'Please provide your preferred contact method.'
+        message: 'Please provide your preferred contact methods in order.'
     },
     ypTrainingDate: [
         {
