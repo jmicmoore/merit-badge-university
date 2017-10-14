@@ -8,6 +8,7 @@ import TextField from '../common/components/TextField';
 import TextArea from "../common/components/TextArea";
 import SingleSelect from '../common/components/SingleSelect';
 import CheckBox from '../common/components/CheckBox';
+import SimpleList from '../common/components/SimpleList';
 import {getMeritBadgeNames} from '../common/redux/referenceActions';
 import {getMeritBadgeByName, addClass} from './adminActions';
 import {validate} from '../common/util/validation';
@@ -22,16 +23,34 @@ class EditClass extends React.Component {
             recommendedLength: '',
             recommendedSize: '',
             notes: '',
+            counselors: ['Joe Smith'],
             preRequisites: {}
         };
         this.handleChange = this.handleChange.bind(this);
         this.handlePreReqChange = this.handlePreReqChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleAddMe = this.handleAddMe.bind(this);
+        this.handleRemoveMe = this.handleRemoveMe.bind(this);
     }
 
     componentDidMount() {
         getMeritBadgeNames();
     };
+
+    handleAddMe(){
+        const newCounselors = this.state.counselors.slice();
+        newCounselors.push("Jerry Moore");
+        this.setState({counselors: newCounselors});
+    }
+
+    handleRemoveMe(){
+        const index = this.state.counselors.indexOf("Jerry Moore");
+        let newCounselors = this.state.counselors.slice();
+        if(index !== -1){
+            newCounselors.splice(index, 1);
+        }
+        this.setState({counselors: newCounselors})
+    }
 
     handlePreReqChange(field, value) {
         const newState = update(this.state, {preRequisites: {[field]: {$set: value}}});
@@ -51,7 +70,6 @@ class EditClass extends React.Component {
         event.preventDefault();
         const report = validate(this.state, validationConfig);
         if(report.allValid){
-            // TODO: save current user as the teacher!!!
             const badge = this.props.admin.currentMeritBadge || {};
             const prerequisiteList = this.convertTruePropsToStringArray(this.state.preRequisites);
             const newClass = Object.assign(
@@ -60,7 +78,6 @@ class EditClass extends React.Component {
                     {
                         eagleRequired: badge.eagleRequired,
                         preRequisites: prerequisiteList,
-                        counselors: ['Jerry Moore', 'Joe Smith'],
                         numRequirements: badge.requirements.length,
                         imageUrl: badge.imageUrl
                     }
@@ -155,6 +172,12 @@ class EditClass extends React.Component {
 
         const prerequisiteList = this.convertTruePropsToStringArray(this.state.preRequisites).join(', ');
 
+        const index = this.state.counselors.indexOf("Jerry Moore");
+        let teachingAlready = false;
+        if(index !== -1){
+            teachingAlready = true;
+        }
+
         return (
             <div className="container">
                 <div className="row">
@@ -172,8 +195,23 @@ class EditClass extends React.Component {
                                 <SingleSelect propertyName='recommendedSize' propertyValue={classInfo.recommendedSize} displayName='Recommended Number of Students' options={recommendedSizeChoices} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                             </div>
                             <div className="clearfix"></div>
-                            <div className="col-sm-12 col-xs-12">
+                            <div className="col-sm-8 col-xs-12">
                                 <TextArea propertyName='notes' propertyValue={classInfo.notes} displayName='Notes' errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                            </div>
+                            <div className="col-sm-4 col-xs-12">
+                                <div className="row">
+                                    <div className="col-sm-12 col-xs-12">
+                                        <SimpleList propertyName='counselors' displayName='Counselors' dataList={classInfo.counselors}/>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-sm-3 col-xs-12">
+                                        <button type="button" className="btn btn-sm" disabled={teachingAlready} onClick={this.handleAddMe}>Add Me</button>
+                                    </div>
+                                    <div className="col-sm-3 col-xs-12">
+                                        <button type="button" className="btn btn-sm" onClick={this.handleRemoveMe}>Remove Me</button>
+                                    </div>
+                                </div>
                             </div>
                             <div className="clearfix"></div>
 
@@ -182,7 +220,7 @@ class EditClass extends React.Component {
                                 <TextField disabled={true} propertyName='prerequisiteList' propertyValue={prerequisiteList} displayName='Pre-Requisites'/>
                             </div>
                             <div className="col-sm-offset-4 col-sm-2 col-xs-12 pull-right">
-                                <button className="btn btn-success btn-lg btn-block">Save</button>
+                                <button type="submit" className="btn btn-success btn-lg btn-block">Save</button>
                             </div>
                             <div className="clearfix"></div>
 

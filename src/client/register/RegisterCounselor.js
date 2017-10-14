@@ -158,7 +158,7 @@ class RegisterCounselor extends React.Component {
                                             <div className="clearfix"></div>
 
                                             <div className="col-sm-offset-10 col-sm-2 col-xs-12">
-                                                <button className="btn btn-success btn-lg btn-block">Submit</button>
+                                                <button type="submit" className="btn btn-success btn-lg btn-block">Submit</button>
                                             </div>
                                         </form>
                                     </div>

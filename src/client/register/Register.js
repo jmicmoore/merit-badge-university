@@ -126,7 +126,7 @@ class Register extends React.Component {
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-offset-4 col-sm-4 col-xs-12">
-                                                <button className="btn btn-success btn-lg btn-block"> Register </button>
+                                                <button type="submit" className="btn btn-success btn-lg btn-block"> Register </button>
                                             </div>
                                         </form>
                                     </div>
