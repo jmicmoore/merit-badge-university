@@ -1,10 +1,10 @@
-import {MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM, ADD_CLASS, DELETE_CLASS, GET_CLASSES} from '../common/constants';
+import {MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM, ADD_COURSE, DELETE_COURSE, GET_COURSES} from '../common/constants';
 
 const INITIAL_STATE = {
     meritBadges: [],
     currentMeritBadge: null,
     classrooms: [],
-    classes: []
+    courses: []
 };
 
 export const adminReducer = ( state = INITIAL_STATE, action) => {
@@ -64,33 +64,33 @@ export const adminReducer = ( state = INITIAL_STATE, action) => {
     }
 
 
-    if (action.type === `${ADD_CLASS}_PENDING`) {
+    if (action.type === `${ADD_COURSE}_PENDING`) {
     }
-    if (action.type === `${ADD_CLASS}_FULFILLED`) {
+    if (action.type === `${ADD_COURSE}_FULFILLED`) {
     }
-    if (action.type === `${ADD_CLASS}_REJECTED`) {
-        console.log('Error saving new class.');
-    }
-
-
-    if (action.type === `${DELETE_CLASS}_PENDING`) {
-    }
-    if (action.type === `${DELETE_CLASS}_FULFILLED`) {
-    }
-    if (action.type === `${DELETE_CLASS}_REJECTED`) {
-        console.log('Error deleting class.');
+    if (action.type === `${ADD_COURSE}_REJECTED`) {
+        console.log('Error saving new course.');
     }
 
 
-    if (action.type === `${GET_CLASSES}_PENDING`) {
-        newState.classes = [];
+    if (action.type === `${DELETE_COURSE}_PENDING`) {
     }
-    if (action.type === `${GET_CLASSES}_FULFILLED`) {
-        newState.classes = action.payload.body;
+    if (action.type === `${DELETE_COURSE}_FULFILLED`) {
     }
-    if (action.type === `${GET_CLASSES}_REJECTED`) {
-        console.log('Error getting classes.');
-        newState.classes = [];
+    if (action.type === `${DELETE_COURSE}_REJECTED`) {
+        console.log('Error deleting course.');
+    }
+
+
+    if (action.type === `${GET_COURSES}_PENDING`) {
+        newState.courses = [];
+    }
+    if (action.type === `${GET_COURSES}_FULFILLED`) {
+        newState.courses = action.payload.body;
+    }
+    if (action.type === `${GET_COURSES}_REJECTED`) {
+        console.log('Error getting courses.');
+        newState.courses = [];
     }
 
 

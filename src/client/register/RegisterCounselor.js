@@ -10,6 +10,18 @@ import {validate} from '../common/util/validation';
 import validationConfig from './RegisterCounselorValidationConfig';
 import MultiSelect from "../common/components/MultiSelect";
 
+const contactChoices = [
+    {value: 'Text', label: 'Text'},
+    {value: 'Phone', label: 'Phone'},
+    {value: 'Email', label: 'E-mail'}
+];
+const availabilityChoices = [
+    {value: 'MorningOnly', label: 'Morning Only'},
+    {value: 'AfternoonOnly', label: 'Afternoon Only'},
+    {value: 'AllDay', label: 'All Day'}
+];
+const courseNumberChoices = ['1','2','3','4','5','6','7'].map( item => {return({value: item, label: item})});
+
 
 class RegisterCounselor extends React.Component {
 
@@ -26,7 +38,7 @@ class RegisterCounselor extends React.Component {
                 youthProtectionTrained: false,
                 ypTrainingDate: '',
                 timeAvailable: '',
-                maxNumberOfClasses: '',
+                maxNumberOfCourses: '',
                 meritBadges: []
             },
             errorReport: null,
@@ -75,17 +87,6 @@ class RegisterCounselor extends React.Component {
         const counselorInfo = this.state.counselorInfo;
 
         const stateChoices = this.props.register.states.map(state => {return ({value: state.abbreviation, label: state.name})});
-        const contactChoices = [
-            {value: 'Text', label: 'Text'},
-            {value: 'Phone', label: 'Phone'},
-            {value: 'Email', label: 'E-mail'}
-        ];
-        const availabilityChoices = [
-            {value: 'MorningOnly', label: 'Morning Only'},
-            {value: 'AfternoonOnly', label: 'Afternoon Only'},
-            {value: 'AllDay', label: 'All Day'}
-        ];
-        const numClassChoices = ['1','2','3','4','5','6','7'].map( item => {return({value: item, label: item})});
         const meritBadgeChoices = this.props.reference
             ? this.props.reference.meritBadgeNames.map( item => {return({value: item.name, label: item.name})})
             : [];
@@ -154,7 +155,7 @@ class RegisterCounselor extends React.Component {
                                                 <SingleSelect propertyName='timeAvailable' propertyValue={counselorInfo.timeAvailable} displayName='I am available' options={availabilityChoices} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="col-sm-5 col-xs-12">
-                                                <SingleSelect propertyName='maxNumberOfClasses' propertyValue={counselorInfo.maxNumberOfClasses} displayName="I'm willing to teach this many classes" options={numClassChoices} errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                                <SingleSelect propertyName='maxNumberOfCourses' propertyValue={counselorInfo.maxNumberOfCourses} displayName="I'm willing to teach this many courses" options={courseNumberChoices} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="clearfix"></div>
 

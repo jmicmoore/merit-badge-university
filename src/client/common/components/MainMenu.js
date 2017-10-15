@@ -37,7 +37,7 @@ class MainMenu extends React.Component {
                             <li className="dropdown">
                                 <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Counselor<span className="caret"></span></a>
                                 <ul className="dropdown-menu">
-                                    <li><Link to="/admin/classes">Setup Classes</Link></li>
+                                    <li><Link to="/admin/courses">Setup Courses</Link></li>
                                 </ul>
                             </li>
                         </ul>

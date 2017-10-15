@@ -53,9 +53,9 @@ const config = {
         type: REQUIRED,
         message: 'Please provide your availability.'
     },
-    maxNumberOfClasses: {
+    maxNumberOfCourses: {
         type: REQUIRED,
-        message: 'Please provide how many classes you can teach.'
+        message: 'Please provide how many courses you can teach.'
     },
     meritBadges: [
         {

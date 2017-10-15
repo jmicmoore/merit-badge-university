@@ -10,11 +10,11 @@ import SingleSelect from '../common/components/SingleSelect';
 import CheckBox from '../common/components/CheckBox';
 import SimpleList from '../common/components/SimpleList';
 import {getMeritBadgeNames} from '../common/redux/referenceActions';
-import {getMeritBadgeByName, addClass} from './adminActions';
+import {getMeritBadgeByName, addCourse} from './adminActions';
 import {validate} from '../common/util/validation';
 import validationConfig from './ClassValidationConfig';
 
-class EditClass extends React.Component {
+class EditCourse extends React.Component {
 
     constructor(){
         super();
@@ -82,9 +82,9 @@ class EditClass extends React.Component {
                         imageUrl: badge.imageUrl
                     }
             );
-            addClass(newClass);
+            addCourse(newClass);
             this.setState({ displayErrors: false });
-            this.props.history.push('/admin/classes'); // go back to classes screen
+            this.props.history.push('/admin/courses'); // go back to courses screen
         } else {
             this.setState({ displayErrors: true });
         }
@@ -250,4 +250,4 @@ const mapStateToProps = ({reference, admin}) => {
     return {reference, admin};
 };
 
-export default withRouter(connect(mapStateToProps)(EditClass));
+export default withRouter(connect(mapStateToProps)(EditCourse));

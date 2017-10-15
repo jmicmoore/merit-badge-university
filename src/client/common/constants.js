@@ -15,9 +15,9 @@ export const ADD_CLASSROOM = 'admin/ADD_CLASSROOM';
 export const GET_CLASSROOMS = 'admin/GET_CLASSROOMS';
 export const DELETE_CLASSROOM = 'admin/DELETE_CLASSROOM';
 
-export const ADD_CLASS = 'admin/ADD_CLASS';
-export const DELETE_CLASS = 'admin/DELETE_CLASS';
-export const GET_CLASSES = 'admin/GET_CLASSES';
+export const ADD_COURSE = 'admin/ADD_COURSE';
+export const DELETE_COURSE = 'admin/DELETE_COURSE';
+export const GET_COURSES = 'admin/GET_COURSE';
 
 export const CREATE_USER_PROFILE = 'profile/CREATE_USER_PROFILE';
 export const GET_USER_PROFILE = 'profile/GET_USER_PROFILE';

@@ -1,6 +1,6 @@
 import store from '../store';
 import http from 'superagent';
-import {mbuAPI, MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM, ADD_CLASS, DELETE_CLASS, GET_CLASSES} from '../common/constants';
+import {mbuAPI, MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM, ADD_COURSE, DELETE_COURSE, GET_COURSES} from '../common/constants';
 
 export const getMeritBadges = () => {
     store.dispatch({
@@ -41,27 +41,27 @@ export const getClassrooms = () => {
     });
 };
 
-export const addClass = (mbuClass) => {
+export const addCourse = (course) => {
     store.dispatch({
-        type: ADD_CLASS,
-        payload: http.post(`${mbuAPI}/classes`).send(mbuClass)
+        type: ADD_COURSE,
+        payload: http.post(`${mbuAPI}/courses`).send(course)
     }).then(() => {
-        return getClasses();
+        return getCourses();
     })
 };
 
-export const deleteClass = (classId) => {
+export const deleteCourse = (courseId) => {
     store.dispatch({
-        type: DELETE_CLASS,
-        payload: http.delete(`${mbuAPI}/classes/${classId}`)
+        type: DELETE_COURSE,
+        payload: http.delete(`${mbuAPI}/courses/${courseId}`)
     }).then(() => {
-        return getClasses();
+        return getCourses();
     })
 };
 
-export const getClasses = () => {
+export const getCourses = () => {
     return store.dispatch({
-        type: GET_CLASSES,
-        payload: http.get(`${mbuAPI}/classes`)
+        type: GET_COURSES,
+        payload: http.get(`${mbuAPI}/courses`)
     });
 };
