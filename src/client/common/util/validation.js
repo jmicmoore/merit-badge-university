@@ -11,21 +11,15 @@ export const DATE = 'validation/date';
 export const ARRAY_MAX = 'validation/array_max';
 
 const isEmpty = (str) => {
-    return _.isEmpty(str);
+    return !str || str === '';
 };
 
 const isEmail = (str) => {
-    if(isEmpty(str)){
-        return true;
-    }
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(str);
 };
 
 const isPassword = (str) => {
-    if(isEmpty(str)){
-        return true;
-    }
     return pwdValidation.isPassword(str);
 };
 
@@ -40,17 +34,14 @@ const isZipCode = (str) => {
 };
 
 // Tests between 1900 and 2099
-function isDate(str) {
-    const re = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/ ;
+const isDate = (str) => {
+    const re = /^(0[1-9]|1[0-2])[\/-](0[1-9]|1\d|2\d|3[01])[\/-](19|20)\d{2}$/ ;
     return re.test(str);
-}
+};
 
-function isArrayWithinMax(array, max){
-    if(isEmpty(array)){
-        return true;
-    }
+const isArrayWithinMax = (array, max) => {
     return array.length <= max;
-}
+};
 
 const areFieldsSame = (object, fieldConfig) => {
     if(isEmpty(object[fieldConfig.firstField]) || isEmpty(object[fieldConfig.secondField])){
@@ -66,27 +57,37 @@ const getValidationMessagesForField = (objectToValidate, value, fieldConfigs) =>
         }
         const type = config.type;
 
-        if(type === REQUIRED){
-            return isEmpty(value) ? config.message : '';
-        } else if(type === EMAIL) {
-            return !isEmail(value) ? config.message : '';
-        } else if(type === PHONE) {
-            return !isPhoneNumber(value) ? config.message : '';
-        } else if(type === ZIP) {
-            return !isZipCode(value) ? config.message : '';
-        } else if(type === DATE) {
-            return !isDate(value) ? config.message : '';
-        } else if(type === PASSWORD){
-            return !isPassword(value) ? config.message : '';
-        } else if(type === SAME){
-            return !areFieldsSame(objectToValidate, config) ? config.message : '';
-        } else if(type === ARRAY_MAX){
-            return !isArrayWithinMax(value, config.max) ? config.message : '';
+        if(!config.message){
+            throw "Programmer error: validation config missing message!!!";
+        }
+
+        const isRequired = !config.isOptional || !config.isOptional(objectToValidate);
+
+        if(isRequired){
+            if(type === REQUIRED) {
+                return isEmpty(value) ? config.message : '';
+            } else if(type === EMAIL) {
+                return !isEmail(value) ? config.message : '';
+            } else if(type === PHONE) {
+                return !isPhoneNumber(value) ? config.message : '';
+            } else if(type === ZIP) {
+                return !isZipCode(value) ? config.message : '';
+            } else if(type === DATE) {
+                return !isDate(value) ? config.message : '';
+            } else if(type === PASSWORD){
+                return !isPassword(value) ? config.message : '';
+            } else if(type === SAME){
+                return !areFieldsSame(objectToValidate, config) ? config.message : '';
+            } else if(type === ARRAY_MAX){
+                return !isArrayWithinMax(value, config.max) ? config.message : '';
+            }
+        } else {
+            return '';
         }
     });
 };
 
-module.exports.validate = (objectToValidate, validationConfig) => {
+const validate = (objectToValidate, validationConfig) => {
     const fields = _.keys(validationConfig);
 
     const fieldResults = fields.map( field => {
@@ -114,7 +115,7 @@ module.exports.validate = (objectToValidate, validationConfig) => {
     return report;
 };
 
-module.exports.convertErrorToReport = (errorMessage, fieldName) => {
+const convertErrorToReport = (errorMessage, fieldName) => {
     if(!errorMessage){
         return null;
     }
@@ -130,7 +131,7 @@ module.exports.convertErrorToReport = (errorMessage, fieldName) => {
     };
 };
 
-module.exports.getErrorMessageForField = (validationReport, fieldName) => {
+const getErrorMessageForField = (validationReport, fieldName) => {
     if(isEmpty(validationReport)){
         return null;
     }
@@ -138,43 +139,14 @@ module.exports.getErrorMessageForField = (validationReport, fieldName) => {
     return result ? result.message : null;
 };
 
-module.exports.isValid = (objectToValidate, validationConfig) => {
-    const fields = _.keys(validationConfig);
+const isValid = (objectToValidate, validationConfig) => {
 
-    const result = _.reduce(fields, (valid, field) => {
-        const value = objectToValidate[field];
-        let fieldConfigs = validationConfig[field];
+    const report = validate(objectToValidate, validationConfig);
+    return report.allValid;
 
-        if(!Array.isArray(fieldConfigs)){
-            fieldConfigs = [fieldConfigs];
-        }
-
-        const fieldResult = _.reduce(fieldConfigs, (fieldValid, fieldConfig) => {
-            if(!fieldConfig.type){
-                throw 'Invalid configuration:  Missing type for "' + field + '".';
-            }
-
-            if(fieldConfig.type === REQUIRED){
-                return fieldValid && !isEmpty(value);
-            } else if(fieldConfig.type === EMAIL) {
-                return fieldValid && isEmail(value);
-            } else if(fieldConfig.type === PHONE) {
-                return fieldValid && isPhoneNumber(value);
-            } else if(fieldConfig.type === ZIP) {
-                return fieldValid && isZipCode(value);
-            } else if(fieldConfig.type === DATE) {
-                return fieldValid && isDate(value);
-            } else if(fieldConfig.type === PASSWORD){
-                return fieldValid && isPassword(value);
-            } else if(fieldConfig.type === SAME){
-                return fieldValid && areFieldsSame(objectToValidate, fieldConfig);
-            } else if(fieldConfig.type === ARRAY_MAX){
-                return fieldValid && isArrayWithinMax(value, fieldConfig.max);
-            }
-        }, true);
-
-        return valid && fieldResult;
-
-    }, true);
-    return result;
 };
+
+module.exports.validate = validate;
+module.exports.convertErrorToReport = convertErrorToReport;
+module.exports.getErrorMessageForField = getErrorMessageForField;
+module.exports.isValid = isValid;
