@@ -1,10 +1,15 @@
-import {MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM, ADD_COURSE, DELETE_COURSE, GET_COURSES} from '../common/constants';
+import {
+    MERIT_BADGES, GET_MERIT_BADGE_BY_NAME,
+    ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM,
+    UPDATE_COURSE, DELETE_COURSE, GET_COURSES, GET_COURSE_BY_ID, RESET_CURRENT_COURSE, RESET_CURRENT_MERIT_BADGE
+} from '../common/constants';
 
 const INITIAL_STATE = {
     meritBadges: [],
-    currentMeritBadge: null,
     classrooms: [],
-    courses: []
+    courses: [],
+    currentMeritBadge: null,
+    currentCourse: null
 };
 
 export const adminReducer = ( state = INITIAL_STATE, action) => {
@@ -64,12 +69,12 @@ export const adminReducer = ( state = INITIAL_STATE, action) => {
     }
 
 
-    if (action.type === `${ADD_COURSE}_PENDING`) {
+    if (action.type === `${UPDATE_COURSE}_PENDING`) {
     }
-    if (action.type === `${ADD_COURSE}_FULFILLED`) {
+    if (action.type === `${UPDATE_COURSE}_FULFILLED`) {
     }
-    if (action.type === `${ADD_COURSE}_REJECTED`) {
-        console.log('Error saving new course.');
+    if (action.type === `${UPDATE_COURSE}_REJECTED`) {
+        console.log('Error updating course.');
     }
 
 
@@ -91,6 +96,28 @@ export const adminReducer = ( state = INITIAL_STATE, action) => {
     if (action.type === `${GET_COURSES}_REJECTED`) {
         console.log('Error getting courses.');
         newState.courses = [];
+    }
+
+
+    if (action.type === `${GET_COURSE_BY_ID}_PENDING`) {
+        newState.currentCourse = null;
+    }
+    if (action.type === `${GET_COURSE_BY_ID}_FULFILLED`) {
+        newState.currentCourse = action.payload.body;
+    }
+    if (action.type === `${GET_COURSE_BY_ID}_REJECTED`) {
+        console.log('Error getting course by id.');
+        newState.currentCourse = null;
+    }
+
+
+    if (action.type === RESET_CURRENT_COURSE) {
+        newState.currentCourse = null;
+    }
+
+
+    if (action.type === RESET_CURRENT_MERIT_BADGE) {
+        newState.currentMeritBadge = null;
     }
 
 

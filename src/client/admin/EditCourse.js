@@ -10,22 +10,40 @@ import SingleSelect from '../common/components/SingleSelect';
 import CheckBox from '../common/components/CheckBox';
 import SimpleList from '../common/components/SimpleList';
 import {getMeritBadgeNames} from '../common/redux/referenceActions';
-import {getMeritBadgeByName, addCourse} from './adminActions';
+import {getMeritBadgeByName, updateCourse, getCourseById, resetCurrentCourse, resetCurrentMeritBadge} from './adminActions';
 import {validate} from '../common/util/validation';
 import validationConfig from './ClassValidationConfig';
+
+const recommendedLengthChoices = [
+    {value: '1 hour', label: '1 hour'},
+    {value: '2 hours', label: '2 hours'},
+    {value: '3 hours', label: '3 hours'},
+    {value: '4 hours', label: '4 hours'},
+    {value: 'more than 4 hours', label: 'more than 4 hours'}
+];
+
+const recommendedSizeChoices = [
+    {value: '2-6 students', label: '2-6 students'},
+    {value: '4-8 students', label: '4-8 students'},
+    {value: '6-12 students', label: '6-12 students'},
+    {value: '10-20 students', label: '10-20 students'},
+    {value: 'more than 20 students', label: 'more than 20 students'}
+];
+
+const INITIAL_STATE = {
+    meritBadge: '',
+    recommendedLength: '',
+    recommendedSize: '',
+    notes: '',
+    counselors: ['Joe Smith'],
+    preRequisites: {}
+};
 
 class EditCourse extends React.Component {
 
     constructor(){
         super();
-        this.state = {
-            meritBadge: '',
-            recommendedLength: '',
-            recommendedSize: '',
-            notes: '',
-            counselors: ['Joe Smith'],
-            preRequisites: {}
-        };
+        this.state = INITIAL_STATE;
         this.handleChange = this.handleChange.bind(this);
         this.handlePreReqChange = this.handlePreReqChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,6 +53,26 @@ class EditCourse extends React.Component {
 
     componentDidMount() {
         getMeritBadgeNames();
+        if(this.props.match.params.courseId){
+            getCourseById(this.props.match.params.courseId);
+        }
+    };
+
+    componentWillUnmount(){
+        resetCurrentCourse();
+        resetCurrentMeritBadge();
+    }
+
+    currentCourseIsChanging(nextProps){
+        return nextProps.admin.currentCourse !== this.props.admin.currentCourse;
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(this.currentCourseIsChanging(nextProps)){
+            const courseLocalCopy = Object.assign({}, nextProps.admin.currentCourse);
+            courseLocalCopy.preRequisites = this.convertStringArrayToTrueObjectProps(courseLocalCopy.preRequisites);
+            this.setState(courseLocalCopy);
+        }
     };
 
     handleAddMe(){
@@ -71,7 +109,7 @@ class EditCourse extends React.Component {
         const report = validate(this.state, validationConfig);
         if(report.allValid){
             const badge = this.props.admin.currentMeritBadge || {};
-            const prerequisiteList = this.convertTruePropsToStringArray(this.state.preRequisites);
+            const prerequisiteList = this.convertTrueObjectPropsToStringArray(this.state.preRequisites);
             const newClass = Object.assign(
                 {},
                 this.state,
@@ -82,7 +120,7 @@ class EditCourse extends React.Component {
                         imageUrl: badge.imageUrl
                     }
             );
-            addCourse(newClass);
+            updateCourse(newClass);
             this.setState({ displayErrors: false });
             this.props.history.push('/admin/courses'); // go back to courses screen
         } else {
@@ -96,7 +134,7 @@ class EditCourse extends React.Component {
         return (
             <tr key={`${req.number}${sub.part}`}>
                 <td>
-                    <CheckBox propertyName={`item_${req.number}${sub.part}`} propertyValue={this.state.preRequisites[`item_${req.number}${sub.part}`]}
+                    <CheckBox key={req.number + sub.part} propertyName={`item_${req.number}${sub.part}`} propertyValue={this.state.preRequisites[`item_${req.number}${sub.part}`]}
                               displayName=''
                               changeHandler={this.handlePreReqChange}/>
                 </td>
@@ -109,7 +147,7 @@ class EditCourse extends React.Component {
 
     showRequirement(req){
         const checkbox = req.subRequirements.length === 0
-            ? <CheckBox propertyName={`item_${req.number}`} propertyValue={this.state.preRequisites[`item_${req.number}`]}
+            ? <CheckBox key={req.number} propertyName={`item_${req.number}`} propertyValue={this.state.preRequisites[`item_${req.number}`]}
                         displayName=''
                         changeHandler={this.handlePreReqChange}/>
             : null;
@@ -125,42 +163,7 @@ class EditCourse extends React.Component {
         );
     };
 
-    convertTruePropsToStringArray(preRequisites){
-        const truePreReqs = [];
-        _.forOwn(preRequisites, function(checked, preReq) {
-            if(checked){
-                truePreReqs.push(preReq);
-            }
-        });
-        return _.map(truePreReqs, preReq => preReq.replace('item_', ''));
-    }
-
-    render(){
-
-        const recommendedLengthChoices = [
-            {value: '1 hour', label: '1 hour'},
-            {value: '2 hours', label: '2 hours'},
-            {value: '3 hours', label: '3 hours'},
-            {value: '4 hours', label: '4 hours'},
-            {value: 'more than 4 hours', label: 'more than 4 hours'}
-        ];
-
-        const recommendedSizeChoices = [
-            {value: '2-6 students', label: '2-6 students'},
-            {value: '4-8 students', label: '4-8 students'},
-            {value: '6-12 students', label: '6-12 students'},
-            {value: '10-20 students', label: '10-20 students'},
-            {value: 'more than 20 students', label: 'more than 20 students'}
-        ];
-
-        const meritBadgeChoices = this.props.reference.meritBadgeNames.map( item => {return({value: item.name, label: item.name})});
-
-        const classInfo = this.state;
-
-        const requirements = (
-            this.props.admin
-            && this.props.admin.currentMeritBadge
-            && this.props.admin.currentMeritBadge.requirements) || [];
+    showAllRequirements(requirements){
 
         const requirementList = [];
         _.each(requirements, req => {
@@ -170,7 +173,55 @@ class EditCourse extends React.Component {
             );
         });
 
-        const prerequisiteList = this.convertTruePropsToStringArray(this.state.preRequisites).join(', ');
+        if(requirementList.length > 0){
+            return (
+                <Table striped bordered condensed hover>
+                    <thead>
+                    <tr>
+                        <th>Pre-Requisite</th>
+                        <th>Requirement</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {
+                        requirementList
+                    }
+                    </tbody>
+                </Table>
+            );
+        } else {
+            return null;
+        }
+    };
+
+    convertTrueObjectPropsToStringArray(object){
+        const trueObjectProps = [];
+        _.forOwn(object, function(value, field) {
+            if(value){
+                trueObjectProps.push(field);
+            }
+        });
+        return _.map(trueObjectProps, preReq => preReq.replace('item_', '')).sort();
+    }
+
+    convertStringArrayToTrueObjectProps(array){
+        const itemArray = _.map(array, item => `item_${item}`);
+        const trueObjectProps = {};
+        itemArray.forEach( item => trueObjectProps[item] = true);
+        return trueObjectProps;
+    }
+
+    render(){
+
+        const meritBadgeChoices = this.props.reference.meritBadgeNames.map( item => {return({value: item.name, label: item.name})});
+
+        const classInfo = this.state;
+
+        const requirements = (
+            this.props.admin.currentMeritBadge
+            && this.props.admin.currentMeritBadge.requirements) || [];
+
+        const prerequisiteList = this.convertTrueObjectPropsToStringArray(this.state.preRequisites).join(', ');
 
         const index = this.state.counselors.indexOf("Jerry Moore");
         let teachingAlready = false;
@@ -224,19 +275,9 @@ class EditCourse extends React.Component {
                             </div>
                             <div className="clearfix"></div>
 
-                            <Table striped bordered condensed hover>
-                                <thead>
-                                <tr>
-                                    <th>Pre-Requisite</th>
-                                    <th>Requirement</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {
-                                    requirementList
-                                }
-                                </tbody>
-                            </Table>
+                            {
+                                this.showAllRequirements(requirements)
+                            }
                         </form>
                     </div>
                 </div>

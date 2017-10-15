@@ -21,6 +21,7 @@ class Home extends React.Component {
                     <Route path='/admin/merit-badges' component={MeritBadges}/>
                     <Route path='/admin/classrooms' component={Classrooms}/>
                     <Route path='/admin/courses' component={Courses}/>
+                    <Route path='/admin/edit-course/:courseId' component={EditCourse}/>
                     <Route path='/admin/edit-course' component={EditCourse}/>
                     <Route path="/welcome" component={Welcome}/>
                 </Switch>

@@ -56,7 +56,7 @@ class Course extends React.Component {
                     </div>
                     <div className='row'>
                         <div className='col-md-offset-8 col-sm-4'>
-                            <Link to="/admin/edit-course">
+                            <Link to={`/admin/edit-course/${course._id}`}>
                                 <FontAwesome
                                     style={{ paddingRight : '5px', paddingLeft : '5px', color : 'darkblue' }}
                                     name="pencil"

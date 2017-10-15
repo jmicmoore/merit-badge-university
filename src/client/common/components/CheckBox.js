@@ -17,7 +17,7 @@ class CheckBox extends React.Component {
                             checked={checked}
                             type="checkbox"
                             id={propertyName}
-                            onClick={(event) => {
+                            onChange={(event) => {
                                 this.props.changeHandler(propertyName, event.target.checked);
                             }}
                         /> <strong>{this.props.displayName}</strong>

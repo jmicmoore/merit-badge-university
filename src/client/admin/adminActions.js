@@ -1,6 +1,10 @@
 import store from '../store';
 import http from 'superagent';
-import {mbuAPI, MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM, ADD_COURSE, DELETE_COURSE, GET_COURSES} from '../common/constants';
+import {mbuAPI,
+    MERIT_BADGES, GET_MERIT_BADGE_BY_NAME,
+    ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM,
+    UPDATE_COURSE, DELETE_COURSE, GET_COURSES, GET_COURSE_BY_ID, RESET_CURRENT_COURSE, RESET_CURRENT_MERIT_BADGE
+} from '../common/constants';
 
 export const getMeritBadges = () => {
     store.dispatch({
@@ -10,7 +14,7 @@ export const getMeritBadges = () => {
 };
 
 export const getMeritBadgeByName = (name) => {
-    store.dispatch({
+    return store.dispatch({
         type: GET_MERIT_BADGE_BY_NAME,
         payload: http.get(`${mbuAPI}/merit-badges/${name}`)
     });
@@ -41,10 +45,10 @@ export const getClassrooms = () => {
     });
 };
 
-export const addCourse = (course) => {
+export const updateCourse = (course) => {
     store.dispatch({
-        type: ADD_COURSE,
-        payload: http.post(`${mbuAPI}/courses`).send(course)
+        type: UPDATE_COURSE,
+        payload: http.put(`${mbuAPI}/courses`).send(course)
     }).then(() => {
         return getCourses();
     })
@@ -63,5 +67,29 @@ export const getCourses = () => {
     return store.dispatch({
         type: GET_COURSES,
         payload: http.get(`${mbuAPI}/courses`)
+    });
+};
+
+export const getCourseById = (courseId) => {
+    return store.dispatch({
+        type: GET_COURSE_BY_ID,
+        payload: http.get(`${mbuAPI}/courses/${courseId}`)
+    }).then(({ value, action }) => {
+        const course = value.body;
+        return getMeritBadgeByName(course.meritBadge);
+    });
+};
+
+export const resetCurrentCourse = () => {
+    return store.dispatch({
+        type: RESET_CURRENT_COURSE,
+        payload: null
+    });
+};
+
+export const resetCurrentMeritBadge = () => {
+    return store.dispatch({
+        type: RESET_CURRENT_MERIT_BADGE,
+        payload: null
     });
 };
