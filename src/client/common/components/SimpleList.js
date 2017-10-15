@@ -13,7 +13,7 @@ class SimpleList extends React.Component{
                 <label htmlFor={propertyName}>{this.props.displayName}</label>
                 <ul id={propertyName} className="list-group">
                     {
-                        dataList.map( item => {return(<li className="list-group-item">{item}</li>);})
+                        dataList.map( item => {return(<li key={item} className="list-group-item">{item}</li>);})
                     }
                 </ul>
             </div>
