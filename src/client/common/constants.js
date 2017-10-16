@@ -2,7 +2,7 @@
 export const mbuAPI = process.env.MBU_API || 'http://localhost:3099/mbu-api';
 
 export const MERIT_BADGE_NAMES = 'reference/MERIT_BADGE_NAMES';
-
+export const COUNSELOR_NAMES = 'reference/COUNSELOR_NAMES';
 
 export const PROFILE_TYPES = 'profile/PROFILE_TYPES';
 export const COUNCILS = 'profile/COUNCILS';
@@ -25,6 +25,5 @@ export const RESET_CURRENT_MERIT_BADGE = 'admin/RESET_CURRENT_MERIT_BADGE';
 export const CREATE_USER_PROFILE = 'profile/CREATE_USER_PROFILE';
 export const GET_USER_PROFILE = 'profile/GET_USER_PROFILE';
 export const UPDATE_USER_PROFILE = 'profile/UPDATE_USER_PROFILE';
-
 
 export const LOGIN_USER = 'user/LOGIN';

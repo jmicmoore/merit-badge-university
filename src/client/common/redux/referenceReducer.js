@@ -1,7 +1,8 @@
-import {MERIT_BADGE_NAMES} from '../constants';
+import {MERIT_BADGE_NAMES, COUNSELOR_NAMES} from '../constants';
 
 const INITIAL_STATE = {
-    meritBadgeNames: []
+    meritBadgeNames: [],
+    counselorNames: [],
 };
 
 export const referenceReducer = ( state = INITIAL_STATE, action) => {
@@ -17,6 +18,19 @@ export const referenceReducer = ( state = INITIAL_STATE, action) => {
         console.log('Error getting merit badge names.');
         newState.meritBadgeNames = [];
     }
+
+
+    if (action.type === `${COUNSELOR_NAMES}_PENDING`) {
+        newState.counselorNames = [];
+    }
+    if (action.type === `${COUNSELOR_NAMES}_FULFILLED`) {
+        newState.counselorNames = action.payload.body;
+    }
+    if (action.type === `${COUNSELOR_NAMES}_REJECTED`) {
+        console.log('Error retrieving counselor names.');
+        newState.counselorNames = [];
+    }
+
 
     return newState;
 };

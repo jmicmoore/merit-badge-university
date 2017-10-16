@@ -1,6 +1,10 @@
 import store from '../store';
 import http from 'superagent';
-import {mbuAPI, PROFILE_TYPES, COUNCILS, DISTRICTS, STATES, MERIT_BADGE_NAMES, CREATE_USER_PROFILE, GET_USER_PROFILE, UPDATE_USER_PROFILE} from '../common/constants';
+import {
+    mbuAPI,
+    PROFILE_TYPES, COUNCILS, DISTRICTS, STATES,
+    CREATE_USER_PROFILE, GET_USER_PROFILE, UPDATE_USER_PROFILE
+} from '../common/constants';
 
 export const getProfileTypes = () => {
     store.dispatch({

@@ -1,11 +1,14 @@
-import {PROFILE_TYPES, COUNCILS, DISTRICTS, STATES, CREATE_USER_PROFILE, GET_USER_PROFILE, UPDATE_USER_PROFILE} from '../common/constants';
+import {
+    PROFILE_TYPES, COUNCILS, DISTRICTS, STATES,
+    CREATE_USER_PROFILE, GET_USER_PROFILE, UPDATE_USER_PROFILE
+} from '../common/constants';
 
 const INITIAL_STATE = {
     profileTypes: [],
     councils: [],
     districts: [],
     states: [],
-    userProfile: null
+    userProfile: null,
 };
 
 export const registerReducer = ( state = INITIAL_STATE, action) => {
