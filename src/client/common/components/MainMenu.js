@@ -24,12 +24,7 @@ class MainMenu extends React.Component {
                                 <ul className="dropdown-menu">
                                     <li><Link to="/admin/merit-badges">Setup Merit Badges</Link></li>
                                     <li><Link to="/admin/classrooms">Setup Classrooms</Link></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li role="separator" className="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
-                                    <li role="separator" className="divider"></li>
-                                    <li><a href="#">One more separated link</a></li>
+                                    <li><Link to="/admin/scheduled-courses">Schedule Courses</Link></li>
                                 </ul>
                             </li>
                         </ul>

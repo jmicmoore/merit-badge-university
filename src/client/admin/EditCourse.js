@@ -235,7 +235,7 @@ class EditCourse extends React.Component {
                     <div id="form-container-registration" className="col-sm-offset-1 col-sm-10 well">
                         <form onSubmit={this.handleSubmit} noValidate className={this.state.displayErrors ? 'displayErrors' : ''} >
 
-                            <h2 className="text-info">Edit Class</h2>
+                            <h2 className="text-info">Edit Course</h2>
                             <div className="col-sm-4 col-xs-12">
                                 <SingleSelect propertyName='meritBadge' propertyValue={classInfo.meritBadge} displayName='Merit Badge' options={meritBadgeChoices} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                             </div>
@@ -282,7 +282,7 @@ class EditCourse extends React.Component {
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 
 };
