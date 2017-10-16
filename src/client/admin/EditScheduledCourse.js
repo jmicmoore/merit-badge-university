@@ -5,6 +5,8 @@ import {withRouter} from 'react-router-dom';
 import SingleSelect from '../common/components/SingleSelect';
 import {getClassrooms, getCourses, createScheduledCourse} from './adminActions';
 import {getCounselorNames} from '../common/redux/referenceActions'
+import {validate} from '../common/util/validation';
+import validationConfig from './ScheduledClassValidationConfig';
 
 const periods = [
     { periodNumber: '1', time: '8 - 8:50 am' },
@@ -42,10 +44,7 @@ class EditScheduledCourse extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        // const report = validate(this.state, validationConfig);
-        const report = {
-            allValid: true
-        };
+        const report = validate(this.state, validationConfig);
         if(report.allValid){
             const course = this.lookupCourseByName(this.state.courseName);
             const newScheduledCourse = Object.assign(
