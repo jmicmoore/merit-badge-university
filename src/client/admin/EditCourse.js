@@ -49,6 +49,8 @@ class EditCourse extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleAddMe = this.handleAddMe.bind(this);
         this.handleRemoveMe = this.handleRemoveMe.bind(this);
+        this.selectAllPrereqs = this.selectAllPrereqs.bind(this);
+        this.unselectAllPrereqs = this.unselectAllPrereqs.bind(this);
     }
 
     componentDidMount() {
@@ -90,6 +92,27 @@ class EditCourse extends React.Component {
         this.setState({counselors: newCounselors})
     }
 
+    selectAllPrereqs(){
+        const requirements = (
+            this.props.admin.currentMeritBadge
+            && this.props.admin.currentMeritBadge.requirements) || [];
+
+        const newPrereqs = {};
+        _.each(requirements, req => {
+            if(req.subRequirements.length === 0){
+                newPrereqs[`item_${req.number}`] = true;
+            }
+            _.each(req.subRequirements, sub => {
+                newPrereqs[`item_${req.number}${sub.part}`] = true;
+            });
+        });
+        this.setState({preRequisites: newPrereqs});
+    };
+
+    unselectAllPrereqs(){
+        this.setState({preRequisites: {}});
+    };
+
     handlePreReqChange(field, value) {
         const newState = update(this.state, {preRequisites: {[field]: {$set: value}}});
         this.setState(newState);
@@ -127,6 +150,23 @@ class EditCourse extends React.Component {
             this.setState({ displayErrors: true });
         }
         this.setState({errorReport: report});
+    };
+
+    showPrereqButtons(requirements) {
+        if(requirements.length > 0){
+            return (
+                <div>
+                    <div className="col-sm-1 col-xs-12">
+                        <button type="button" className="btn btn-sm" onClick={this.selectAllPrereqs}>Select All</button>
+                    </div>
+                    <div className="col-sm-1 col-xs-12">
+                        <button type="button" className="btn btn-sm" onClick={this.unselectAllPrereqs}>Unselect All</button>
+                    </div>
+                </div>
+            );
+        } else {
+            return null;
+        }
     };
 
     // TODO: get notes working!!!
@@ -274,6 +314,10 @@ class EditCourse extends React.Component {
                                 <button type="submit" className="btn btn-success btn-lg btn-block">Save</button>
                             </div>
                             <div className="clearfix"></div>
+
+                            {
+                                this.showPrereqButtons(requirements)
+                            }
 
                             {
                                 this.showAllRequirements(requirements)
