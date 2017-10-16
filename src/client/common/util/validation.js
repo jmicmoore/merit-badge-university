@@ -61,7 +61,7 @@ const getValidationMessagesForField = (objectToValidate, value, fieldConfigs) =>
             throw "Programmer error: validation config missing message!!!";
         }
 
-        const isRequired = !config.isOptional || !config.isOptional(objectToValidate);
+        const isRequired = !config.isOptionalIf || !config.isOptionalIf(objectToValidate);
 
         if(isRequired){
             if(type === REQUIRED) {

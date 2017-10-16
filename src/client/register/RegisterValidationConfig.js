@@ -61,9 +61,21 @@ const config = {
         type: REQUIRED,
         message: 'Please provide your council.  If your council is not listed, then please select Other and enter it below.'
     },
+    otherCouncil: {
+        type: REQUIRED,
+        isOptionalIf: (registerInfo) => {return registerInfo.council !== 'Other';},
+        message: 'You have selected Other for your council.  Please provide your other council.'
+
+    },
     district: {
         type: REQUIRED,
         message: 'Please provide your district.  If your district is not listed, then please select Other and enter it below.'
+    },
+    otherDistrict: {
+        type: REQUIRED,
+        isOptionalIf: (registerInfo) => {return registerInfo.district !== 'Other';},
+        message: 'You have selected Other for your district.  Please provide your other district.'
+
     }
 };
 

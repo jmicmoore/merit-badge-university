@@ -17,12 +17,12 @@ describe('Testing validation', () => {
         expect(actual).toBe(true);
     });
 
-    test('Using isOptional can conditionally make validation optional.  A value of true skips validation', () => {
+    test('Using isOptionalIf can conditionally make validation optional.  A value of true skips validation', () => {
         const config = {
             myField: {
                 type: REQUIRED,
                 message: 'xxx',
-                isOptional: dontCare => {return true;}
+                isOptionalIf: dontCare => {return true;}
             }
         };
         const data = {
@@ -33,12 +33,12 @@ describe('Testing validation', () => {
         expect(actual).toBe(true);
     });
 
-    test('Using isOptional can conditionally make validation optional.  A value of false requires validation', () => {
+    test('Using isOptionalIf can conditionally make validation optional.  A value of false requires validation', () => {
         const config = {
             myField: {
                 type: REQUIRED,
                 message: 'xxx',
-                isOptional: dontCare => {return false;}
+                isOptionalIf: dontCare => {return false;}
             }
         };
         const data = {

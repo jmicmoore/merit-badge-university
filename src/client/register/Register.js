@@ -118,11 +118,11 @@ class Register extends React.Component {
                                             </div>
                                             <div className="col-sm-4 col-xs-12">
                                                 <SingleSelect propertyName='council' propertyValue={profile.council} displayName='What Council Are You From?' options={this.props.councils} errors={this.state.errorReport} changeHandler={this.handleChange}/>
-                                                <TextField propertyName='otherCouncil' propertyValue={profile.otherCouncil} displayName='Other Council' changeHandler={this.handleChange} hidden={!showOtherCouncil}/>
+                                                <TextField propertyName='otherCouncil' propertyValue={profile.otherCouncil} displayName='Other Council' hidden={!showOtherCouncil} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="col-sm-4 col-xs-12">
                                                 <SingleSelect propertyName='district' propertyValue={profile.district} displayName='What District Are You From?' options={this.props.districts} errors={this.state.errorReport} changeHandler={this.handleChange}/>
-                                                <TextField propertyName='otherDistrict' propertyValue={profile.otherDistrict} displayName='Other District' changeHandler={this.handleChange} hidden={!showOtherDistrict}/>
+                                                <TextField propertyName='otherDistrict' propertyValue={profile.otherDistrict} displayName='Other District' hidden={!showOtherDistrict} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-offset-4 col-sm-4 col-xs-12">

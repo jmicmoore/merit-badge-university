@@ -40,12 +40,12 @@ const config = {
     ypTrainingDate: [
         {
             type: REQUIRED,
-            isOptional: (counselorInfo) => {return !counselorInfo.youthProtectionTrained},
+            isOptionalIf: (counselorInfo) => {return !counselorInfo.youthProtectionTrained},
             message: 'Please provide your Youth Protection Training date.'
         },
         {
             type: DATE,
-            isOptional: (counselorInfo) => {return !counselorInfo.youthProtectionTrained},
+            isOptionalIf: (counselorInfo) => {return !counselorInfo.youthProtectionTrained},
             message: 'Please provide a valid Youth Protection Training date.  Ex: MM/DD/YYYY'
         }
     ],
