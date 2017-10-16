@@ -1,6 +1,8 @@
+import _ from 'lodash';
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom'
+import CheckBox from '../common/components/CheckBox';
 import { Modal, Button } from 'react-bootstrap';
 import Course from './Course';
 import {getCourses, deleteCourse} from './adminActions';
@@ -41,17 +43,23 @@ class Courses extends React.Component {
         super();
         this.state = {
             selectedCourse: null,
-            showDeleteConfirm: false
+            showDeleteConfirm: false,
+            myCoursesOnly: false
         };
         this.closeDeleteConfirm = this.closeDeleteConfirm.bind(this);
         this.openDeleteConfirm = this.openDeleteConfirm.bind(this);
         this.handleDeleteCourse = this.handleDeleteCourse.bind(this);
+        this.handleMyCoursesOnlyChange = this.handleMyCoursesOnlyChange.bind(this);
     };
 
     handleDeleteCourse(){
         deleteCourse(this.state.selectedCourse._id);
         this.closeDeleteConfirm();
     };
+
+    handleMyCoursesOnlyChange(){
+        this.setState({myCoursesOnly: !this.state.myCoursesOnly});
+    }
 
     closeDeleteConfirm(){
         this.setState({
@@ -73,7 +81,13 @@ class Courses extends React.Component {
 
     render() {
 
-        const courses = create2DArray(4, this.props.courses);
+        const filteredCourses = this.state.myCoursesOnly
+            ? _.filter(this.props.courses, (course) => {
+                return course.counselors.includes('Jerry Moore');
+            })
+            : this.props.courses;
+
+        const courseGrid = create2DArray(4, filteredCourses);
 
         const courseName = this.state.selectedCourse ? this.state.selectedCourse.meritBadge : '';
 
@@ -90,9 +104,15 @@ class Courses extends React.Component {
                             </button>
                         </Link>
                     </div>
+
+                    <div className="col-sm-offset-1 col-sm-2 col-xs-12">
+                        <CheckBox propertyName='myCoursesOnly' propertyValue={this.state.myCoursesOnly}
+                                  displayName='Show My Courses Only'
+                                  changeHandler={this.handleMyCoursesOnlyChange}/>
+                    </div>
                 </div>
                 {
-                    courses.map(course => createRow(course, this.openDeleteConfirm))
+                    courseGrid.map(course => createRow(course, this.openDeleteConfirm))
                 }
 
                 <Modal
