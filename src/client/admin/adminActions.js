@@ -4,7 +4,7 @@ import {mbuAPI,
     MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, RESET_CURRENT_MERIT_BADGE,
     ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM,
     UPDATE_COURSE, DELETE_COURSE, GET_COURSES, GET_COURSE_BY_ID, RESET_CURRENT_COURSE,
-    CREATE_SCHEDULED_COURSE
+    CREATE_SCHEDULED_COURSE, GET_SCHEDULED_COURSES, DELETE_SCHEDULED_COURSE
 } from '../common/constants';
 
 export const getMeritBadges = () => {
@@ -95,12 +95,27 @@ export const resetCurrentMeritBadge = () => {
     });
 };
 
+export const getScheduledCourses = () => {
+    return store.dispatch({
+        type: GET_SCHEDULED_COURSES,
+        payload: http.get(`${mbuAPI}/scheduled-courses`)
+    });
+};
+
 export const createScheduledCourse = (course) => {
     store.dispatch({
         type: CREATE_SCHEDULED_COURSE,
         payload: http.post(`${mbuAPI}/scheduled-courses`).send(course)
-    });
-    // then(() => {
-    //     return getScheduledCourses();
-    // })
+    }).then(() => {
+        return getScheduledCourses();
+    })
+};
+
+export const deleteScheduledCourse = (scheduledCourseId) => {
+    store.dispatch({
+        type: DELETE_SCHEDULED_COURSE,
+        payload: http.delete(`${mbuAPI}/scheduled-courses/${scheduledCourseId}`)
+    }).then(() => {
+        return getScheduledCourses();
+    })
 };

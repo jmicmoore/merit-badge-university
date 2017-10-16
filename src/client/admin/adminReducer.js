@@ -2,13 +2,14 @@ import {
     MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, RESET_CURRENT_MERIT_BADGE,
     ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM,
     UPDATE_COURSE, DELETE_COURSE, GET_COURSES, GET_COURSE_BY_ID, RESET_CURRENT_COURSE,
-    CREATE_SCHEDULED_COURSE
+    CREATE_SCHEDULED_COURSE, GET_SCHEDULED_COURSES, DELETE_SCHEDULED_COURSE
 } from '../common/constants';
 
 const INITIAL_STATE = {
     meritBadges: [],
     classrooms: [],
     courses: [],
+    scheduledCourses: [],
     currentMeritBadge: null,
     currentCourse: null
 };
@@ -128,6 +129,27 @@ export const adminReducer = ( state = INITIAL_STATE, action) => {
     }
     if (action.type === `${CREATE_SCHEDULED_COURSE}_REJECTED`) {
         console.log('Error saving scheduled course.');
+    }
+
+
+    if (action.type === `${GET_SCHEDULED_COURSES}_PENDING`) {
+        newState.scheduledCourses = [];
+    }
+    if (action.type === `${GET_SCHEDULED_COURSES}_FULFILLED`) {
+        newState.scheduledCourses = action.payload.body;
+    }
+    if (action.type === `${GET_SCHEDULED_COURSES}_REJECTED`) {
+        console.log('Error getting scheduled courses.');
+        newState.scheduledCourses = [];
+    }
+
+
+    if (action.type === `${DELETE_SCHEDULED_COURSE}_PENDING`) {
+    }
+    if (action.type === `${DELETE_SCHEDULED_COURSE}_FULFILLED`) {
+    }
+    if (action.type === `${DELETE_SCHEDULED_COURSE}_REJECTED`) {
+        console.log('Error deleting scheduled course.');
     }
 
 
