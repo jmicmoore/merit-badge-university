@@ -2,7 +2,7 @@ import {
     MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, RESET_CURRENT_MERIT_BADGE,
     ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM,
     UPDATE_COURSE, DELETE_COURSE, GET_COURSES, GET_COURSE_BY_ID, RESET_CURRENT_COURSE,
-    CREATE_SCHEDULED_COURSE, GET_SCHEDULED_COURSES, DELETE_SCHEDULED_COURSE
+    UPDATE_SCHEDULED_COURSE, GET_SCHEDULED_COURSES, DELETE_SCHEDULED_COURSE, GET_SCHEDULED_COURSE_BY_ID, RESET_CURRENT_SCHEDULED_COURSE
 } from '../common/constants';
 
 const INITIAL_STATE = {
@@ -11,7 +11,8 @@ const INITIAL_STATE = {
     courses: [],
     scheduledCourses: [],
     currentMeritBadge: null,
-    currentCourse: null
+    currentCourse: null,
+    currentScheduledCourse: null
 };
 
 export const adminReducer = ( state = INITIAL_STATE, action) => {
@@ -123,11 +124,11 @@ export const adminReducer = ( state = INITIAL_STATE, action) => {
     }
 
 
-    if (action.type === `${CREATE_SCHEDULED_COURSE}_PENDING`) {
+    if (action.type === `${UPDATE_SCHEDULED_COURSE}_PENDING`) {
     }
-    if (action.type === `${CREATE_SCHEDULED_COURSE}_FULFILLED`) {
+    if (action.type === `${UPDATE_SCHEDULED_COURSE}_FULFILLED`) {
     }
-    if (action.type === `${CREATE_SCHEDULED_COURSE}_REJECTED`) {
+    if (action.type === `${UPDATE_SCHEDULED_COURSE}_REJECTED`) {
         console.log('Error saving scheduled course.');
     }
 
@@ -150,6 +151,23 @@ export const adminReducer = ( state = INITIAL_STATE, action) => {
     }
     if (action.type === `${DELETE_SCHEDULED_COURSE}_REJECTED`) {
         console.log('Error deleting scheduled course.');
+    }
+
+
+    if (action.type === `${GET_SCHEDULED_COURSE_BY_ID}_PENDING`) {
+        newState.currentScheduledCourse = null;
+    }
+    if (action.type === `${GET_SCHEDULED_COURSE_BY_ID}_FULFILLED`) {
+        newState.currentScheduledCourse = action.payload.body;
+    }
+    if (action.type === `${GET_SCHEDULED_COURSE_BY_ID}_REJECTED`) {
+        console.log('Error getting scheduled course by id.');
+        newState.currentScheduledCourse = null;
+    }
+
+
+    if (action.type === RESET_CURRENT_SCHEDULED_COURSE) {
+        newState.currentScheduledCourse = null;
     }
 
 

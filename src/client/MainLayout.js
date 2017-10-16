@@ -26,6 +26,7 @@ class Home extends React.Component {
                     <Route path='/admin/edit-course/:courseId' component={EditCourse}/>
                     <Route path='/admin/edit-course' component={EditCourse}/>
                     <Route path='/admin/scheduled-courses' component={ScheduledCourses}/>
+                    <Route path='/admin/edit-scheduled-course/:scheduledCourseId' component={EditScheduledCourse}/>
                     <Route path='/admin/edit-scheduled-course' component={EditScheduledCourse}/>
                     <Route path="/welcome" component={Welcome}/>
                 </Switch>

@@ -4,7 +4,7 @@ import {mbuAPI,
     MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, RESET_CURRENT_MERIT_BADGE,
     ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM,
     UPDATE_COURSE, DELETE_COURSE, GET_COURSES, GET_COURSE_BY_ID, RESET_CURRENT_COURSE,
-    CREATE_SCHEDULED_COURSE, GET_SCHEDULED_COURSES, DELETE_SCHEDULED_COURSE
+    UPDATE_SCHEDULED_COURSE, GET_SCHEDULED_COURSES, DELETE_SCHEDULED_COURSE, GET_SCHEDULED_COURSE_BY_ID, RESET_CURRENT_SCHEDULED_COURSE
 } from '../common/constants';
 
 export const getMeritBadges = () => {
@@ -102,10 +102,17 @@ export const getScheduledCourses = () => {
     });
 };
 
-export const createScheduledCourse = (course) => {
+export const getScheduledCourseById = (scheduledCourseId) => {
+    return store.dispatch({
+        type: GET_SCHEDULED_COURSE_BY_ID,
+        payload: http.get(`${mbuAPI}/scheduled-courses/${scheduledCourseId}`)
+    });
+};
+
+export const updateScheduledCourse = (scheduledCourse) => {
     store.dispatch({
-        type: CREATE_SCHEDULED_COURSE,
-        payload: http.post(`${mbuAPI}/scheduled-courses`).send(course)
+        type: UPDATE_SCHEDULED_COURSE,
+        payload: http.put(`${mbuAPI}/scheduled-courses`).send(scheduledCourse)
     }).then(() => {
         return getScheduledCourses();
     })
@@ -118,4 +125,12 @@ export const deleteScheduledCourse = (scheduledCourseId) => {
     }).then(() => {
         return getScheduledCourses();
     })
+};
+
+
+export const resetCurrentScheduledCourse = () => {
+    return store.dispatch({
+        type: RESET_CURRENT_SCHEDULED_COURSE,
+        payload: null
+    });
 };

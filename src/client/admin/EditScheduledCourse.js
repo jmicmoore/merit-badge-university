@@ -3,7 +3,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import SingleSelect from '../common/components/SingleSelect';
-import {getClassrooms, getCourses, createScheduledCourse} from './adminActions';
+import {getClassrooms, getCourses, updateScheduledCourse, getScheduledCourseById, resetCurrentScheduledCourse} from './adminActions';
 import {getCounselorNames} from '../common/redux/referenceActions'
 import {validate} from '../common/util/validation';
 import validationConfig from './ScheduledClassValidationConfig';
@@ -36,6 +36,24 @@ class EditScheduledCourse extends React.Component {
         getClassrooms();
         getCourses();
         getCounselorNames();
+        if(this.props.match.params.scheduledCourseId){
+            getScheduledCourseById(this.props.match.params.scheduledCourseId);
+        }
+    };
+
+    componentWillUnmount(){
+        resetCurrentScheduledCourse();
+    }
+
+    currentScheduledCourseIsChanging(nextProps){
+        return nextProps.admin.currentScheduledCourse !== this.props.admin.currentScheduledCourse;
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(this.currentScheduledCourseIsChanging(nextProps)){
+            const scheduledCourseLocalCopy = Object.assign({}, nextProps.admin.currentScheduledCourse);
+            this.setState(scheduledCourseLocalCopy);
+        }
     };
 
     lookupCourseByName(courseName){
@@ -56,7 +74,7 @@ class EditScheduledCourse extends React.Component {
                     notes: course.notes
                 }
             );
-            createScheduledCourse(newScheduledCourse);
+            updateScheduledCourse(newScheduledCourse);
             this.setState({ displayErrors: false });
             this.props.history.push('/admin/scheduled-courses'); // go back to courses screen
         } else {
