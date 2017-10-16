@@ -1,7 +1,9 @@
+import _ from 'lodash';
 import React from 'react';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 import SingleSelect from '../common/components/SingleSelect';
-import {getClassrooms, getCourses} from './adminActions';
+import {getClassrooms, getCourses, createScheduledCourse} from './adminActions';
 import {getCounselorNames} from '../common/redux/referenceActions'
 
 const periods = [
@@ -21,7 +23,7 @@ class EditScheduledCourse extends React.Component {
         this.state = {
             classroom: '',
             period: '',
-            course: '',
+            courseName: '',
             counselor: ''
         };
         this.handleChange = this.handleChange.bind(this);
@@ -34,9 +36,36 @@ class EditScheduledCourse extends React.Component {
         getCounselorNames();
     };
 
-    handleSubmit(){
-        console.log("handleSubmit");
+    lookupCourseByName(courseName){
+        return _.find(this.props.admin.courses, { 'meritBadge': courseName});
     };
+
+    handleSubmit(event) {
+        event.preventDefault();
+        // const report = validate(this.state, validationConfig);
+        const report = {
+            allValid: true
+        };
+        if(report.allValid){
+            const course = this.lookupCourseByName(this.state.courseName);
+            const newScheduledCourse = Object.assign(
+                {},
+                this.state,
+                {
+                    length: course.recommendedLength,
+                    maxYouth: course.recommendedSize,
+                    notes: course.notes
+                }
+            );
+            createScheduledCourse(newScheduledCourse);
+            this.setState({ displayErrors: false });
+            this.props.history.push('/admin/scheduled-courses'); // go back to courses screen
+        } else {
+            this.setState({ displayErrors: true });
+        }
+        this.setState({errorReport: report});
+    };
+
 
     handleChange(field, value) {
         this.setState({[field]: value});
@@ -86,7 +115,7 @@ class EditScheduledCourse extends React.Component {
                                 <SingleSelect propertyName='period' propertyValue={courseInfo.period} displayName='Period' options={periodChoices} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                             </div>
                             <div className="col-sm-4 col-xs-12">
-                                <SingleSelect propertyName='course' propertyValue={courseInfo.course} displayName='Course' options={courseChoices} errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                <SingleSelect propertyName='courseName' propertyValue={courseInfo.courseName} displayName='Course Name' options={courseChoices} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                             </div>
                             <div className="clearfix"></div>
                             <div className="col-sm-4 col-xs-12">
@@ -108,4 +137,4 @@ const mapStateToProps = ({reference, admin}) => {
     return {reference, admin};
 };
 
-export default connect(mapStateToProps)(EditScheduledCourse);
+export default withRouter(connect(mapStateToProps)(EditScheduledCourse));

@@ -21,6 +21,7 @@ export const GET_COURSES = 'admin/GET_COURSES';
 export const GET_COURSE_BY_ID = 'admin/GET_COURSE_BY_ID';
 export const RESET_CURRENT_COURSE = 'admin/RESET_CURRENT_COURSE';
 export const RESET_CURRENT_MERIT_BADGE = 'admin/RESET_CURRENT_MERIT_BADGE';
+export const CREATE_SCHEDULED_COURSE = 'admin/CREATE_SCHEDULED_COURSE';
 
 export const CREATE_USER_PROFILE = 'profile/CREATE_USER_PROFILE';
 export const GET_USER_PROFILE = 'profile/GET_USER_PROFILE';

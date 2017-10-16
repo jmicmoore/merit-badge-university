@@ -110,7 +110,7 @@ class EditCourse extends React.Component {
         if(report.allValid){
             const badge = this.props.admin.currentMeritBadge || {};
             const prerequisiteList = this.convertTrueObjectPropsToStringArray(this.state.preRequisites);
-            const newClass = Object.assign(
+            const newCourse = Object.assign(
                 {},
                 this.state,
                     {
@@ -120,7 +120,7 @@ class EditCourse extends React.Component {
                         imageUrl: badge.imageUrl
                     }
             );
-            updateCourse(newClass);
+            updateCourse(newCourse);
             this.setState({ displayErrors: false });
             this.props.history.push('/admin/courses'); // go back to courses screen
         } else {

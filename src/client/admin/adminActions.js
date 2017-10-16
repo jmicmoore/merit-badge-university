@@ -1,9 +1,10 @@
 import store from '../store';
 import http from 'superagent';
 import {mbuAPI,
-    MERIT_BADGES, GET_MERIT_BADGE_BY_NAME,
+    MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, RESET_CURRENT_MERIT_BADGE,
     ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM,
-    UPDATE_COURSE, DELETE_COURSE, GET_COURSES, GET_COURSE_BY_ID, RESET_CURRENT_COURSE, RESET_CURRENT_MERIT_BADGE
+    UPDATE_COURSE, DELETE_COURSE, GET_COURSES, GET_COURSE_BY_ID, RESET_CURRENT_COURSE,
+    CREATE_SCHEDULED_COURSE
 } from '../common/constants';
 
 export const getMeritBadges = () => {
@@ -92,4 +93,14 @@ export const resetCurrentMeritBadge = () => {
         type: RESET_CURRENT_MERIT_BADGE,
         payload: null
     });
+};
+
+export const createScheduledCourse = (course) => {
+    store.dispatch({
+        type: CREATE_SCHEDULED_COURSE,
+        payload: http.post(`${mbuAPI}/scheduled-courses`).send(course)
+    });
+    // then(() => {
+    //     return getScheduledCourses();
+    // })
 };

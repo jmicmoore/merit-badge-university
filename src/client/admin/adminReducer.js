@@ -1,7 +1,8 @@
 import {
-    MERIT_BADGES, GET_MERIT_BADGE_BY_NAME,
+    MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, RESET_CURRENT_MERIT_BADGE,
     ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM,
-    UPDATE_COURSE, DELETE_COURSE, GET_COURSES, GET_COURSE_BY_ID, RESET_CURRENT_COURSE, RESET_CURRENT_MERIT_BADGE
+    UPDATE_COURSE, DELETE_COURSE, GET_COURSES, GET_COURSE_BY_ID, RESET_CURRENT_COURSE,
+    CREATE_SCHEDULED_COURSE
 } from '../common/constants';
 
 const INITIAL_STATE = {
@@ -118,6 +119,15 @@ export const adminReducer = ( state = INITIAL_STATE, action) => {
 
     if (action.type === RESET_CURRENT_MERIT_BADGE) {
         newState.currentMeritBadge = null;
+    }
+
+
+    if (action.type === `${CREATE_SCHEDULED_COURSE}_PENDING`) {
+    }
+    if (action.type === `${CREATE_SCHEDULED_COURSE}_FULFILLED`) {
+    }
+    if (action.type === `${CREATE_SCHEDULED_COURSE}_REJECTED`) {
+        console.log('Error saving scheduled course.');
     }
 
 
