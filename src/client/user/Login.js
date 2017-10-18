@@ -11,7 +11,7 @@ class Login extends React.Component {
     constructor() {
         super();
         this.state = {
-            email: '',
+            userId: '',
             password: '',
             errorReport: null,
             displayErrors: false
@@ -21,7 +21,7 @@ class Login extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let report = convertErrorToReport(nextProps.loginError, 'email');
+        let report = convertErrorToReport(nextProps.loginError, 'userId');
         this.setState({
             displayErrors: !!report,
             errorReport: report
@@ -34,7 +34,7 @@ class Login extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const user = {email: this.state.email, password: this.state.password};
+        const user = {userId: this.state.userId, password: this.state.password};
         const report = validate(user, loginConfig);
         if(report.allValid){
             login(user);
@@ -61,7 +61,7 @@ class Login extends React.Component {
                                     <h2 className="text-primary text-center">Log In</h2>
                                     <form onSubmit={this.handleSubmit} noValidate className={this.state.displayErrors ? 'displayErrors' : ''} >
                                         <div className="col-sm-12 col-xs-12">
-                                            <TextField propertyName='email' propertyValue={this.state.email} displayName='E-mail Address' errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                            <TextField propertyName='userId' propertyValue={this.state.userId} displayName='User ID' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                         </div>
                                         <div className="clearfix"></div>
                                         <div className="col-sm-12 col-xs-12">

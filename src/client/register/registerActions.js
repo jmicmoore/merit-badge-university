@@ -48,9 +48,9 @@ export const updateUserProfile = (user) => {
     });
 };
 
-export const getUserProfile = (email) => {
+export const getUserProfile = (userId) => {
     store.dispatch({
         type: GET_USER_PROFILE,
-        payload: http.get(`${mbuAPI}/profiles/${email}`)
+        payload: http.get(`${mbuAPI}/profiles/${userId}`)
     });
 };

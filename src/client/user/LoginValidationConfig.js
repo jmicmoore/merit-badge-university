@@ -1,10 +1,10 @@
 import {REQUIRED} from '../common/util/validation';
 
 const config = {
-    email:  [
+    userId:  [
         {
             type: REQUIRED,
-            message: 'Please provide your e-mail.'
+            message: 'Please provide your user ID.'
         }
     ],
     password: [

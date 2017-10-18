@@ -16,8 +16,8 @@ class Register extends React.Component {
             profile: {
                 firstName: '',
                 lastName: '',
-                email: '',
-                emailConfirm: '',
+                userId: '',
+                userIdConfirm: '',
                 password: '',
                 passwordConfirm: '',
                 profileType: '',
@@ -66,7 +66,7 @@ class Register extends React.Component {
         event.preventDefault();
         const report = validate(this.state.profile, validationConfig);
         if(report.allValid){
-            createUserProfile(_.omit(this.state.profile, ['emailConfirm', 'passwordConfirm']));
+            createUserProfile(_.omit(this.state.profile, ['userIdConfirm', 'passwordConfirm']));
             this.setState({ displayErrors: false });
         } else {
             this.setState({ displayErrors: true });
@@ -100,10 +100,10 @@ class Register extends React.Component {
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-6 col-xs-12">
-                                                <TextField propertyName='email' inputType='email' propertyValue={profile.email} displayName='Email address' errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                                <TextField propertyName='userId' propertyValue={profile.userId} displayName='User ID' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="col-sm-6 col-xs-12">
-                                                <TextField propertyName='emailConfirm' inputType='email' propertyValue={profile.emailConfirm} displayName='Confirm Email address' errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                                <TextField propertyName='userIdConfirm' propertyValue={profile.userIdConfirm} displayName='Confirm User ID' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-6 col-xs-12">

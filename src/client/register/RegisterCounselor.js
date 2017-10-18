@@ -51,7 +51,7 @@ class RegisterCounselor extends React.Component {
     componentDidMount() {
         getStates();
         getMeritBadgeNames();
-        getUserProfile('jmicmoore@gmail.com');
+        getUserProfile('jmicmoore');
     };
 
     handleChange(field, value) {

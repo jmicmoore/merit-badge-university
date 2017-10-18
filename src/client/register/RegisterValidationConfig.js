@@ -9,26 +9,20 @@ const config = {
         type: REQUIRED,
         message: 'Please provide your last name.'
     },
-    email:  [
+    userId:  {
+        type: REQUIRED,
+        message: 'Please provide your user ID.'
+    },
+    userIdConfirm: [
         {
             type: REQUIRED,
-            message: 'Please provide your e-mail.'
-        },
-        {
-            type: EMAIL,
-            message: 'Please provide a valid e-mail address.  Ex: yourEmail@yoursite.com'
-        }
-    ],
-    emailConfirm: [
-        {
-            type: REQUIRED,
-            message: 'Please confirm your e-mail.'
+            message: 'Please confirm your user ID.'
         },
         {
             type: SAME,
-            firstField: 'email',
-            secondField: 'emailConfirm',
-            message: 'Please make sure your e-mail and confirmation both match.'
+            firstField: 'userId',
+            secondField: 'userIdConfirm',
+            message: 'Please make sure your user ID and confirmation both match.'
         }
     ],
     password: [
