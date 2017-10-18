@@ -4,7 +4,7 @@ import update from 'immutability-helper';
 import {getProfileTypes, getCouncils, getDistricts, createUserProfile} from './registerActions';
 import TextField from '../common/components/TextField';
 import SingleSelect from '../common/components/SingleSelect';
-import {validate} from '../common/util/validation';
+import {validate, convertErrorToReport} from '../common/util/validation';
 import validationConfig from './RegisterValidationConfig';
 
 
@@ -33,6 +33,14 @@ class Register extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.clearOtherCouncil = this.clearOtherCouncil.bind(this);
         this.clearOtherDistrict = this.clearOtherDistrict.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let report = convertErrorToReport(nextProps.createProfileError, 'userId');
+        this.setState({
+            displayErrors: !!report,
+            errorReport: report
+        });
     }
 
     componentDidMount() {
@@ -100,10 +108,10 @@ class Register extends React.Component {
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-6 col-xs-12">
-                                                <TextField propertyName='userId' propertyValue={profile.userId} displayName='User ID' errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                                <TextField propertyName='userId' propertyValue={profile.userId} displayName='Username' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="col-sm-6 col-xs-12">
-                                                <TextField propertyName='userIdConfirm' propertyValue={profile.userIdConfirm} displayName='Confirm User ID' errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                                <TextField propertyName='userIdConfirm' propertyValue={profile.userIdConfirm} displayName='Confirm Username' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-6 col-xs-12">

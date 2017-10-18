@@ -9,6 +9,7 @@ const INITIAL_STATE = {
     districts: [],
     states: [],
     userProfile: null,
+    createProfileError: ''
 };
 
 export const registerReducer = ( state = INITIAL_STATE, action) => {
@@ -63,10 +64,12 @@ export const registerReducer = ( state = INITIAL_STATE, action) => {
 
 
     if (action.type === `${CREATE_USER_PROFILE}_PENDING`) {
+        newState.createProfileError = '';
     }
     if (action.type === `${CREATE_USER_PROFILE}_FULFILLED`) {
     }
     if (action.type === `${CREATE_USER_PROFILE}_REJECTED`) {
+        newState.createProfileError = action.payload.response.text;
         console.log('Error creating user profile.');
     }
 
