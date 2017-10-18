@@ -1,4 +1,4 @@
-import {REQUIRED, EMAIL, SAME, PASSWORD} from '../common/util/validation';
+import {REQUIRED, SAME, PASSWORD} from '../common/util/validation';
 
 const config = {
     firstName: {

@@ -33,6 +33,8 @@ class RegisterCounselor extends React.Component {
                 city: '',
                 state: '',
                 zip: '',
+                email: '',
+                emailConfirm: '',
                 phone: '',
                 contactMethods: [],
                 youthProtectionTrained: false,
@@ -82,7 +84,6 @@ class RegisterCounselor extends React.Component {
 
         const firstName = basicProfile ? basicProfile.firstName : '';
         const lastName = basicProfile ? basicProfile.lastName : '';
-        const email = basicProfile ? basicProfile.email : '';
 
         const counselorInfo = this.state.counselorInfo;
 
@@ -127,7 +128,7 @@ class RegisterCounselor extends React.Component {
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-6 col-xs-12">
-                                                <TextField propertyName='email' disabled={true} inputType='email' propertyValue={email} displayName='Email address'/>
+                                                <TextField propertyName='email' inputType='email' propertyValue={counselorInfo.email} displayName='Email address' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="col-sm-2 col-xs-12">
                                                 <TextField propertyName='phone' propertyValue={counselorInfo.phone} displayName='Cell Number' placeholder='XXX-XXX-XXXX' errors={this.state.errorReport} changeHandler={this.handleChange}/>
@@ -136,6 +137,9 @@ class RegisterCounselor extends React.Component {
                                                 <MultiSelect propertyName='contactMethods' propertyValue={counselorInfo.contactMethods} displayName='Preferred Contact Method' options={contactChoices} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="clearfix"></div>
+                                            <div className="col-sm-6 col-xs-12">
+                                                <TextField propertyName='emailConfirm' inputType='email' propertyValue={counselorInfo.emailConfirm} displayName='Confirm Email address' errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                            </div>
                                             <div className="col-sm-3 col-xs-12">
                                                 <CheckBox propertyName='youthProtectionTrained' propertyValue={counselorInfo.youthProtectionTrained}
                                                           displayName='Yes!  My Youth Protection Training is up to date!'
