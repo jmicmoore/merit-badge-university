@@ -5,6 +5,7 @@ import MainLayout from './MainLayout';
 import Login from './user/Login';
 import Register from './register/Register';
 import RegisterCounselor from './register/RegisterCounselor';
+import RegisterVenturerInstructor from './register/RegisterVenturerInstructor';
 
 class App extends React.Component {
     render(){
@@ -14,6 +15,7 @@ class App extends React.Component {
                     <Route exact path="/login" render={() => ( this.props.isAuthenticated ? ( <Welcome/> ) : ( <Login/> ) )}/>
                     <Route exact path="/register" component={Register}/>
                     <Route exact path="/register/counselor" component={RegisterCounselor}/>
+                    <Route exact path="/register/venturer-instructor" component={RegisterVenturerInstructor}/>
                     <Route path="/" component={MainLayout}/>
                 </Switch>
             </div>

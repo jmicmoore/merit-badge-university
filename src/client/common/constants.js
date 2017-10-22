@@ -3,6 +3,7 @@ export const mbuAPI = process.env.MBU_API || 'http://localhost:3099/mbu-api';
 
 export const MERIT_BADGE_NAMES = 'reference/MERIT_BADGE_NAMES';
 export const COUNSELOR_NAMES = 'reference/COUNSELOR_NAMES';
+export const VENTURING_CLASSES = 'reference/VENTURING_CLASSES';
 
 export const PROFILE_TYPES = 'profile/PROFILE_TYPES';
 export const COUNCILS = 'profile/COUNCILS';

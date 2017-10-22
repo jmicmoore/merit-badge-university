@@ -11,6 +11,9 @@ export const DATE = 'validation/date';
 export const ARRAY_MAX = 'validation/array_max';
 
 const isEmpty = (str) => {
+    if(Array.isArray(str)){
+        return str.length === 0;
+    }
     return !str || str === '';
 };
 

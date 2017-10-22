@@ -91,6 +91,34 @@ describe('Testing validation', () => {
         expect(actual).toBe(false);
     });
 
+    test('REQUIRED type should return true if field an array and the array has at least one element', () => {
+        const config = {
+            myField: {
+                type: REQUIRED, message: 'xxx'
+            }
+        };
+        const data = {
+            myField: ['something']
+        };
+        const actual = isValid(data, config);
+
+        expect(actual).toBe(true);
+    });
+
+    test('REQUIRED type should return false if field an array and the array has length of zero', () => {
+        const config = {
+            myField: {
+                type: REQUIRED, message: 'xxx'
+            }
+        };
+        const data = {
+            myField: []
+        };
+        const actual = isValid(data, config);
+
+        expect(actual).toBe(false);
+    });
+
     test('SAME type should return true if fields are equal', () => {
         const config = {
             myField1: { type: REQUIRED, message: 'xxx' },
