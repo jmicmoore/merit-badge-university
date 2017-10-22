@@ -34,3 +34,9 @@ export const GET_USER_PROFILE = 'profile/GET_USER_PROFILE';
 export const UPDATE_USER_PROFILE = 'profile/UPDATE_USER_PROFILE';
 
 export const LOGIN_USER = 'user/LOGIN';
+
+const COURSE_TYPE = {
+    MeritBadge: 'MeritBadge',
+    Venturing: 'Venturing'
+};
+module.exports.COURSE_TYPE = COURSE_TYPE;

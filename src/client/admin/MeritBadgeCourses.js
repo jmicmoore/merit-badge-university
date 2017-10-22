@@ -4,8 +4,9 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom'
 import CheckBox from '../common/components/CheckBox';
 import { Modal, Button } from 'react-bootstrap';
-import Course from './Course';
+import MeritBadgeCourse from './MeritBadgeCourse';
 import {getCourses, deleteCourse} from './adminActions';
+import {COURSE_TYPE} from '../common/constants';
 
 const createRow = (row, deleteCallback) => {
     return (
@@ -14,7 +15,7 @@ const createRow = (row, deleteCallback) => {
                 row.map(course => {
                     return (
                         <div className="col-sm-3 col-xs-12">
-                            <Course key={course.meritBadge} course={course} deleteCallback={deleteCallback}/>
+                            <MeritBadgeCourse key={course.meritBadge} course={course} deleteCallback={deleteCallback}/>
                         </div>
                     )
                 })
@@ -37,7 +38,7 @@ const create2DArray = (numCols, list) => {
     return destArray;
 };
 
-class Courses extends React.Component {
+class MeritBadgeCourses extends React.Component {
 
     constructor(){
         super();
@@ -81,11 +82,11 @@ class Courses extends React.Component {
 
     render() {
 
+        const meritBadgeCourses = _.filter(this.props.courses, course => course.courseType === COURSE_TYPE.MeritBadge);
+
         const filteredCourses = this.state.myCoursesOnly
-            ? _.filter(this.props.courses, (course) => {
-                return course.teachers.includes('Jerry Moore');
-            })
-            : this.props.courses;
+            ? _.filter(meritBadgeCourses, (course) => course.teachers.includes('Jerry Moore'))
+            : meritBadgeCourses;
 
         const courseGrid = create2DArray(4, filteredCourses);
 
@@ -98,7 +99,7 @@ class Courses extends React.Component {
                         <h1>Courses</h1>
                     </div>
                     <div className="col-sm-2 col-xs-12">
-                        <Link to={`/admin/edit-course`}>
+                        <Link to={`/admin/edit-merit-badge-course`}>
                             <button id="addNewCourse" type="button" className="btn btn-success btn-lg btn-block" aria-label="Left Align">
                                 Add New
                             </button>
@@ -141,4 +142,4 @@ const mapStateToProps = ({admin}) => {
     return admin;
 };
 
-export default connect(mapStateToProps)(Courses);
+export default connect(mapStateToProps)(MeritBadgeCourses);

@@ -13,6 +13,7 @@ import {getMeritBadgeNames} from '../common/redux/referenceActions';
 import {getMeritBadgeByName, updateCourse, getCourseById, resetCurrentCourse, resetCurrentMeritBadge} from './adminActions';
 import {validate} from '../common/util/validation';
 import validationConfig from './ClassValidationConfig';
+import {COURSE_TYPE} from '../common/constants';
 
 const recommendedLengthChoices = [
     {value: '1 hour', label: '1 hour'},
@@ -137,6 +138,7 @@ class EditCourse extends React.Component {
                 {},
                 this.state,
                     {
+                        courseType : COURSE_TYPE.MeritBadge,
                         eagleRequired: badge.eagleRequired,
                         preRequisites: prerequisiteList,
                         numRequirements: badge.requirements.length,
@@ -145,7 +147,7 @@ class EditCourse extends React.Component {
             );
             updateCourse(newCourse);
             this.setState({ displayErrors: false });
-            this.props.history.push('/admin/courses'); // go back to courses screen
+            this.props.history.push('/admin/merit-badge-courses'); // go back to courses screen
         } else {
             this.setState({ displayErrors: true });
         }

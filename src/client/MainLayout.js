@@ -7,8 +7,8 @@ import MeritBadges from './admin/MeritBadges';
 import Classrooms from './admin/Classrooms';
 import ScheduledCourses from './admin/ScheduledCourses';
 import EditScheduledCourse from './admin/EditScheduledCourse';
-import Courses from './admin/Courses';
-import EditCourse from './admin/EditCourse';
+import MeritBadgeCourses from './admin/MeritBadgeCourses';
+import EditMeritBadgeCourse from './admin/EditMeritBadgeCourse';
 import Welcome from './user/Welcome';
 
 class Home extends React.Component {
@@ -22,9 +22,9 @@ class Home extends React.Component {
                 <Switch>
                     <Route path='/admin/merit-badges' component={MeritBadges}/>
                     <Route path='/admin/classrooms' component={Classrooms}/>
-                    <Route path='/admin/courses' component={Courses}/>
-                    <Route path='/admin/edit-course/:courseId' component={EditCourse}/>
-                    <Route path='/admin/edit-course' component={EditCourse}/>
+                    <Route path='/admin/merit-badge-courses' component={MeritBadgeCourses}/>
+                    <Route path='/admin/edit-merit-badge-course/:courseId' component={EditMeritBadgeCourse}/>
+                    <Route path='/admin/edit-merit-badge-course' component={EditMeritBadgeCourse}/>
                     <Route path='/admin/scheduled-courses' component={ScheduledCourses}/>
                     <Route path='/admin/edit-scheduled-course/:scheduledCourseId' component={EditScheduledCourse}/>
                     <Route path='/admin/edit-scheduled-course' component={EditScheduledCourse}/>
