@@ -1,9 +1,9 @@
-import {MERIT_BADGE_NAMES, COUNSELOR_NAMES, VENTURING_CLASSES} from '../constants';
+import {MERIT_BADGE_NAMES, COUNSELOR_NAMES, VENTURING_CLASS_NAMES} from '../constants';
 
 const INITIAL_STATE = {
     meritBadgeNames: [],
     counselorNames: [],
-    venturingClasses: []
+    venturingClassNames: []
 };
 
 export const referenceReducer = ( state = INITIAL_STATE, action) => {
@@ -34,15 +34,15 @@ export const referenceReducer = ( state = INITIAL_STATE, action) => {
 
 
 
-    if (action.type === `${VENTURING_CLASSES}_PENDING`) {
-        newState.venturingClasses = [];
+    if (action.type === `${VENTURING_CLASS_NAMES}_PENDING`) {
+        newState.venturingClassNames = [];
     }
-    if (action.type === `${VENTURING_CLASSES}_FULFILLED`) {
-        newState.venturingClasses = action.payload.body;
+    if (action.type === `${VENTURING_CLASS_NAMES}_FULFILLED`) {
+        newState.venturingClassNames = action.payload.body;
     }
-    if (action.type === `${VENTURING_CLASSES}_REJECTED`) {
-        console.log('Error retrieving venturing classes.');
-        newState.venturingClasses = [];
+    if (action.type === `${VENTURING_CLASS_NAMES}_REJECTED`) {
+        console.log('Error retrieving venturing class names.');
+        newState.venturingClassNames = [];
     }
 
 

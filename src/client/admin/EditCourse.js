@@ -35,7 +35,7 @@ const INITIAL_STATE = {
     recommendedLength: '',
     recommendedSize: '',
     notes: '',
-    counselors: ['Joe Smith'],
+    teachers: ['Joe Smith'],
     preRequisites: {}
 };
 
@@ -78,18 +78,18 @@ class EditCourse extends React.Component {
     };
 
     handleAddMe(){
-        const newCounselors = this.state.counselors.slice();
-        newCounselors.push("Jerry Moore");
-        this.setState({counselors: newCounselors});
+        const newTeachers = this.state.teachers.slice();
+        newTeachers.push("Jerry Moore");
+        this.setState({teachers: newTeachers});
     }
 
     handleRemoveMe(){
-        const index = this.state.counselors.indexOf("Jerry Moore");
-        let newCounselors = this.state.counselors.slice();
+        const index = this.state.teachers.indexOf("Jerry Moore");
+        let newTeachers = this.state.teachers.slice();
         if(index !== -1){
-            newCounselors.splice(index, 1);
+            newTeachers.splice(index, 1);
         }
-        this.setState({counselors: newCounselors})
+        this.setState({teachers: newTeachers})
     }
 
     selectAllPrereqs(){
@@ -263,7 +263,7 @@ class EditCourse extends React.Component {
 
         const prerequisiteList = this.convertTrueObjectPropsToStringArray(this.state.preRequisites).join(', ');
 
-        const index = this.state.counselors.indexOf("Jerry Moore");
+        const index = this.state.teachers.indexOf("Jerry Moore");
         let teachingAlready = false;
         if(index !== -1){
             teachingAlready = true;
@@ -292,7 +292,7 @@ class EditCourse extends React.Component {
                             <div className="col-sm-4 col-xs-12">
                                 <div className="row">
                                     <div className="col-sm-12 col-xs-12">
-                                        <SimpleList propertyName='counselors' displayName='Counselors' dataList={classInfo.counselors}/>
+                                        <SimpleList propertyName='teachers' displayName='Counselors' dataList={classInfo.teachers}/>
                                     </div>
                                 </div>
                                 <div className="row">

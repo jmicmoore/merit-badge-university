@@ -1,6 +1,6 @@
 import store from '../../store';
 import http from 'superagent';
-import {mbuAPI, MERIT_BADGE_NAMES, COUNSELOR_NAMES, VENTURING_CLASSES} from '../constants';
+import {mbuAPI, MERIT_BADGE_NAMES, COUNSELOR_NAMES, VENTURING_CLASS_NAMES} from '../constants';
 
 export const getMeritBadgeNames = () => {
     store.dispatch({
@@ -16,9 +16,9 @@ export const getCounselorNames = () => {
     });
 };
 
-export const getVenturingClasses = () => {
+export const getVenturingClassNames = () => {
     store.dispatch({
-        type: VENTURING_CLASSES,
-        payload: http.get(`${mbuAPI}/venturing-classes`)
+        type: VENTURING_CLASS_NAMES,
+        payload: http.get(`${mbuAPI}/venturing-class-names`)
     });
 };

@@ -79,7 +79,7 @@ class Course extends React.Component {
                     </div>
                     <div className='row'>
                         <div className='col-sm-12'>
-                            <strong>Counselors:&nbsp;&nbsp;</strong>{course.counselors.join(', ')}
+                            <strong>Counselors:&nbsp;&nbsp;</strong>{course.teachers.join(', ')}
                         </div>
                     </div>
                 </div>

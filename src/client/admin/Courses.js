@@ -83,7 +83,7 @@ class Courses extends React.Component {
 
         const filteredCourses = this.state.myCoursesOnly
             ? _.filter(this.props.courses, (course) => {
-                return course.counselors.includes('Jerry Moore');
+                return course.teachers.includes('Jerry Moore');
             })
             : this.props.courses;
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import update from 'immutability-helper';
-import {getVenturingClasses} from '../common/redux/referenceActions';
+import {getVenturingClassNames} from '../common/redux/referenceActions';
 import {getUserProfile, updateUserProfile} from './registerActions';
 import TextField from '../common/components/TextField';
 import SingleSelect from '../common/components/SingleSelect';
@@ -35,7 +35,7 @@ class RegisterVenturerInstructor extends React.Component {
     }
 
     componentDidMount() {
-        getVenturingClasses();
+        getVenturingClassNames();
         getUserProfile('jmicmoore');
     };
 
@@ -69,7 +69,7 @@ class RegisterVenturerInstructor extends React.Component {
 
         const counselorInfo = this.state.counselorInfo;
 
-        const venturerClassChoices = this.props.reference ? this.props.reference.venturingClasses : [];
+        const venturerClassChoices = this.props.reference ? this.props.reference.venturingClassNames : [];
 
         return (
                 <div className="container-fluid">
