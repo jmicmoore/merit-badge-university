@@ -13,6 +13,7 @@ import ScheduledCourses from './admin/ScheduledCourses';
 import EditScheduledCourse from './admin/EditScheduledCourse';
 import Welcome from './user/Welcome';
 
+// Gotta put the routes with params first or the one without will match
 class Home extends React.Component {
 
     render() {
@@ -28,6 +29,7 @@ class Home extends React.Component {
                     <Route path='/admin/edit-merit-badge-course/:courseId' component={EditMeritBadgeCourse}/>
                     <Route path='/admin/edit-merit-badge-course' component={EditMeritBadgeCourse}/>
                     <Route path='/admin/venturer-courses' component={VenturerCourses}/>
+                    <Route path='/admin/edit-venturer-course/:courseId' component={EditVenturerCourse}/>
                     <Route path='/admin/edit-venturer-course' component={EditVenturerCourse}/>
                     <Route path='/admin/scheduled-courses' component={ScheduledCourses}/>
                     <Route path='/admin/edit-scheduled-course/:scheduledCourseId' component={EditScheduledCourse}/>
