@@ -12,7 +12,7 @@ import SimpleList from '../common/components/SimpleList';
 import {getMeritBadgeNames} from '../common/redux/referenceActions';
 import {getMeritBadgeByName, updateCourse, getCourseById, resetCurrentCourse, resetCurrentMeritBadge} from './adminActions';
 import {validate} from '../common/util/validation';
-import validationConfig from './ClassValidationConfig';
+import validationConfig from './MeritBadgeCourseValidationConfig';
 import {COURSE_TYPE} from '../common/constants';
 
 const recommendedLengthChoices = [

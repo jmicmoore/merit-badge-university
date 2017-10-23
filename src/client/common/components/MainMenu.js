@@ -30,9 +30,17 @@ class MainMenu extends React.Component {
                         </ul>
                         <ul className="nav navbar-nav">
                             <li className="dropdown">
-                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Counselor<span className="caret"></span></a>
+                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Merit Badge Counselor<span className="caret"></span></a>
                                 <ul className="dropdown-menu">
-                                    <li><Link to="/admin/courses">Setup Courses</Link></li>
+                                    <li><Link to="/admin/merit-badge-courses">Setup Courses</Link></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul className="nav navbar-nav">
+                            <li className="dropdown">
+                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Venturer Instructor<span className="caret"></span></a>
+                                <ul className="dropdown-menu">
+                                    <li><Link to="/admin/venturer-courses">Setup Courses</Link></li>
                                 </ul>
                             </li>
                         </ul>
