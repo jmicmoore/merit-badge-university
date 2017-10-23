@@ -97,7 +97,7 @@ class EditVenturerCourse extends React.Component {
             );
             updateCourse(newCourse);
             this.setState({ displayErrors: false });
-            // this.props.history.push('/admin/venturer-courses'); // go back to courses screen
+            this.props.history.push('/admin/venturer-courses'); // go back to courses screen
         } else {
             this.setState({ displayErrors: true });
         }
