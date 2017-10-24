@@ -33,7 +33,8 @@ export const CREATE_USER_PROFILE = 'profile/CREATE_USER_PROFILE';
 export const GET_USER_PROFILE = 'profile/GET_USER_PROFILE';
 export const UPDATE_USER_PROFILE = 'profile/UPDATE_USER_PROFILE';
 
-export const LOGIN_USER = 'user/LOGIN';
+export const LOGIN_USER = 'user/LOGIN_USER';
+export const LOGOUT_USER = 'user/LOGOUT_USER';
 
 const COURSE_TYPE = {
     MeritBadge: 'MeritBadge',

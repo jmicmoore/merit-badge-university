@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Route, Switch, withRouter} from 'react-router-dom'
+import {Route, Switch, Redirect, withRouter} from 'react-router-dom'
 import MainLayout from './MainLayout';
 import Login from './user/Login';
 import Register from './register/Register';
@@ -12,11 +12,11 @@ class App extends React.Component {
         return (
             <div>
                 <Switch>
-                    <Route exact path="/login" render={() => ( this.props.isAuthenticated ? ( <Welcome/> ) : ( <Login/> ) )}/>
+                    <Route exact path="/login" render={() => ( this.props.isAuthenticated ? ( <Redirect to="/welcome"/> ) : ( <Login/> ) )}/>
                     <Route exact path="/register" component={Register}/>
                     <Route exact path="/register/counselor" component={RegisterCounselor}/>
                     <Route exact path="/register/venturer-instructor" component={RegisterVenturerInstructor}/>
-                    <Route path="/" component={MainLayout}/>
+                    <Route path="/" render={() => (this.props.isAuthenticated ? ( <MainLayout/> ) : ( <Redirect to="/login"/> ) )}/>
                 </Switch>
             </div>
         );

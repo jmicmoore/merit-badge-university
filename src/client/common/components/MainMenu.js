@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
+import {logout} from '../../user/userActions';
 
 class MainMenu extends React.Component {
 
@@ -46,15 +47,15 @@ class MainMenu extends React.Component {
                         </ul>
 
                         <ul className="nav navbar-nav navbar-right">
-                            <li><a href="#">Link</a></li>
                             <li className="dropdown">
-                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span className="caret"></span></a>
+                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Profile <span className="caret"></span></a>
                                 <ul className="dropdown-menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
+                                    <li>
+                                        <a href="#" onClick={logout}>Logout</a>
+                                    </li>
                                     <li role="separator" className="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
+                                    <li><a href="#">Edit Profile</a></li>
+                                    <li><a href="#">My Schedule</a></li>
                                 </ul>
                             </li>
                         </ul>

@@ -1,8 +1,8 @@
-import {LOGIN_USER} from '../common/constants';
+import {LOGIN_USER, LOGOUT_USER} from '../common/constants';
 
 const INITIAL_STATE = {
     isAuthenticated: false,
-    user: null,
+    profile: null,
     loginError: ''
 };
 
@@ -11,7 +11,7 @@ export const userReducer = ( state = INITIAL_STATE, action) => {
 
     if (action.type === `${LOGIN_USER}_PENDING`) {
         newState.isAuthenticated = false;
-        newState.user = null;
+        newState.profile = null;
         newState.loginError = ''
     }
     if (action.type === `${LOGIN_USER}_FULFILLED`) {
@@ -21,6 +21,14 @@ export const userReducer = ( state = INITIAL_STATE, action) => {
     if (action.type === `${LOGIN_USER}_REJECTED`) {
         newState.loginError = 'Either e-mail or password was incorrect';
     }
+
+
+    if (action.type === LOGOUT_USER) {
+        newState.isAuthenticated = false;
+        newState.profile = null;
+        newState.loginError = ''
+    }
+
 
     return newState;
 };
