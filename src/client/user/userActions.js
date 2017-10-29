@@ -12,6 +12,6 @@ export const login = (user) => {
 export const logout = () => {
     store.dispatch({
         type: LOGOUT_USER,
-        payload: null
+        payload: http.get(`${mbuAPI}/logout`)
     });
 };

@@ -23,10 +23,13 @@ export const userReducer = ( state = INITIAL_STATE, action) => {
     }
 
 
-    if (action.type === LOGOUT_USER) {
+    if (action.type === `${LOGOUT_USER}_PENDING`) {
         newState.isAuthenticated = false;
         newState.profile = null;
-        newState.loginError = ''
+    }
+    if (action.type === `${LOGOUT_USER}_FULFILLED`) {
+    }
+    if (action.type === `${LOGOUT_USER}_REJECTED`) {
     }
 
 

@@ -37,7 +37,7 @@ export const getStates = () => {
 export const createUserProfile = (user) => {
     store.dispatch({
         type: CREATE_USER_PROFILE,
-        payload: http.post(`${mbuAPI}/profiles`).send(user)
+        payload: http.post(`${mbuAPI}/register`).send(user)
     });
 };
 
