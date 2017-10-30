@@ -9,7 +9,8 @@ const INITIAL_STATE = {
     districts: [],
     states: [],
     userProfile: null,
-    createProfileError: ''
+    createProfileError: '',
+    isRegistered: false
 };
 
 export const registerReducer = ( state = INITIAL_STATE, action) => {
@@ -65,8 +66,10 @@ export const registerReducer = ( state = INITIAL_STATE, action) => {
 
     if (action.type === `${CREATE_USER_PROFILE}_PENDING`) {
         newState.createProfileError = '';
+        newState.isRegistered = false;
     }
     if (action.type === `${CREATE_USER_PROFILE}_FULFILLED`) {
+        newState.isRegistered = true;
     }
     if (action.type === `${CREATE_USER_PROFILE}_REJECTED`) {
         newState.createProfileError = action.payload.response.text;

@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import MainMenu from '../common/components/MainMenu';
 
 class Welcome extends React.Component {
 
