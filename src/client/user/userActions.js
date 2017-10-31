@@ -3,7 +3,7 @@ import http from 'superagent';
 import {
     mbuAPI,
     LOGIN_USER, LOGOUT_USER,
-    GET_USER_PROFILE, CREATE_USER_PROFILE, UPDATE_USER_PROFILE
+    GET_USER_PROFILE, CREATE_USER_PROFILE, UPDATE_USER_PROFILE, RESET_PROFILE_ERROR
 } from '../common/constants';
 
 export const login = (user) => {
@@ -51,4 +51,11 @@ export const updateUserProfile = (user) => {
             return getUserProfile(user.userId);
         }
     });
+};
+
+export const resetProfileError = () => {
+    store.dispatch({
+        type: RESET_PROFILE_ERROR,
+        payload: null
+    })
 };

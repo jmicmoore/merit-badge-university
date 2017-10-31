@@ -10,6 +10,7 @@ import RegisterVenturerInstructor from './register/RegisterVenturerInstructor';
 
 class App extends React.Component {
     render(){
+        const isAuthenticated = this.props.isAuthenticated;
         const basicRegistrationComplete = this.props.profile ? this.props.profile.basicRegistrationComplete : false;
         const registrationComplete = this.props.profile ? this.props.profile.registrationComplete : false;
 
@@ -17,7 +18,7 @@ class App extends React.Component {
             <div>
                 <Switch>
                     <Route exact path="/login"
-                           render={() => (this.props.isAuthenticated
+                           render={() => (isAuthenticated
                                ? ( <Redirect to="/welcome"/> )
                                : ( <Login/> )
                            )}
@@ -43,7 +44,7 @@ class App extends React.Component {
                            )}
                     />
                     <Route path="/"
-                           render={() => (this.props.isAuthenticated
+                           render={() => (isAuthenticated
                                ? ( <MainLayout/> )
                                : ( <Redirect to="/login"/> )
                            )}

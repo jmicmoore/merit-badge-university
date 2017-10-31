@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom'
 import update from 'immutability-helper';
 import {getProfileTypes, getCouncils, getDistricts} from './registerActions';
-import {createUserProfile} from '../user/userActions';
+import {createUserProfile, resetProfileError} from '../user/userActions';
 import TextField from '../common/components/TextField';
 import SingleSelect from '../common/components/SingleSelect';
 import {validate, convertErrorToReport} from '../common/util/validation';
@@ -50,6 +50,10 @@ class Register extends React.Component {
         getCouncils();
         getDistricts();
     };
+
+    componentWillUnmount(){
+        resetProfileError();
+    }
 
     handleChange(field, value) {
         const newState = update(this.state, {profile: {[field]: {$set: value}}});

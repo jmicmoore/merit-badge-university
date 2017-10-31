@@ -66,6 +66,31 @@ class RegisterVenturerInstructor extends React.Component {
         this.setState({errorReport: report});
     };
 
+    renderButtons(registrationComplete){
+        if(registrationComplete){
+            return (
+                <div>
+                    <div className="col-sm-offset-6 col-sm-2 col-xs-12">
+                        <Link to="/welcome">
+                            <button type="button" className="btn btn-lg btn-block"> Cancel </button>
+                        </Link>
+                    </div>
+
+                    <div className="col-sm-4 col-xs-12">
+                        <button type="submit" className="btn btn-success btn-lg btn-block">Update My Registration</button>
+                    </div>
+                </div>
+            );
+        } else {
+            return (
+                <div className="col-sm-offset-8 col-sm-4 col-xs-12">
+                    <button type="submit" className="btn btn-success btn-lg btn-block">Complete My Registration</button>
+                </div>
+            );
+        }
+
+    }
+
     render() {
         const basicProfile = this.props.user.profile;
 
@@ -75,6 +100,8 @@ class RegisterVenturerInstructor extends React.Component {
         const counselorInfo = this.state.counselorInfo;
 
         const venturerClassChoices = this.props.reference ? this.props.reference.venturingClassNames : [];
+
+        const registrationComplete = this.props.user.profile ? this.props.user.profile.registrationComplete : false;
 
         return (
                 <div className="container-fluid">
@@ -110,9 +137,9 @@ class RegisterVenturerInstructor extends React.Component {
                                             </div>
                                             <div className="clearfix"></div>
 
-                                            <div className="col-sm-offset-10 col-sm-2 col-xs-12">
-                                                <button type="submit" className="btn btn-success btn-lg btn-block">Submit</button>
-                                            </div>
+                                            {
+                                                this.renderButtons(registrationComplete)
+                                            }
                                         </form>
                                     </div>
                                 </div>

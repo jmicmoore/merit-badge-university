@@ -1,6 +1,6 @@
 import {
     LOGIN_USER, LOGOUT_USER,
-    GET_USER_PROFILE, CREATE_USER_PROFILE, UPDATE_USER_PROFILE
+    GET_USER_PROFILE, CREATE_USER_PROFILE, UPDATE_USER_PROFILE, RESET_PROFILE_ERROR
 } from '../common/constants';
 
 const INITIAL_STATE = {
@@ -68,6 +68,11 @@ export const userReducer = ( state = INITIAL_STATE, action) => {
     }
     if (action.type === `${UPDATE_USER_PROFILE}_REJECTED`) {
         console.log('Error updating user profile.');
+    }
+
+
+    if (action.type === RESET_PROFILE_ERROR) {
+        newState.createProfileError = '';
     }
 
 

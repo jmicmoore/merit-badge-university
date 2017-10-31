@@ -32,6 +32,7 @@ export const RESET_CURRENT_SCHEDULED_COURSE = 'admin/RESET_CURRENT_SCHEDULED_COU
 export const CREATE_USER_PROFILE = 'profile/CREATE_USER_PROFILE';
 export const GET_USER_PROFILE = 'profile/GET_USER_PROFILE';
 export const UPDATE_USER_PROFILE = 'profile/UPDATE_USER_PROFILE';
+export const RESET_PROFILE_ERROR = 'profile/RESET_PROFILE_ERROR';
 
 export const LOGIN_USER = 'user/LOGIN_USER';
 export const LOGOUT_USER = 'user/LOGOUT_USER';
