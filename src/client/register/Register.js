@@ -145,7 +145,7 @@ class Register extends React.Component {
                                             </div>
                                             <div className="col-sm-3 col-xs-12">
                                                 <Link to="/login">
-                                                    <button type="submit" className="btn btn-lg btn-block"> Cancel </button>
+                                                    <button type="button" className="btn btn-lg btn-block"> Cancel </button>
                                                 </Link>
                                             </div>
                                         </form>
