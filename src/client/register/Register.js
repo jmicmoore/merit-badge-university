@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom'
 import update from 'immutability-helper';
 import {getProfileTypes, getCouncils, getDistricts} from './registerActions';
 import {createUserProfile} from '../user/userActions';
@@ -139,8 +140,13 @@ class Register extends React.Component {
                                                 <TextField propertyName='otherDistrict' propertyValue={profile.otherDistrict} displayName='Other District' hidden={!showOtherDistrict} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="clearfix"></div>
-                                            <div className="col-sm-offset-4 col-sm-4 col-xs-12">
+                                            <div className="col-sm-offset-6 col-sm-3 col-xs-12">
                                                 <button type="submit" className="btn btn-success btn-lg btn-block"> Register </button>
+                                            </div>
+                                            <div className="col-sm-3 col-xs-12">
+                                                <Link to="/login">
+                                                    <button type="submit" className="btn btn-lg btn-block"> Cancel </button>
+                                                </Link>
                                             </div>
                                         </form>
                                     </div>
