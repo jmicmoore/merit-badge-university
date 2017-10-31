@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import update from 'immutability-helper';
-import {getProfileTypes, getCouncils, getDistricts, createUserProfile} from './registerActions';
+import {getProfileTypes, getCouncils, getDistricts} from './registerActions';
+import {createUserProfile} from '../user/userActions';
 import TextField from '../common/components/TextField';
 import SingleSelect from '../common/components/SingleSelect';
 import {validate, convertErrorToReport} from '../common/util/validation';
@@ -36,7 +37,7 @@ class Register extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let report = convertErrorToReport(nextProps.createProfileError, 'userId');
+        let report = convertErrorToReport(nextProps.user.createProfileError, 'userId');
         this.setState({
             displayErrors: !!report,
             errorReport: report
@@ -74,7 +75,12 @@ class Register extends React.Component {
         event.preventDefault();
         const report = validate(this.state.profile, validationConfig);
         if(report.allValid){
-            createUserProfile(_.omit(this.state.profile, ['userIdConfirm', 'passwordConfirm']));
+            const newProfile = Object.assign(
+                {},
+                this.state.profile,
+                { basicRegistrationComplete: true }
+            );
+            createUserProfile(_.omit(newProfile, ['userIdConfirm', 'passwordConfirm']));
             this.setState({ displayErrors: false });
         } else {
             this.setState({ displayErrors: true });
@@ -122,14 +128,14 @@ class Register extends React.Component {
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-4 col-xs-12">
-                                                <SingleSelect propertyName='profileType' propertyValue={profile.profileType} displayName='Who Are You?' options={this.props.profileTypes} errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                                <SingleSelect propertyName='profileType' propertyValue={profile.profileType} displayName='Who Are You?' options={this.props.register.profileTypes} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="col-sm-4 col-xs-12">
-                                                <SingleSelect propertyName='council' propertyValue={profile.council} displayName='What Council Are You From?' options={this.props.councils} errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                                <SingleSelect propertyName='council' propertyValue={profile.council} displayName='What Council Are You From?' options={this.props.register.councils} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                                 <TextField propertyName='otherCouncil' propertyValue={profile.otherCouncil} displayName='Other Council' hidden={!showOtherCouncil} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="col-sm-4 col-xs-12">
-                                                <SingleSelect propertyName='district' propertyValue={profile.district} displayName='What District Are You From?' options={this.props.districts} errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                                <SingleSelect propertyName='district' propertyValue={profile.district} displayName='What District Are You From?' options={this.props.register.districts} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                                 <TextField propertyName='otherDistrict' propertyValue={profile.otherDistrict} displayName='Other District' hidden={!showOtherDistrict} errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="clearfix"></div>
@@ -151,8 +157,8 @@ class Register extends React.Component {
     }
 };
 
-const mapStateToProps = ({register}) => {
-    return register;
+const mapStateToProps = ({register, user}) => {
+    return {register, user};
 };
 
 export default connect(mapStateToProps)(Register);

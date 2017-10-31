@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import update from 'immutability-helper';
 import {getVenturingClassNames} from '../common/redux/referenceActions';
-import {getUserProfile, updateUserProfile} from './registerActions';
+import {getUserProfile, updateUserProfile} from '../user/userActions';
 import TextField from '../common/components/TextField';
 import SingleSelect from '../common/components/SingleSelect';
 import MultiSelect from "../common/components/MultiSelect";
@@ -36,7 +36,7 @@ class RegisterVenturerInstructor extends React.Component {
 
     componentDidMount() {
         getVenturingClassNames();
-        getUserProfile('jmicmoore');
+        getUserProfile(this.props.user.userId);
     };
 
     handleChange(field, value) {
@@ -52,7 +52,12 @@ class RegisterVenturerInstructor extends React.Component {
 
         const report = validate(counselorInfo, validationConfig);
         if(report.allValid){
-            const newProfile = Object.assign({}, this.props.register.userProfile, counselorInfo);
+            const newProfile = Object.assign(
+                {},
+                this.props.user.profile,
+                counselorInfo,
+                { registrationComplete: true }
+            );
             updateUserProfile(newProfile);
             this.setState({ displayErrors: false });
         } else {
@@ -62,7 +67,7 @@ class RegisterVenturerInstructor extends React.Component {
     };
 
     render() {
-        const basicProfile = this.props.register.userProfile;
+        const basicProfile = this.props.user.profile;
 
         const firstName = basicProfile ? basicProfile.firstName : '';
         const lastName = basicProfile ? basicProfile.lastName : '';
@@ -123,8 +128,8 @@ class RegisterVenturerInstructor extends React.Component {
     }
 };
 
-const mapStateToProps = ({reference, register}) => {
-    return {reference, register};
+const mapStateToProps = ({reference, register, user}) => {
+    return {reference, register, user};
 };
 
 export default connect(mapStateToProps)(RegisterVenturerInstructor);

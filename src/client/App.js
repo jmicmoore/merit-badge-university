@@ -10,26 +10,40 @@ import RegisterVenturerInstructor from './register/RegisterVenturerInstructor';
 
 class App extends React.Component {
     render(){
+        const basicRegistrationComplete = this.props.profile ? this.props.profile.basicRegistrationComplete : false;
+        const registrationComplete = this.props.profile ? this.props.profile.registrationComplete : false;
+
         return (
             <div>
                 <Switch>
                     <Route exact path="/login"
-                           render={() => (this.props.user.isAuthenticated
+                           render={() => (this.props.isAuthenticated
                                ? ( <Redirect to="/welcome"/> )
                                : ( <Login/> )
                            )}
                     />
                     <Route exact path="/register"
-                           render={() => (this.props.register.isRegistered
+                           render={() => (basicRegistrationComplete
                                 ? ( <Redirect to="/register/success"/> )
                                 : ( <Register/> )
                            )}
                     />
                     <Route exact path="/register/success" component={RegisterSuccess}/>
-                    <Route exact path="/register/counselor" component={RegisterCounselor}/>
-                    <Route exact path="/register/venturer-instructor" component={RegisterVenturerInstructor}/>
+
+                    <Route exact path="/register/counselor"
+                           render={() => (registrationComplete
+                                ? ( <Redirect to="/welcome"/> )
+                                : ( <RegisterCounselor/> )
+                           )}
+                    />
+                    <Route exact path="/register/venturer-instructor"
+                           render={() => (registrationComplete
+                                ? ( <Redirect to="/welcome"/> )
+                                : ( <RegisterVenturerInstructor/> )
+                           )}
+                    />
                     <Route path="/"
-                           render={() => (this.props.user.isAuthenticated
+                           render={() => (this.props.isAuthenticated
                                ? ( <MainLayout/> )
                                : ( <Redirect to="/login"/> )
                            )}
@@ -40,8 +54,8 @@ class App extends React.Component {
     };
 };
 
-const mapStateToProps = ({user, register}) => {
-    return {user, register};
+const mapStateToProps = ({user}) => {
+    return user;
 };
 
 export default withRouter(connect(mapStateToProps)(App));

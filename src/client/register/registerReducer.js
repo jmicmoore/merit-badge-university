@@ -1,16 +1,12 @@
 import {
-    PROFILE_TYPES, COUNCILS, DISTRICTS, STATES,
-    CREATE_USER_PROFILE, GET_USER_PROFILE, UPDATE_USER_PROFILE
+    PROFILE_TYPES, COUNCILS, DISTRICTS, STATES
 } from '../common/constants';
 
 const INITIAL_STATE = {
     profileTypes: [],
     councils: [],
     districts: [],
-    states: [],
-    userProfile: null,
-    createProfileError: '',
-    isRegistered: false
+    states: []
 };
 
 export const registerReducer = ( state = INITIAL_STATE, action) => {
@@ -61,40 +57,6 @@ export const registerReducer = ( state = INITIAL_STATE, action) => {
     if (action.type === `${STATES}_REJECTED`) {
         console.log('Error getting states.');
         newState.states = [];
-    }
-
-
-    if (action.type === `${CREATE_USER_PROFILE}_PENDING`) {
-        newState.createProfileError = '';
-        newState.isRegistered = false;
-    }
-    if (action.type === `${CREATE_USER_PROFILE}_FULFILLED`) {
-        newState.isRegistered = true;
-    }
-    if (action.type === `${CREATE_USER_PROFILE}_REJECTED`) {
-        newState.createProfileError = action.payload.response.text;
-        console.log('Error creating user profile.');
-    }
-
-
-    if (action.type === `${UPDATE_USER_PROFILE}_PENDING`) {
-    }
-    if (action.type === `${UPDATE_USER_PROFILE}_FULFILLED`) {
-    }
-    if (action.type === `${UPDATE_USER_PROFILE}_REJECTED`) {
-        console.log('Error updating user profile.');
-    }
-
-
-    if (action.type === `${GET_USER_PROFILE}_PENDING`) {
-        newState.userProfile = null;
-    }
-    if (action.type === `${GET_USER_PROFILE}_FULFILLED`) {
-        newState.userProfile = action.payload.body;
-    }
-    if (action.type === `${GET_USER_PROFILE}_REJECTED`) {
-        console.log('Error retrieving user profile.');
-        newState.userProfile = null;
     }
 
 
