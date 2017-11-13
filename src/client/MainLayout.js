@@ -4,6 +4,7 @@ import {Route, Switch, withRouter} from 'react-router-dom'
 import './common/components/MainMenu';
 import MainMenu from "./common/components/MainMenu";
 import MeritBadges from './admin/MeritBadges';
+import EditMeritBadge from './admin/EditMeritBadge';
 import Classrooms from './admin/Classrooms';
 import MeritBadgeCourses from './admin/MeritBadgeCourses';
 import EditMeritBadgeCourse from './admin/EditMeritBadgeCourse';
@@ -24,6 +25,7 @@ class Home extends React.Component {
                 <MainMenu/>
                 <Switch>
                     <Route path='/admin/merit-badges' component={MeritBadges}/>
+                    <Route path="/admin/edit-merit-badge" component={EditMeritBadge}/>
                     <Route path='/admin/classrooms' component={Classrooms}/>
                     <Route path='/admin/merit-badge-courses' component={MeritBadgeCourses}/>
                     <Route path='/admin/edit-merit-badge-course/:courseId' component={EditMeritBadgeCourse}/>

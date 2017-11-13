@@ -1,50 +1,24 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom'
+import MeritBadge from './MeritBadge';
+import { Modal, Button } from 'react-bootstrap';
 import {getMeritBadges} from './adminActions';
-import {mbuAPI} from '../common/constants';
 
-const createMeritBadgeRow = (meritBadgeRow) => {
+const createMeritBadgeRow = (row, deleteCallback) => {
     return (
         <div className='row'>
             {
-                meritBadgeRow.map(badge => {
+                row.map(badge => {
                     return (
                         <div className="col-sm-3 col-xs-12">
-                            {createMeritBadge(badge)}
+                            <MeritBadge key={badge.name} meritBadge={badge} deleteCallback={deleteCallback}/>
                         </div>
                     )
                 })
             }
         </div>
     );
-};
-
-const createMeritBadge = (meritBadge) => {
-    return (
-
-        <div className="panel panel-default" key={meritBadge.name}>
-            <div className="panel-body">
-                <div className='row'>
-                    <div className='col-sm-7'>
-                        <h3>{meritBadge.name}</h3>
-                    </div>
-                    <div className='col-sm-5'>
-                        <img src={`${mbuAPI}${meritBadge.imageUrl}`} alt={meritBadge.name} width="100px" height="100px"/>
-                    </div>
-                </div>
-                <div className='row'>
-                    <div className='col-sm-10'>
-                        <h5>{meritBadge.requirements.length} Requirements</h5>
-                    </div>
-                    <div className='col-sm-2'>
-                        <button type="button" className="btn btn-default" aria-label="Left Align">
-                            <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
 };
 
 const create2DArray = (numCols, list) => {
@@ -69,15 +43,24 @@ class MeritBadges extends React.Component {
 
     render() {
 
-        const meritBadges = create2DArray(4, this.props.meritBadges);
+        const meritBadgeGrid = create2DArray(4, this.props.meritBadges);
+        // const meritBadgeName = this.state.selectedBadge ? this.state.selectedBadge.name : '';
 
         return (
-            <div>
-                <h1>Merit Badges</h1>
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-sm-3 col-xs-12">
+                        <h1>Merit Badges</h1>
+                    </div>
+                    <div className="col-sm-2 col-xs-12">
+                        <Link to={`/admin/edit-merit-badge`}>
+                            <button id="addNewMeritBadge" type="button" className="btn btn-success btn-lg btn-block" aria-label="Left Align">
+                                Add New
+                            </button>
+                        </Link>
+                    </div>
+                </div>
 
-                {
-                    meritBadges.map(meritBadgeRow => createMeritBadgeRow(meritBadgeRow))
-                }
             </div>
         )
     }
