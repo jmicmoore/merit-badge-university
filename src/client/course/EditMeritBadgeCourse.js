@@ -10,10 +10,10 @@ import SingleSelect from '../common/components/SingleSelect';
 import CheckBox from '../common/components/CheckBox';
 import SimpleList from '../common/components/SimpleList';
 import {getMeritBadgeNames} from '../common/redux/referenceActions';
-import {getMeritBadgeByName, updateCourse, getCourseById, resetCurrentCourse, resetCurrentMeritBadge} from '../admin/adminActions';
+import {getMeritBadgeByName, updateCourse, getCourseById, resetCurrentCourse, resetCurrentMeritBadge} from './courseActions';
 import {validate} from '../common/util/validation';
 import validationConfig from './MeritBadgeCourseValidationConfig';
-import {COURSE_TYPE} from '../common/constants';
+import {COURSE_TYPE} from './constants';
 
 const recommendedLengthChoices = [
     {value: '1 hour', label: '1 hour'},
@@ -67,12 +67,12 @@ class EditCourse extends React.Component {
     }
 
     currentCourseIsChanging(nextProps){
-        return nextProps.admin.currentCourse !== this.props.admin.currentCourse;
+        return nextProps.course.currentCourse !== this.props.course.currentCourse;
     }
 
     componentWillReceiveProps(nextProps){
         if(this.currentCourseIsChanging(nextProps)){
-            const courseLocalCopy = Object.assign({}, nextProps.admin.currentCourse);
+            const courseLocalCopy = Object.assign({}, nextProps.course.currentCourse);
             courseLocalCopy.preRequisites = this.convertStringArrayToTrueObjectProps(courseLocalCopy.preRequisites);
             this.setState(courseLocalCopy);
         }
@@ -95,8 +95,8 @@ class EditCourse extends React.Component {
 
     selectAllPrereqs(){
         const requirements = (
-            this.props.admin.currentMeritBadge
-            && this.props.admin.currentMeritBadge.requirements) || [];
+            this.props.course.currentMeritBadge
+            && this.props.course.currentMeritBadge.requirements) || [];
 
         const newPrereqs = {};
         _.each(requirements, req => {
@@ -132,7 +132,7 @@ class EditCourse extends React.Component {
         event.preventDefault();
         const report = validate(this.state, validationConfig);
         if(report.allValid){
-            const badge = this.props.admin.currentMeritBadge || {};
+            const badge = this.props.course.currentMeritBadge || {};
             const prerequisiteList = this.convertTrueObjectPropsToStringArray(this.state.preRequisites);
             const newCourse = Object.assign(
                 {},
@@ -260,8 +260,8 @@ class EditCourse extends React.Component {
         const classInfo = this.state;
 
         const requirements = (
-            this.props.admin.currentMeritBadge
-            && this.props.admin.currentMeritBadge.requirements) || [];
+            this.props.course.currentMeritBadge
+            && this.props.course.currentMeritBadge.requirements) || [];
 
         const prerequisiteList = this.convertTrueObjectPropsToStringArray(this.state.preRequisites).join(', ');
 
@@ -333,8 +333,8 @@ class EditCourse extends React.Component {
 
 };
 
-const mapStateToProps = ({reference, admin}) => {
-    return {reference, admin};
+const mapStateToProps = ({reference, course}) => {
+    return {reference, course};
 };
 
 export default withRouter(connect(mapStateToProps)(EditCourse));

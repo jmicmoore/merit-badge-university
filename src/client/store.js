@@ -5,12 +5,14 @@ import { registerReducer } from './register/registerReducer';
 import { userReducer } from './user/userReducer';
 import { adminReducer } from './admin/adminReducer';
 import { meritBadgeReducer } from './meritBadge/meritBadgeReducer';
+import { courseReducer } from './course/courseReducer';
 
 const reducers = {
     reference: referenceReducer,
     register: registerReducer,
     user: userReducer,
     meritBadge: meritBadgeReducer,
+    course: courseReducer,
     admin: adminReducer
 };
 

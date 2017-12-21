@@ -3,10 +3,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import SingleSelect from '../common/components/SingleSelect';
-import {getClassrooms, getCourses, updateScheduledCourse, getScheduledCourseById, resetCurrentScheduledCourse} from '../admin/adminActions';
+import {getClassrooms, getCourses, updateScheduledCourse, getScheduledCourseById, resetCurrentScheduledCourse} from './courseActions';
 import {getCounselorNames} from '../common/redux/referenceActions'
 import {validate} from '../common/util/validation';
 import validationConfig from './ScheduledCourseValidationConfig';
+import {COURSE_TYPE} from './constants';
 
 const periods = [
     { periodNumber: '1', time: '8 - 8:50 am' },
@@ -46,18 +47,18 @@ class EditScheduledCourse extends React.Component {
     }
 
     currentScheduledCourseIsChanging(nextProps){
-        return nextProps.admin.currentScheduledCourse !== this.props.admin.currentScheduledCourse;
+        return nextProps.course.currentScheduledCourse !== this.props.course.currentScheduledCourse;
     }
 
     componentWillReceiveProps(nextProps){
         if(this.currentScheduledCourseIsChanging(nextProps)){
-            const scheduledCourseLocalCopy = Object.assign({}, nextProps.admin.currentScheduledCourse);
+            const scheduledCourseLocalCopy = Object.assign({}, nextProps.course.currentScheduledCourse);
             this.setState(scheduledCourseLocalCopy);
         }
     };
 
     lookupCourseByName(courseName){
-        return _.find(this.props.admin.courses, { 'meritBadge': courseName});
+        return _.find(this.props.course.courses, { 'meritBadge': courseName});
     };
 
     handleSubmit(event) {
@@ -92,7 +93,7 @@ class EditScheduledCourse extends React.Component {
 
         const courseInfo = this.state;
 
-        const classroomChoices = this.props.admin.classrooms.map( item => {
+        const classroomChoices = this.props.course.classrooms.map( item => {
             return ({
                 value: item.name,
                 label: `${item.name} (capacity ${item.capacity})`
@@ -105,11 +106,19 @@ class EditScheduledCourse extends React.Component {
                 label: `Period ${item.periodNumber} (${item.time})`
             });
         });
-        const courseChoices = this.props.admin.courses.map( item => {
-            return ({
-                value: item.meritBadge,
-                label: `${item.meritBadge} (${item.recommendedLength})`
-            })
+        // TODO: change meritBadge and venturingClass to courseName to commonize?
+        const courseChoices = this.props.course.courses.map( item => {
+            if(item.courseType === COURSE_TYPE.MeritBadge){
+                return ({
+                    value: item.meritBadge,
+                    label: `${item.meritBadge} (${item.recommendedLength})`
+                })
+            } else if(item.courseType === COURSE_TYPE.Venturing){
+                return ({
+                    value: item.venturingClass,
+                    label: `${item.venturingClass} (${item.recommendedLength})`
+                })
+            }
         });
         const counselorChoices = this.props.reference.counselorNames.map( item => {
             return ({
@@ -150,8 +159,8 @@ class EditScheduledCourse extends React.Component {
     };
 };
 
-const mapStateToProps = ({reference, admin}) => {
-    return {reference, admin};
+const mapStateToProps = ({reference, course}) => {
+    return {reference, course};
 };
 
 export default withRouter(connect(mapStateToProps)(EditScheduledCourse));

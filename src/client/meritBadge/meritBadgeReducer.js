@@ -1,6 +1,5 @@
 import {
-    GET_MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, GET_MERIT_BADGE_BY_ID,
-    UPDATE_MERIT_BADGE, DELETE_MERIT_BADGE
+    GET_MERIT_BADGES, GET_MERIT_BADGE_BY_ID, UPDATE_MERIT_BADGE, DELETE_MERIT_BADGE
 } from './constants';
 
 const INITIAL_STATE = {
@@ -33,18 +32,6 @@ export const meritBadgeReducer = ( state = INITIAL_STATE, action) => {
     //     console.log('Error getting merit badge by id.');
     //     newState.currentMeritBadge = null;
     // }
-
-
-    if (action.type === `${GET_MERIT_BADGE_BY_NAME}_PENDING`) {
-        newState.currentMeritBadge = null;
-    }
-    if (action.type === `${GET_MERIT_BADGE_BY_NAME}_FULFILLED`) {
-        newState.currentMeritBadge = action.payload.body;
-    }
-    if (action.type === `${GET_MERIT_BADGE_BY_NAME}_REJECTED`) {
-        console.log('Error getting merit badge by name.');
-        newState.currentMeritBadge = null;
-    }
 
 
     if (action.type === `${UPDATE_MERIT_BADGE}_PENDING`) {

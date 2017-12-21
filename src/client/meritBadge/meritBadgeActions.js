@@ -1,21 +1,13 @@
 import store from '../store';
 import http from 'superagent';
 import {mbuAPI,
-    GET_MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, GET_MERIT_BADGE_BY_ID,
-    UPDATE_MERIT_BADGE, DELETE_MERIT_BADGE
+    GET_MERIT_BADGES, GET_MERIT_BADGE_BY_ID, UPDATE_MERIT_BADGE, DELETE_MERIT_BADGE
 } from './constants';
 
 export const getMeritBadges = () => {
     return store.dispatch({
         type: GET_MERIT_BADGES,
         payload: http.get(`${mbuAPI}/merit-badges`)
-    });
-};
-
-export const getMeritBadgeByName = (name) => {
-    return store.dispatch({
-        type: GET_MERIT_BADGE_BY_NAME,
-        payload: http.get(`${mbuAPI}/merit-badges/${name}`)
     });
 };
 

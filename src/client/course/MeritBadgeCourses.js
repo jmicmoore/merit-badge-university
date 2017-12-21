@@ -5,8 +5,8 @@ import {Link} from 'react-router-dom'
 import CheckBox from '../common/components/CheckBox';
 import { Modal, Button } from 'react-bootstrap';
 import MeritBadgeCourse from './MeritBadgeCourse';
-import {getCourses, deleteCourse} from '../admin/adminActions';
-import {COURSE_TYPE} from '../common/constants';
+import {getCourses, deleteCourse} from './courseActions';
+import {COURSE_TYPE} from './constants';
 
 const createRow = (row, rowIndex, deleteCallback) => {
     return (
@@ -138,8 +138,8 @@ class MeritBadgeCourses extends React.Component {
     };
 };
 
-const mapStateToProps = ({admin}) => {
-    return admin;
+const mapStateToProps = ({course}) => {
+    return course;
 };
 
 export default connect(mapStateToProps)(MeritBadgeCourses);

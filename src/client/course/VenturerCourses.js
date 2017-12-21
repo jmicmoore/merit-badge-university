@@ -5,17 +5,17 @@ import {Link} from 'react-router-dom'
 import CheckBox from '../common/components/CheckBox';
 import { Modal, Button } from 'react-bootstrap';
 import VenturerCourse from './VenturerCourse';
-import {getCourses, deleteCourse} from '../admin/adminActions';
-import {COURSE_TYPE} from '../common/constants';
+import {getCourses, deleteCourse} from './courseActions';
+import {COURSE_TYPE} from './constants';
 
-const createRow = (row, deleteCallback) => {
+const createRow = (row, rowIndex, deleteCallback) => {
     return (
-        <div className='row'>
+        <div key={`row_${rowIndex}`} className='row'>
             {
                 row.map(course => {
                     return (
-                        <div className="col-sm-3 col-xs-12">
-                            <VenturerCourse key={course.venturingClass} course={course} deleteCallback={deleteCallback}/>
+                        <div key={course.venturingClass} className="col-sm-3 col-xs-12">
+                            <VenturerCourse  course={course} deleteCallback={deleteCallback}/>
                         </div>
                     )
                 })
@@ -113,7 +113,7 @@ class VenturingCourses extends React.Component {
                     </div>
                 </div>
                 {
-                    courseGrid.map(course => createRow(course, this.openDeleteConfirm))
+                    courseGrid.map((courseRow, index) => createRow(courseRow, index, this.openDeleteConfirm))
                 }
 
                 <Modal
@@ -138,8 +138,8 @@ class VenturingCourses extends React.Component {
     };
 };
 
-const mapStateToProps = ({admin}) => {
-    return admin;
+const mapStateToProps = ({course}) => {
+    return course;
 };
 
 export default connect(mapStateToProps)(VenturingCourses);

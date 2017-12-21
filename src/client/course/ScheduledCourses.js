@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {Table} from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome';
-import {getScheduledCourses, deleteScheduledCourse} from '../admin/adminActions';
+import {getScheduledCourses, deleteScheduledCourse} from './courseActions';
 
 class ScheduledCourses extends React.Component {
 
@@ -96,8 +96,8 @@ class ScheduledCourses extends React.Component {
     }
 };
 
-const mapStateToProps = ({admin}) => {
-    return admin;
+const mapStateToProps = ({course}) => {
+    return course;
 };
 
 export default connect(mapStateToProps)(ScheduledCourses);

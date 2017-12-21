@@ -5,10 +5,10 @@ import TextArea from "../common/components/TextArea";
 import SingleSelect from '../common/components/SingleSelect';
 import SimpleList from '../common/components/SimpleList';
 import {getVenturingClassNames} from '../common/redux/referenceActions';
-import {updateCourse, getCourseById, resetCurrentCourse} from '../admin/adminActions';
+import {updateCourse, getCourseById, resetCurrentCourse} from './courseActions';
 import {validate} from '../common/util/validation';
 import validationConfig from './VenturerCourseValidationConfig';
-import {COURSE_TYPE} from '../common/constants';
+import {COURSE_TYPE} from './constants';
 
 const recommendedLengthChoices = [
     {value: '1 hour', label: '1 hour'},
@@ -55,12 +55,12 @@ class EditVenturerCourse extends React.Component {
     }
 
     currentCourseIsChanging(nextProps){
-        return nextProps.admin.currentCourse !== this.props.admin.currentCourse;
+        return nextProps.course.currentCourse !== this.props.course.currentCourse;
     }
 
     componentWillReceiveProps(nextProps){
         if(this.currentCourseIsChanging(nextProps)){
-            const courseLocalCopy = Object.assign({}, nextProps.admin.currentCourse);
+            const courseLocalCopy = Object.assign({}, nextProps.course.currentCourse);
             this.setState(courseLocalCopy);
         }
     };
@@ -165,8 +165,8 @@ class EditVenturerCourse extends React.Component {
 
 };
 
-const mapStateToProps = ({reference, admin}) => {
-    return {reference, admin};
+const mapStateToProps = ({reference, course}) => {
+    return {reference, course};
 };
 
 export default withRouter(connect(mapStateToProps)(EditVenturerCourse));
