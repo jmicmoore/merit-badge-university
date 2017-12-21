@@ -1,14 +1,14 @@
 import store from '../store';
 import http from 'superagent';
 import {mbuAPI,
-    GET_MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, GET_MERIT_BADGE_BY_ID, RESET_CURRENT_MERIT_BADGE,
+    GET_MERIT_BADGES, GET_MERIT_BADGE_BY_NAME, GET_MERIT_BADGE_BY_ID, UPDATE_MERIT_BADGE, RESET_CURRENT_MERIT_BADGE,
     ADD_CLASSROOM, GET_CLASSROOMS, DELETE_CLASSROOM,
     UPDATE_COURSE, DELETE_COURSE, GET_COURSES, GET_COURSE_BY_ID, RESET_CURRENT_COURSE,
     UPDATE_SCHEDULED_COURSE, GET_SCHEDULED_COURSES, DELETE_SCHEDULED_COURSE, GET_SCHEDULED_COURSE_BY_ID, RESET_CURRENT_SCHEDULED_COURSE
 } from '../common/constants';
 
 export const getMeritBadges = () => {
-    store.dispatch({
+    return store.dispatch({
         type: GET_MERIT_BADGES,
         payload: http.get(`${mbuAPI}/merit-badges`)
     });
@@ -19,6 +19,16 @@ export const getMeritBadgeByName = (name) => {
         type: GET_MERIT_BADGE_BY_NAME,
         payload: http.get(`${mbuAPI}/merit-badges/${name}`)
     });
+};
+
+
+export const updateMeritBadge = (meritBadge) => {
+    store.dispatch({
+        type: UPDATE_MERIT_BADGE,
+        payload: http.put(`${mbuAPI}/merit-badges`).send(meritBadge)
+    }).then(() => {
+        return getMeritBadges();
+    })
 };
 
 // export const getMeritBadgeById = (id) => {

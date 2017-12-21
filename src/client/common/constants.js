@@ -13,6 +13,7 @@ export const STATES = 'profile/STATES';
 export const GET_MERIT_BADGES = 'admin/MERIT_BADGES';
 export const GET_MERIT_BADGE_BY_ID = 'admin/GET_MERIT_BADGE_BY_ID';
 export const GET_MERIT_BADGE_BY_NAME = 'admin/GET_MERIT_BADGE_BY_NAME';
+export const UPDATE_MERIT_BADGE = 'admin/UPDATE_MERIT_BADGE';
 export const ADD_CLASSROOM = 'admin/ADD_CLASSROOM';
 export const GET_CLASSROOMS = 'admin/GET_CLASSROOMS';
 export const DELETE_CLASSROOM = 'admin/DELETE_CLASSROOM';

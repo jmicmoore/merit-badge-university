@@ -8,8 +8,10 @@ import MainMenu from '../common/components/MainMenu';
 import TextField from '../common/components/TextField';
 import CheckBox from '../common/components/CheckBox';
 import TextArea from "../common/components/TextArea";
-import {getMeritBadgeById} from './adminActions';
+import {getMeritBadgeById, updateMeritBadge} from './adminActions';
 import {mbuAPI} from '../common/constants';
+import {validate} from '../common/util/validation';
+import validationConfig from './MeritBadgeValidationConfig';
 
 class EditMeritBadge extends React.Component {
 
@@ -17,11 +19,13 @@ class EditMeritBadge extends React.Component {
         super(props);
         this.state = {
             name: '',
+            imageFileName: '',
             eagleRequired: false,
             imageUrl: '',
             requirements: []
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     };
 
     componentDidMount() {
@@ -36,6 +40,20 @@ class EditMeritBadge extends React.Component {
         // };
         // this.setState(initState);
     };
+
+    handleSubmit(event) {
+        event.preventDefault();
+        const report = validate(this.state, validationConfig);
+        if(report.allValid){
+            updateMeritBadge(this.state);
+            this.setState({ displayErrors: false });
+            this.props.history.push('/admin/merit-badges'); // go back to merit badges screen
+        } else {
+            this.setState({ displayErrors: true });
+        }
+        this.setState({errorReport: report});
+    };
+
 
     handleChange(field, value) {
         this.setState({[field]: value});
@@ -210,6 +228,7 @@ class EditMeritBadge extends React.Component {
     render() {
 
         const name = this.state.name;
+        const imageFileName = this.state.imageFileName;
         const eagleRequired = this.state.eagleRequired;
         const imageUrl = this.state.imageUrl;
 
@@ -224,10 +243,10 @@ class EditMeritBadge extends React.Component {
                     <h1>Edit Merit Badge</h1>
 
                     <div className="col-sm-12 well">
-                        <form>
+                        <form onSubmit={this.handleSubmit} noValidate className={this.state.displayErrors ? 'displayErrors' : ''}>
                             <div className="row">
                                 <div className="col-sm-5 col-xs-12">
-                                    <TextField propertyName='name' propertyValue={name} displayName='Merit Badge Name' changeHandler={this.handleChange}/>
+                                    <TextField propertyName='name' propertyValue={name} displayName='Merit Badge Name' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                 </div>
                                 <div className="col-sm-2 col-xs-12">
                                     <CheckBox propertyName='eagleRequired' propertyValue={eagleRequired} displayName='Eagle Required' changeHandler={this.handleChange} />
@@ -244,7 +263,7 @@ class EditMeritBadge extends React.Component {
                             </div>
                             <div className="row">
                                 <div className="col-sm-offset-7 col-sm-5 col-xs-12">
-                                    <TextField propertyName='imageFileName' propertyValue={name} displayName='Image File Name' changeHandler={this.handleChange}/>
+                                    <TextField propertyName='imageFileName' propertyValue={imageFileName} displayName='Image File Name' changeHandler={this.handleChange}/>
                                 </div>
                             </div>
                             <div className="row">
@@ -272,6 +291,14 @@ class EditMeritBadge extends React.Component {
                             {
                                 _.map(requirements, (req, index) => this.renderRequirement(req, index))
                             }
+                            <div className="clearfix"></div>
+                            <div className="col-sm-2 col-xs-12 pull-right">
+                                <button type="button" className="btn btn-success btn-lg btn-block"
+                                        onClick={() => this.props.history.push('/admin/merit-badges')}>Cancel</button>
+                            </div>
+                            <div className="col-sm-2 col-xs-12 pull-right">
+                                <button type="submit" className="btn btn-success btn-lg btn-block">Save</button>
+                            </div>
                         </form>
                     </div>
                 </div>
