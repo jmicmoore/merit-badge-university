@@ -3,16 +3,16 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom'
 import MeritBadge from './MeritBadge';
 import { Modal, Button } from 'react-bootstrap';
-import {getMeritBadges} from './adminActions';
+import {getMeritBadges, deleteMeritBadge} from './adminActions';
 
-const createMeritBadgeRow = (row, deleteCallback) => {
+const createRow = (row, rowIndex, deleteCallback) => {
     return (
-        <div className='row'>
+        <div key={`row_${rowIndex}`} className='row'>
             {
                 row.map(badge => {
                     return (
-                        <div className="col-sm-3 col-xs-12">
-                            <MeritBadge key={badge.name} meritBadge={badge} deleteCallback={deleteCallback}/>
+                        <div key={badge.name} className="col-sm-3 col-xs-12">
+                            <MeritBadge meritBadge={badge} deleteCallback={deleteCallback}/>
                         </div>
                     )
                 })
@@ -37,6 +37,36 @@ const create2DArray = (numCols, list) => {
 
 class MeritBadges extends React.Component {
 
+    constructor(){
+        super();
+        this.state = {
+            selectedBadge: null,
+            showDeleteConfirm: false,
+        };
+        this.closeDeleteConfirm = this.closeDeleteConfirm.bind(this);
+        this.openDeleteConfirm = this.openDeleteConfirm.bind(this);
+        this.handleDeleteBadge = this.handleDeleteBadge.bind(this);
+    };
+
+    handleDeleteBadge(){
+        deleteMeritBadge(this.state.selectedBadge._id);
+        this.closeDeleteConfirm();
+    };
+
+    closeDeleteConfirm(){
+        this.setState({
+            selectedBadge: null,
+            showDeleteConfirm: false
+        });
+    };
+
+    openDeleteConfirm(badge){
+        this.setState({
+            selectedBadge: badge,
+            showDeleteConfirm: true
+        });
+    };
+
     componentDidMount() {
         getMeritBadges();
     };
@@ -44,7 +74,7 @@ class MeritBadges extends React.Component {
     render() {
 
         const meritBadgeGrid = create2DArray(4, this.props.meritBadges);
-        // const meritBadgeName = this.state.selectedBadge ? this.state.selectedBadge.name : '';
+        const meritBadgeName = this.state.selectedBadge ? this.state.selectedBadge.name : '';
 
         return (
             <div className="container-fluid">
@@ -60,7 +90,26 @@ class MeritBadges extends React.Component {
                         </Link>
                     </div>
                 </div>
-
+                {
+                    meritBadgeGrid.map((badgeRow, index) => createRow(badgeRow, index, this.openDeleteConfirm))
+                }
+                <Modal
+                    show={this.state.showDeleteConfirm}
+                    onHide={this.closeDeleteConfirm}
+                    container={this}
+                    aria-labelledby="contained-modal-title"
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title">Delete Merit Badge</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        Are you sure you want to delete <strong>{meritBadgeName}</strong>?
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this.handleDeleteBadge}>Yes, Delete this badge</Button>
+                        <Button onClick={this.closeDeleteConfirm}>Cancel</Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
         )
     }

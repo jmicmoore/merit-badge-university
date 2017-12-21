@@ -56,7 +56,7 @@ class MeritBadge extends React.Component {
                                     size="2x"/>
                             </Link>
                             <a href='#' onClick={() => {
-                                this.handleDeleteMeritBadge(course);
+                                this.handleDeleteMeritBadge(meritBadge);
                             }}>
                                 <FontAwesome
                                     style={{paddingRight: '5px', paddingLeft: '5px', color: 'darkred'}}

@@ -8,14 +8,14 @@ import MeritBadgeCourse from './MeritBadgeCourse';
 import {getCourses, deleteCourse} from './adminActions';
 import {COURSE_TYPE} from '../common/constants';
 
-const createRow = (row, deleteCallback) => {
+const createRow = (row, rowIndex, deleteCallback) => {
     return (
-        <div className='row'>
+        <div key={`row_${rowIndex}`} className='row'>
             {
                 row.map(course => {
                     return (
-                        <div className="col-sm-3 col-xs-12">
-                            <MeritBadgeCourse key={course.meritBadge} course={course} deleteCallback={deleteCallback}/>
+                        <div key={course.meritBadge} className="col-sm-3 col-xs-12">
+                            <MeritBadgeCourse course={course} deleteCallback={deleteCallback}/>
                         </div>
                     )
                 })
@@ -113,7 +113,7 @@ class MeritBadgeCourses extends React.Component {
                     </div>
                 </div>
                 {
-                    courseGrid.map(course => createRow(course, this.openDeleteConfirm))
+                    courseGrid.map((courseRow, index) => createRow(courseRow, index, this.openDeleteConfirm))
                 }
 
                 <Modal
