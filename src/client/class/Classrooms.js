@@ -5,7 +5,7 @@ import TextField from '../common/components/TextField';
 import ErrorAlert from '../common/components/ErrorAlert';
 import {Table} from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome';
-import {addClassroom, getClassrooms, deleteClassroom} from './adminActions';
+import {addClassroom, getClassrooms, deleteClassroom} from '../admin/adminActions';
 
 class Classrooms extends React.Component {
 

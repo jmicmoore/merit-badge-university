@@ -3,10 +3,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import SingleSelect from '../common/components/SingleSelect';
-import {getClassrooms, getCourses, updateScheduledCourse, getScheduledCourseById, resetCurrentScheduledCourse} from './adminActions';
+import {getClassrooms, getCourses, updateScheduledCourse, getScheduledCourseById, resetCurrentScheduledCourse} from '../admin/adminActions';
 import {getCounselorNames} from '../common/redux/referenceActions'
 import {validate} from '../common/util/validation';
-import validationConfig from './ScheduledClassValidationConfig';
+import validationConfig from './ScheduledCourseValidationConfig';
 
 const periods = [
     { periodNumber: '1', time: '8 - 8:50 am' },

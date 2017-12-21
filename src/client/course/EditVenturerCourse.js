@@ -5,7 +5,7 @@ import TextArea from "../common/components/TextArea";
 import SingleSelect from '../common/components/SingleSelect';
 import SimpleList from '../common/components/SimpleList';
 import {getVenturingClassNames} from '../common/redux/referenceActions';
-import {updateCourse, getCourseById, resetCurrentCourse} from './adminActions';
+import {updateCourse, getCourseById, resetCurrentCourse} from '../admin/adminActions';
 import {validate} from '../common/util/validation';
 import validationConfig from './VenturerCourseValidationConfig';
 import {COURSE_TYPE} from '../common/constants';

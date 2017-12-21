@@ -10,7 +10,7 @@ import SingleSelect from '../common/components/SingleSelect';
 import CheckBox from '../common/components/CheckBox';
 import SimpleList from '../common/components/SimpleList';
 import {getMeritBadgeNames} from '../common/redux/referenceActions';
-import {getMeritBadgeByName, updateCourse, getCourseById, resetCurrentCourse, resetCurrentMeritBadge} from './adminActions';
+import {getMeritBadgeByName, updateCourse, getCourseById, resetCurrentCourse, resetCurrentMeritBadge} from '../admin/adminActions';
 import {validate} from '../common/util/validation';
 import validationConfig from './MeritBadgeCourseValidationConfig';
 import {COURSE_TYPE} from '../common/constants';

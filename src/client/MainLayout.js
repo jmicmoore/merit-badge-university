@@ -3,15 +3,15 @@ import {connect} from 'react-redux';
 import {Route, Switch, withRouter} from 'react-router-dom'
 import './common/components/MainMenu';
 import MainMenu from "./common/components/MainMenu";
-import MeritBadges from './admin/MeritBadges';
-import EditMeritBadge from './admin/EditMeritBadge';
-import Classrooms from './admin/Classrooms';
-import MeritBadgeCourses from './admin/MeritBadgeCourses';
-import EditMeritBadgeCourse from './admin/EditMeritBadgeCourse';
-import VenturerCourses from './admin/VenturerCourses';
-import EditVenturerCourse from './admin/EditVenturerCourse';
-import ScheduledCourses from './admin/ScheduledCourses';
-import EditScheduledCourse from './admin/EditScheduledCourse';
+import MeritBadges from './meritBadge/MeritBadges';
+import EditMeritBadge from './meritBadge/EditMeritBadge';
+import Classrooms from './class/Classrooms';
+import MeritBadgeCourses from './course/MeritBadgeCourses';
+import EditMeritBadgeCourse from './course/EditMeritBadgeCourse';
+import VenturerCourses from './course/VenturerCourses';
+import EditVenturerCourse from './course/EditVenturerCourse';
+import ScheduledCourses from './course/ScheduledCourses';
+import EditScheduledCourse from './course/EditScheduledCourse';
 import Welcome from './user/Welcome';
 
 // Gotta put the routes with params first or the one without will match

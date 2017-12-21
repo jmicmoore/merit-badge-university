@@ -8,7 +8,7 @@ import MainMenu from '../common/components/MainMenu';
 import TextField from '../common/components/TextField';
 import CheckBox from '../common/components/CheckBox';
 import TextArea from "../common/components/TextArea";
-import {getMeritBadgeById, updateMeritBadge} from './adminActions';
+import {getMeritBadgeById, updateMeritBadge} from '../admin/adminActions';
 import {mbuAPI} from '../common/constants';
 import {validate} from '../common/util/validation';
 import validationConfig from './MeritBadgeValidationConfig';

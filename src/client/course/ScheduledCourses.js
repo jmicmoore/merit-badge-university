@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {Table} from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome';
-import {getScheduledCourses, deleteScheduledCourse} from './adminActions';
+import {getScheduledCourses, deleteScheduledCourse} from '../admin/adminActions';
 
 class ScheduledCourses extends React.Component {
 

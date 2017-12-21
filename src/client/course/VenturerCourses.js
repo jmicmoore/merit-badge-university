@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import CheckBox from '../common/components/CheckBox';
 import { Modal, Button } from 'react-bootstrap';
 import VenturerCourse from './VenturerCourse';
-import {getCourses, deleteCourse} from './adminActions';
+import {getCourses, deleteCourse} from '../admin/adminActions';
 import {COURSE_TYPE} from '../common/constants';
 
 const createRow = (row, deleteCallback) => {

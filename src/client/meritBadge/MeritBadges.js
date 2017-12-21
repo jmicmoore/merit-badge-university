@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom'
 import MeritBadge from './MeritBadge';
 import { Modal, Button } from 'react-bootstrap';
-import {getMeritBadges, deleteMeritBadge} from './adminActions';
+import {getMeritBadges, deleteMeritBadge} from '../admin/adminActions';
 
 const createRow = (row, rowIndex, deleteCallback) => {
     return (
