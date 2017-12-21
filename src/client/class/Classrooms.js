@@ -5,7 +5,7 @@ import TextField from '../common/components/TextField';
 import ErrorAlert from '../common/components/ErrorAlert';
 import {Table} from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome';
-import {addClassroom, getClassrooms, deleteClassroom} from '../admin/adminActions';
+import {addClassroom, getClassrooms, deleteClassroom} from './classroomActions';
 
 class Classrooms extends React.Component {
 
@@ -132,8 +132,8 @@ class Classrooms extends React.Component {
     };
 };
 
-const mapStateToProps = ({admin}) => {
-    return admin;
+const mapStateToProps = ({classroom}) => {
+    return classroom;
 };
 
 export default connect(mapStateToProps)(Classrooms);

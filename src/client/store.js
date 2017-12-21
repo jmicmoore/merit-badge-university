@@ -6,6 +6,7 @@ import { userReducer } from './user/userReducer';
 import { adminReducer } from './admin/adminReducer';
 import { meritBadgeReducer } from './meritBadge/meritBadgeReducer';
 import { courseReducer } from './course/courseReducer';
+import { classroomReducer } from './class/classroomReducer';
 
 const reducers = {
     reference: referenceReducer,
@@ -13,6 +14,7 @@ const reducers = {
     user: userReducer,
     meritBadge: meritBadgeReducer,
     course: courseReducer,
+    classroom: classroomReducer,
     admin: adminReducer
 };
 
