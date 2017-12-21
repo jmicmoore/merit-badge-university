@@ -4,11 +4,13 @@ import { referenceReducer } from './common/redux/referenceReducer';
 import { registerReducer } from './register/registerReducer';
 import { userReducer } from './user/userReducer';
 import { adminReducer } from './admin/adminReducer';
+import { meritBadgeReducer } from './meritBadge/meritBadgeReducer';
 
 const reducers = {
     reference: referenceReducer,
     register: registerReducer,
     user: userReducer,
+    meritBadge: meritBadgeReducer,
     admin: adminReducer
 };
 

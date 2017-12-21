@@ -8,7 +8,7 @@ import MainMenu from '../common/components/MainMenu';
 import TextField from '../common/components/TextField';
 import CheckBox from '../common/components/CheckBox';
 import TextArea from "../common/components/TextArea";
-import {getMeritBadgeById, updateMeritBadge} from '../admin/adminActions';
+import {getMeritBadgeById, updateMeritBadge} from './meritBadgeActions';
 import {mbuAPI} from '../common/constants';
 import {validate} from '../common/util/validation';
 import validationConfig from './MeritBadgeValidationConfig';
@@ -307,8 +307,8 @@ class EditMeritBadge extends React.Component {
     }
 };
 
-const mapStateToProps = ({admin}) => {
-    return admin;
+const mapStateToProps = ({meritBadge}) => {
+    return meritBadge;
 };
 
 export default withRouter(connect(mapStateToProps)(EditMeritBadge));

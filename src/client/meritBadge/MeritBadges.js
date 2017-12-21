@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom'
 import MeritBadge from './MeritBadge';
 import { Modal, Button } from 'react-bootstrap';
-import {getMeritBadges, deleteMeritBadge} from '../admin/adminActions';
+import {getMeritBadges, deleteMeritBadge} from './meritBadgeActions';
 
 const createRow = (row, rowIndex, deleteCallback) => {
     return (
@@ -115,8 +115,8 @@ class MeritBadges extends React.Component {
     }
 };
 
-const mapStateToProps = ({admin}) => {
-    return admin;
+const mapStateToProps = ({meritBadge}) => {
+    return meritBadge;
 };
 
 export default connect(mapStateToProps)(MeritBadges);
