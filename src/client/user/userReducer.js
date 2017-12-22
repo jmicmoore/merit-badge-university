@@ -1,7 +1,7 @@
 import {
     LOGIN_USER, LOGOUT_USER,
     GET_USER_PROFILE, CREATE_USER_PROFILE, UPDATE_USER_PROFILE, RESET_PROFILE_ERROR
-} from '../common/constants';
+} from './constants';
 
 const INITIAL_STATE = {
     userId: '',

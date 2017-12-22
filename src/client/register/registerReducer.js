@@ -1,6 +1,6 @@
 import {
     PROFILE_TYPES, COUNCILS, DISTRICTS, STATES
-} from '../common/constants';
+} from './constants';
 
 const INITIAL_STATE = {
     profileTypes: [],

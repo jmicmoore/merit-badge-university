@@ -3,7 +3,7 @@ import http from 'superagent';
 import {
     mbuAPI,
     PROFILE_TYPES, COUNCILS, DISTRICTS, STATES
-} from '../common/constants';
+} from './constants';
 
 export const getProfileTypes = () => {
     store.dispatch({
