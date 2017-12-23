@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom'
 import update from 'immutability-helper';
-import {getMeritBadgeNames} from '../common/redux/referenceActions';
 import {getStates} from './registerActions';
+import {getMeritBadgeNames} from './registerActions';
 import {getUserProfile, updateUserProfile} from '../user/userActions';
 import TextField from '../common/components/TextField';
 import SingleSelect from '../common/components/SingleSelect';
@@ -120,9 +120,7 @@ class RegisterCounselor extends React.Component {
         const counselorInfo = this.state.counselorInfo;
 
         const stateChoices = this.props.register.states.map(state => {return ({value: state.abbreviation, label: state.name})});
-        const meritBadgeChoices = this.props.reference
-            ? this.props.reference.meritBadgeNames.map( item => {return({value: item.name, label: item.name})})
-            : [];
+        const meritBadgeChoices = this.props.register.meritBadgeNames.map( item => {return({value: item.name, label: item.name})}) || [];
 
         const registrationComplete = this.props.user.profile ? this.props.user.profile.registrationComplete : false;
 
@@ -214,8 +212,8 @@ class RegisterCounselor extends React.Component {
     }
 };
 
-const mapStateToProps = ({reference, register, user}) => {
-    return {reference, register, user};
+const mapStateToProps = ({register, user}) => {
+    return {register, user};
 };
 
 export default connect(mapStateToProps)(RegisterCounselor);

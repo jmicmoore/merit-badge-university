@@ -4,8 +4,7 @@ import {withRouter} from 'react-router-dom';
 import TextArea from "../common/components/TextArea";
 import SingleSelect from '../common/components/SingleSelect';
 import SimpleList from '../common/components/SimpleList';
-import {getVenturingClassNames} from '../common/redux/referenceActions';
-import {updateCourse, getCourseById, resetCurrentCourse} from './courseActions';
+import {updateCourse, getCourseById, resetCurrentCourse, getVenturingClassNames} from './courseActions';
 import {validate} from '../common/util/validation';
 import validationConfig from './VenturerCourseValidationConfig';
 import {COURSE_TYPE} from './constants';
@@ -55,12 +54,12 @@ class EditVenturerCourse extends React.Component {
     }
 
     currentCourseIsChanging(nextProps){
-        return nextProps.course.currentCourse !== this.props.course.currentCourse;
+        return nextProps.currentCourse !== this.props.currentCourse;
     }
 
     componentWillReceiveProps(nextProps){
         if(this.currentCourseIsChanging(nextProps)){
-            const courseLocalCopy = Object.assign({}, nextProps.course.currentCourse);
+            const courseLocalCopy = Object.assign({}, nextProps.currentCourse);
             this.setState(courseLocalCopy);
         }
     };
@@ -106,7 +105,7 @@ class EditVenturerCourse extends React.Component {
 
     render(){
 
-        const venturingClassChoices = this.props.reference.venturingClassNames || [];
+        const venturingClassChoices = this.props.venturingClassNames || [];
 
         const classInfo = this.state;
 
@@ -165,8 +164,8 @@ class EditVenturerCourse extends React.Component {
 
 };
 
-const mapStateToProps = ({reference, course}) => {
-    return {reference, course};
+const mapStateToProps = ({course}) => {
+    return course;
 };
 
 export default withRouter(connect(mapStateToProps)(EditVenturerCourse));

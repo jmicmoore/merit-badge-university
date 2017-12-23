@@ -1,5 +1,5 @@
 import React from 'react';
-import {mbuAPI} from '../common/constants';
+import {mbuAPI} from './constants';
 import FontAwesome from 'react-fontawesome';
 import {Link} from 'react-router-dom';
 

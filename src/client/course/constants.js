@@ -1,7 +1,10 @@
 
 export const mbuAPI = process.env.MBU_API || 'http://localhost:3099/mbu-api';
 
+export const COUNSELOR_NAMES = 'course/COUNSELOR_NAMES';
 export const GET_CLASSROOMS = 'course/GET_CLASSROOMS';
+export const MERIT_BADGE_NAMES = 'course/MERIT_BADGE_NAMES';
+export const VENTURING_CLASS_NAMES = 'course/VENTURING_CLASS_NAMES';
 export const GET_MERIT_BADGE_BY_NAME = 'course/GET_MERIT_BADGE_BY_NAME';
 export const RESET_CURRENT_MERIT_BADGE = 'course/RESET_CURRENT_MERIT_BADGE';
 

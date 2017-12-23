@@ -75,6 +75,5 @@ export const userReducer = ( state = INITIAL_STATE, action) => {
         newState.createProfileError = '';
     }
 
-
     return newState;
 };

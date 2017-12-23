@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import update from 'immutability-helper';
-import {getVenturingClassNames} from '../common/redux/referenceActions';
+import {getVenturingClassNames} from './registerActions';
 import {getUserProfile, updateUserProfile} from '../user/userActions';
 import TextField from '../common/components/TextField';
 import SingleSelect from '../common/components/SingleSelect';
@@ -99,7 +99,7 @@ class RegisterVenturerInstructor extends React.Component {
 
         const counselorInfo = this.state.counselorInfo;
 
-        const venturerClassChoices = this.props.reference ? this.props.reference.venturingClassNames : [];
+        const venturerClassChoices = this.props.register.venturingClassNames || [];
 
         const registrationComplete = this.props.user.profile ? this.props.user.profile.registrationComplete : false;
 
@@ -155,8 +155,8 @@ class RegisterVenturerInstructor extends React.Component {
     }
 };
 
-const mapStateToProps = ({reference, register, user}) => {
-    return {reference, register, user};
+const mapStateToProps = ({register, user}) => {
+    return {register, user};
 };
 
 export default connect(mapStateToProps)(RegisterVenturerInstructor);

@@ -1,5 +1,8 @@
 import {
+    COUNSELOR_NAMES,
     GET_CLASSROOMS,
+    MERIT_BADGE_NAMES,
+    VENTURING_CLASS_NAMES,
     GET_MERIT_BADGE_BY_NAME,
     RESET_CURRENT_MERIT_BADGE,
     GET_COURSES, GET_COURSE_BY_ID, UPDATE_COURSE, DELETE_COURSE, RESET_CURRENT_COURSE,
@@ -7,7 +10,10 @@ import {
 } from './constants';
 
 const INITIAL_STATE = {
+    counselorNames: [],
     classrooms: [],
+    meritBadgeNames: [],
+    venturingClassNames: [],
     currentMeritBadge: null,
     courses: [],
     scheduledCourses: [],
@@ -19,6 +25,18 @@ export const courseReducer = ( state = INITIAL_STATE, action) => {
     let newState = {...state};
 
 
+    if (action.type === `${COUNSELOR_NAMES}_PENDING`) {
+        newState.counselorNames = [];
+    }
+    if (action.type === `${COUNSELOR_NAMES}_FULFILLED`) {
+        newState.counselorNames = action.payload.body;
+    }
+    if (action.type === `${COUNSELOR_NAMES}_REJECTED`) {
+        console.log('Error retrieving counselor names.');
+        newState.counselorNames = [];
+    }
+
+
     if (action.type === `${GET_CLASSROOMS}_PENDING`) {
         newState.classrooms = [];
     }
@@ -28,6 +46,30 @@ export const courseReducer = ( state = INITIAL_STATE, action) => {
     if (action.type === `${GET_CLASSROOMS}_REJECTED`) {
         console.log('Error getting classrooms.');
         newState.classrooms = [];
+    }
+
+
+    if (action.type === `${MERIT_BADGE_NAMES}_PENDING`) {
+        newState.meritBadgeNames = [];
+    }
+    if (action.type === `${MERIT_BADGE_NAMES}_FULFILLED`) {
+        newState.meritBadgeNames = action.payload.body;
+    }
+    if (action.type === `${MERIT_BADGE_NAMES}_REJECTED`) {
+        console.log('Error getting merit badge names.');
+        newState.meritBadgeNames = [];
+    }
+
+
+    if (action.type === `${VENTURING_CLASS_NAMES}_PENDING`) {
+        newState.venturingClassNames = [];
+    }
+    if (action.type === `${VENTURING_CLASS_NAMES}_FULFILLED`) {
+        newState.venturingClassNames = action.payload.body;
+    }
+    if (action.type === `${VENTURING_CLASS_NAMES}_REJECTED`) {
+        console.log('Error retrieving venturing class names.');
+        newState.venturingClassNames = [];
     }
 
 
