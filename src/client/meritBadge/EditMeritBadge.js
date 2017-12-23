@@ -8,7 +8,7 @@ import MainMenu from '../common/components/MainMenu';
 import TextField from '../common/components/TextField';
 import CheckBox from '../common/components/CheckBox';
 import TextArea from "../common/components/TextArea";
-import {getMeritBadgeById, updateMeritBadge} from './meritBadgeActions';
+import {getMeritBadgeById, updateMeritBadge, resetCurrentMeritBadge} from './meritBadgeActions';
 import {validate} from '../common/util/validation';
 import validationConfig from './MeritBadgeValidationConfig';
 
@@ -28,16 +28,28 @@ class EditMeritBadge extends React.Component {
     };
 
     componentDidMount() {
-        // getMeritBadgeById(this.props.match.params.badgeId);
+        if(this.props.match.params.meritBadgeId){
+            getMeritBadgeById(this.props.match.params.meritBadgeId);
+        }
     };
 
-    componentWillReceiveProps({currentMeritBadge}){
-        // const initState = {
-        //     name: currentMeritBadge.name,
-        //     eagleRequired: currentMeritBadge.eagleRequired,
-        //     imageUrl: currentMeritBadge.imageUrl
-        // };
-        // this.setState(initState);
+    componentWillUnmount(){
+        resetCurrentMeritBadge();
+    }
+
+    currentMeritBadgeIsChanging(nextProps){
+        return nextProps.currentMeritBadge !== this.props.currentMeritBadge;
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(this.currentMeritBadgeIsChanging(nextProps)){
+            const localCopy = Object.assign(
+                {},
+                nextProps.currentMeritBadge,
+                { requirements: update([], {$push: nextProps.currentMeritBadge.requirements}) }
+            );
+            this.setState(localCopy);
+        }
     };
 
     handleSubmit(event) {
@@ -102,15 +114,10 @@ class EditMeritBadge extends React.Component {
         this.setState({requirements: newRequirements});
     };
 
-    // const SubRequirement = new Schema({
-    //     part: String,
-    //     text: String,
-    //     note: String
-    // });
     renderSubRequirement(reqIndex, sub, index){
-        const part = sub.part;
-        const text = sub.text;
-        const note = sub.note;
+        const part = sub.part || '';
+        const text = sub.text || '';
+        const note = sub.note || '';
 
         return (
             <div key={`Req_${reqIndex}_Subrequirement_${index}`} className="well">
@@ -145,18 +152,11 @@ class EditMeritBadge extends React.Component {
         );
     };
 
-
-    // const Requirement = new Schema({
-    //     number: Number,
-    //     description: String,
-    //     note: String,
-    //     subRequirements: [SubRequirement]
-    // });
     renderRequirement(req, reqIndex) {
 
         const number = String(req.number);
-        const description = req.description;
-        const note = req.note;
+        const description = req.description || '';
+        const note = req.note || '';
         const subRequirements = req.subRequirements;
 
         const nextPart = 'abcdefghijklmnopqrstuvwxyz'.charAt(subRequirements.length);
@@ -223,6 +223,7 @@ class EditMeritBadge extends React.Component {
             </div>
         );
     }
+
 
     render() {
 

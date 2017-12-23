@@ -1,7 +1,7 @@
 import store from '../store';
 import http from 'superagent';
 import {mbuAPI,
-    GET_MERIT_BADGES, GET_MERIT_BADGE_BY_ID, UPDATE_MERIT_BADGE, DELETE_MERIT_BADGE
+    GET_MERIT_BADGES, GET_MERIT_BADGE_BY_ID, UPDATE_MERIT_BADGE, DELETE_MERIT_BADGE, RESET_CURRENT_MERIT_BADGE
 } from './constants';
 
 export const getMeritBadges = () => {
@@ -10,7 +10,6 @@ export const getMeritBadges = () => {
         payload: http.get(`${mbuAPI}/merit-badges`)
     });
 };
-
 
 export const updateMeritBadge = (meritBadge) => {
     store.dispatch({
@@ -30,9 +29,16 @@ export const deleteMeritBadge = (meritBadgeId) => {
     })
 };
 
-// export const getMeritBadgeById = (id) => {
-//     store.dispatch({
-//         type: GET_MERIT_BADGE_BY_ID,
-//         payload: http.get(`${mbuAPI}/merit-badges/${id}`)
-//     });
-// };
+export const getMeritBadgeById = (id) => {
+    store.dispatch({
+        type: GET_MERIT_BADGE_BY_ID,
+        payload: http.get(`${mbuAPI}/merit-badges/${id}`)
+    });
+};
+
+export const resetCurrentMeritBadge = () => {
+    return store.dispatch({
+        type: RESET_CURRENT_MERIT_BADGE,
+        payload: null
+    });
+};

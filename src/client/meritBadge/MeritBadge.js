@@ -48,7 +48,7 @@ class MeritBadge extends React.Component {
                     </div>
                     <div className='row'>
                         <div className='col-md-offset-8 col-sm-4'>
-                            <Link to={`/edit-merit-badge/${meritBadge._id}`}>
+                            <Link to={`/admin/edit-merit-badge/${meritBadge._id}`}>
                                 <FontAwesome
                                     style={{paddingRight: '5px', paddingLeft: '5px', color: 'darkblue'}}
                                     name="pencil"

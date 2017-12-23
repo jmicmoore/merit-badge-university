@@ -25,6 +25,7 @@ class Home extends React.Component {
                 <MainMenu/>
                 <Switch>
                     <Route path='/admin/merit-badges' component={MeritBadges}/>
+                    <Route path="/admin/edit-merit-badge/:meritBadgeId" component={EditMeritBadge}/>
                     <Route path="/admin/edit-merit-badge" component={EditMeritBadge}/>
                     <Route path='/admin/classrooms' component={Classrooms}/>
                     <Route path='/admin/merit-badge-courses' component={MeritBadgeCourses}/>
