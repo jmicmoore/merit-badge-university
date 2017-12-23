@@ -42,7 +42,7 @@ export const getVenturingClassNames = () => {
 export const getMeritBadgeByName = (name) => {
     return store.dispatch({
         type: GET_MERIT_BADGE_BY_NAME,
-        payload: http.get(`${mbuAPI}/merit-badges/${name}`)
+        payload: http.get(`${mbuAPI}/merit-badges-by-name/${name}`)
     });
 };
 
