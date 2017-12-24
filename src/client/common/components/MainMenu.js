@@ -46,6 +46,26 @@ class MainMenu extends React.Component {
                             </li>
                         </ul>
 
+                        <ul className="nav navbar-nav">
+                            <li className="dropdown">
+                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Scout Master<span className="caret"></span></a>
+                                <ul className="dropdown-menu">
+                                    <li><Link to="/students/register">Register Students</Link></li>
+                                    <li><Link to="/students">View Students</Link></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <ul className="nav navbar-nav">
+                            <li className="dropdown">
+                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Crew Adviser<span className="caret"></span></a>
+                                <ul className="dropdown-menu">
+                                    <li><Link to="/students/register">Register Students</Link></li>
+                                    <li><Link to="/students">View Students</Link></li>
+                                </ul>
+                            </li>
+                        </ul>
+
                         <ul className="nav navbar-nav navbar-right">
                             <li className="dropdown">
                                 <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Profile <span className="caret"></span></a>
