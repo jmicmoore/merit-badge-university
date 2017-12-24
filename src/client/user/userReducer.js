@@ -24,7 +24,7 @@ export const userReducer = ( state = INITIAL_STATE, action) => {
         newState.userId = action.payload.body.userId;
     }
     if (action.type === `${LOGIN_USER}_REJECTED`) {
-        newState.loginError = 'Either e-mail or password was incorrect';
+        newState.loginError = 'Either username or password was incorrect';
     }
 
 

@@ -9,6 +9,7 @@ export const PHONE = 'validation/phone';
 export const ZIP = 'validation/zip';
 export const DATE = 'validation/date';
 export const ARRAY_MAX = 'validation/array_max';
+export const TROOP = 'validation/troop';
 
 const isEmpty = (str) => {
     if(Array.isArray(str)){
@@ -44,6 +45,11 @@ const isDate = (str) => {
 
 const isArrayWithinMax = (array, max) => {
     return array.length <= max;
+};
+
+const isTroop = (str) => {
+    const re = /^\d{3,4}?$/;
+    return re.test(str);
 };
 
 const areFieldsSame = (object, fieldConfig) => {
@@ -83,6 +89,8 @@ const getValidationMessagesForField = (objectToValidate, value, fieldConfigs) =>
                 return !areFieldsSame(objectToValidate, config) ? config.message : '';
             } else if(type === ARRAY_MAX){
                 return !isArrayWithinMax(value, config.max) ? config.message : '';
+            } else if(type === TROOP) {
+                return !isTroop(value) ? config.message : '';
             }
         } else {
             return '';

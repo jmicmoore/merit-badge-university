@@ -1,4 +1,4 @@
-import {isValid, REQUIRED, EMAIL, PASSWORD, SAME, PHONE, ZIP, DATE, ARRAY_MAX} from './validation';
+import {isValid, REQUIRED, EMAIL, PASSWORD, SAME, PHONE, ZIP, DATE, ARRAY_MAX, TROOP} from './validation';
 
 describe('Testing validation', () => {
 
@@ -414,4 +414,77 @@ describe('Testing validation', () => {
 
         expect(actual).toBe(false);
     });
+});
+
+
+
+
+test('TROOP type should return true if troop number is a valid 3 digit troop number', () => {
+    const config = {
+        myField: {
+            type: TROOP, message: 'xxx'
+        }
+    };
+    const data = {
+        myField: '950'
+    };
+    const actual = isValid(data, config);
+
+    expect(actual).toBe(true);
+});
+
+test('TROOP type should return true if troop number is a valid 4 digit troop number', () => {
+    const config = {
+        myField: {
+            type: TROOP, message: 'xxx'
+        }
+    };
+    const data = {
+        myField: '0950'
+    };
+    const actual = isValid(data, config);
+
+    expect(actual).toBe(true);
+});
+
+test('TROOP type should return false if troop number has anything but numbers', () => {
+    const config = {
+        myField: {
+            type: TROOP, message: 'xxx'
+        }
+    };
+    const data = {
+        myField: '12a'
+    };
+    const actual = isValid(data, config);
+
+    expect(actual).toBe(false);
+});
+
+test('TROOP type should return false if troop number is too long', () => {
+    const config = {
+        myField: {
+            type: TROOP, message: 'xxx'
+        }
+    };
+    const data = {
+        myField: '01234'
+    };
+    const actual = isValid(data, config);
+
+    expect(actual).toBe(false);
+});
+
+test('TROOP type should return false if troop number is too short', () => {
+    const config = {
+        myField: {
+            type: TROOP, message: 'xxx'
+        }
+    };
+    const data = {
+        myField: '12'
+    };
+    const actual = isValid(data, config);
+
+    expect(actual).toBe(false);
 });
