@@ -8,6 +8,7 @@ import RegisterSuccess from './register/RegisterSuccess';
 import RegisterCounselor from './register/RegisterCounselor';
 import RegisterVenturerInstructor from './register/RegisterVenturerInstructor';
 import RegisterScoutMaster from './register/RegisterScoutMaster';
+import RegisterCrewAdviser from './register/RegisterCrewAdviser';
 
 class App extends React.Component {
     render(){
@@ -53,6 +54,13 @@ class App extends React.Component {
                                    : ( <RegisterScoutMaster/> )
                            )}
                     />
+                    <Route exact path="/register/crew-adviser"
+                           render={() => (registrationComplete
+                                   ? ( <Redirect to="/welcome"/> )
+                                   : ( <RegisterCrewAdviser/> )
+                           )}
+                    />
+
                     <Route path="/"
                            render={() => (isAuthenticated
                                ? ( <MainLayout/> )

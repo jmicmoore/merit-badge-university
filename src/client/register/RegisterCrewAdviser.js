@@ -5,18 +5,18 @@ import update from 'immutability-helper';
 import {getUserProfile, updateUserProfile} from '../user/userActions';
 import TextField from '../common/components/TextField';
 import {validate} from '../common/util/validation';
-import validationConfig from './RegisterScoutMasterValidationConfig';
+import validationConfig from './RegisterCrewAdviserValidationConfig';
 
-class RegisterScoutMaster extends React.Component {
+class RegisterCrewAdviser extends React.Component {
 
     constructor() {
         super();
         this.state = {
-            scoutMasterInfo: {
+            crewAdviserInfo: {
                 email: '',
                 emailConfirm: '',
                 phone: '',
-                troop: ''
+                crew: ''
             },
             errorReport: null,
             displayErrors: false
@@ -30,22 +30,22 @@ class RegisterScoutMaster extends React.Component {
     };
 
     handleChange(field, value) {
-        const newState = update(this.state, {scoutMasterInfo: {[field]: {$set: value}}});
+        const newState = update(this.state, {crewAdviserInfo: {[field]: {$set: value}}});
         this.setState(newState);
     };
 
     handleSubmit(event) {
         event.preventDefault();
 
-        const scoutMasterInfo = Object.assign({}, this.state.scoutMasterInfo);
+        const crewAdviserInfo = Object.assign({}, this.state.crewAdviserInfo);
 
-        const report = validate(scoutMasterInfo, validationConfig);
+        const report = validate(crewAdviserInfo, validationConfig);
         if(report.allValid){
             const newProfile = Object.assign(
                 {},
                 this.props.user.profile,
-                scoutMasterInfo,
-                { unit: scoutMasterInfo.troop },
+                crewAdviserInfo,
+                { unit: crewAdviserInfo.crew },
                 { registrationComplete: true }
             );
             updateUserProfile(newProfile);
@@ -87,7 +87,7 @@ class RegisterScoutMaster extends React.Component {
         const firstName = basicProfile ? basicProfile.firstName : '';
         const lastName = basicProfile ? basicProfile.lastName : '';
 
-        const scoutMasterInfo = this.state.scoutMasterInfo;
+        const crewAdviserInfo = this.state.crewAdviserInfo;
 
         const registrationComplete = this.props.user.profile ? this.props.user.profile.registrationComplete : false;
 
@@ -103,7 +103,7 @@ class RegisterScoutMaster extends React.Component {
                                     <div className="col-sm-offset-1 col-sm-10 well">
                                         <form onSubmit={this.handleSubmit} noValidate className={this.state.displayErrors ? 'displayErrors' : ''} >
 
-                                            <h2 className="text-info">Scout Master</h2>
+                                            <h2 className="text-info">Crew Adviser</h2>
                                             <div className="col-sm-6 col-xs-12">
                                                 <TextField propertyName='firstName' disabled={true} propertyValue={firstName} displayName='First Name'/>
                                             </div>
@@ -112,17 +112,17 @@ class RegisterScoutMaster extends React.Component {
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-6 col-xs-12">
-                                                <TextField propertyName='email' inputType='email' propertyValue={scoutMasterInfo.email} displayName='Email address' errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                                <TextField propertyName='email' inputType='email' propertyValue={crewAdviserInfo.email} displayName='Email address' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="col-sm-6 col-xs-12">
-                                                <TextField propertyName='emailConfirm' inputType='email' propertyValue={scoutMasterInfo.emailConfirm} displayName='Confirm Email address' errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                                <TextField propertyName='emailConfirm' inputType='email' propertyValue={crewAdviserInfo.emailConfirm} displayName='Confirm Email address' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="clearfix"></div>
                                             <div className="col-sm-2 col-xs-12">
-                                                <TextField propertyName='phone' propertyValue={scoutMasterInfo.phone} displayName='Cell Number' placeholder='XXX-XXX-XXXX' errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                                <TextField propertyName='phone' propertyValue={crewAdviserInfo.phone} displayName='Cell Number' placeholder='XXX-XXX-XXXX' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="col-sm-2 col-xs-12">
-                                                <TextField propertyName='troop' propertyValue={scoutMasterInfo.troop} displayName='Troop Number' errors={this.state.errorReport} changeHandler={this.handleChange}/>
+                                                <TextField propertyName='crew' propertyValue={crewAdviserInfo.crew} displayName='Crew Number' errors={this.state.errorReport} changeHandler={this.handleChange}/>
                                             </div>
                                             <div className="clearfix"></div>
                                             {
@@ -147,4 +147,4 @@ const mapStateToProps = ({register, user}) => {
     return {register, user};
 };
 
-export default connect(mapStateToProps)(RegisterScoutMaster);
+export default connect(mapStateToProps)(RegisterCrewAdviser);

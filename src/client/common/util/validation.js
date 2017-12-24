@@ -10,6 +10,8 @@ export const ZIP = 'validation/zip';
 export const DATE = 'validation/date';
 export const ARRAY_MAX = 'validation/array_max';
 export const TROOP = 'validation/troop';
+export const CREW = 'validation/crew';
+
 
 const isEmpty = (str) => {
     if(Array.isArray(str)){
@@ -48,6 +50,11 @@ const isArrayWithinMax = (array, max) => {
 };
 
 const isTroop = (str) => {
+    const re = /^\d{3,4}?$/;
+    return re.test(str);
+};
+
+const isCrew = (str) => {
     const re = /^\d{3,4}?$/;
     return re.test(str);
 };
@@ -91,6 +98,8 @@ const getValidationMessagesForField = (objectToValidate, value, fieldConfigs) =>
                 return !isArrayWithinMax(value, config.max) ? config.message : '';
             } else if(type === TROOP) {
                 return !isTroop(value) ? config.message : '';
+            } else if(type === CREW) {
+                return !isCrew(value) ? config.message : '';
             }
         } else {
             return '';
