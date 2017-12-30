@@ -30,6 +30,7 @@ class Home extends React.Component {
                 <Switch>
                     <Route path="/welcome" component={Welcome}/>
 
+                    <Route path='/students/register/:studentId' component={EditStudent}/>
                     <Route path='/students/register' component={EditStudent}/>
                     <Route path='/students' component={Students}/>
 

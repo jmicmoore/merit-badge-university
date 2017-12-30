@@ -5,10 +5,11 @@ import TextField from '../common/components/TextField';
 import SingleSelect from '../common/components/SingleSelect';
 import {validate} from '../common/util/validation';
 import validationConfig from './StudentValidationConfig';
-import {updateStudent} from './studentActions';
+import {getStudentById, updateStudent, resetCurrentStudent} from './studentActions';
 
 const profileTypes = ['Scout', 'Venturer'];
-const levels = [ 'Scout', 'Tenderfoot', 'Second Class', 'First Class', 'Star', 'Life', 'Eagle' ];
+const scoutLevels = [ 'Scout', 'Tenderfoot', 'Second Class', 'First Class', 'Star', 'Life', 'Eagle' ];
+const venturerLevels = [ 'Venturer', 'Discovery', 'Pathfinder', 'Summit' ];
 
 const scoutLabels = {
     level: 'Rank',
@@ -50,6 +51,26 @@ class EditStudent extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     };
 
+    componentDidMount() {
+        if(this.props.match.params.studentId){
+            getStudentById(this.props.match.params.studentId);
+        }
+    };
+
+    componentWillUnmount(){
+        resetCurrentStudent();
+    }
+
+    currentStudentIsChanging(nextProps){
+        return nextProps.currentStudent !== this.props.currentStudent;
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(this.currentStudentIsChanging(nextProps)){
+            this.setState(Object.assign({}, nextProps.currentStudent));
+        }
+    };
+
     handleSubmit(event) {
         event.preventDefault();
         const report = validate(this.state, validationConfig);
@@ -78,6 +99,8 @@ class EditStudent extends React.Component {
                 <div></div>
             )
         }
+
+        const levels = studentInfo.profileType === 'Scout' ? scoutLevels : venturerLevels;
 
         const levelChoices = levels.map( item => {
             return ({
