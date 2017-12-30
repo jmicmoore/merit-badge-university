@@ -16,8 +16,8 @@ class App extends React.Component {
         const registrationComplete = this.props.profile ? this.props.profile.registrationComplete : false;
 
         // TODO: hardcode this to skip logging in.
-        const isAuthenticated = this.props.isAuthenticated;
-        // const isAuthenticated = true;
+        // const isAuthenticated = this.props.isAuthenticated;
+        const isAuthenticated = true;
 
         return (
             <div>

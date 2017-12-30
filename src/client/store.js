@@ -5,6 +5,7 @@ import { userReducer } from './user/userReducer';
 import { meritBadgeReducer } from './meritBadge/meritBadgeReducer';
 import { courseReducer } from './course/courseReducer';
 import { classroomReducer } from './class/classroomReducer';
+import { studentReducer } from './student/studentReducer';
 
 const reducers = {
     register: registerReducer,
@@ -12,6 +13,7 @@ const reducers = {
     meritBadge: meritBadgeReducer,
     course: courseReducer,
     classroom: classroomReducer,
+    student: studentReducer
 };
 
 const store = createStore(combineReducers(reducers), applyMiddleware(promiseMiddleware()));
