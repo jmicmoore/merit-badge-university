@@ -2,7 +2,9 @@ import store from '../store';
 import http from 'superagent';
 import {
     mbuAPI,
-    GET_STUDENTS, GET_STUDENT_BY_ID, UPDATE_STUDENT, DELETE_STUDENT, RESET_CURRENT_STUDENT
+    GET_STUDENTS, GET_STUDENT_BY_ID, UPDATE_STUDENT, DELETE_STUDENT, RESET_CURRENT_STUDENT,
+    GET_SCHEDULED_COURSES
+
 } from './constants';
 
 export const getStudents = () => {
@@ -41,5 +43,12 @@ export const resetCurrentStudent = () => {
     return store.dispatch({
         type: RESET_CURRENT_STUDENT,
         payload: null
+    });
+};
+
+export const getScheduledCourses = () => {
+    return store.dispatch({
+        type: GET_SCHEDULED_COURSES,
+        payload: http.get(`${mbuAPI}/scheduled-courses`)
     });
 };

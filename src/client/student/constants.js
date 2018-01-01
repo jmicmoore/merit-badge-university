@@ -6,3 +6,5 @@ export const GET_STUDENT_BY_ID = 'student/GET_STUDENT_BY_ID';
 export const UPDATE_STUDENT = 'student/UPDATE_STUDENT';
 export const DELETE_STUDENT = 'student/DELETE_STUDENT';
 export const RESET_CURRENT_STUDENT = 'student/RESET_CURRENT_STUDENT';
+
+export const GET_SCHEDULED_COURSES = 'student/GET_SCHEDULED_COURSES';

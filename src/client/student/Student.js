@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
 import {Link} from 'react-router-dom';
@@ -17,7 +18,10 @@ class Student extends React.Component {
     render() {
         const student = this.props.student;
 
-        const courses = this.props.student.courses ? 'Render these!' : 'none selected yet';
+        let courses = 'none selected yet';
+        if(this.props.student.courses.length > 0){
+            courses = _.chain(this.props.student.courses).map('courseName').join(', ').value()
+        }
 
         return (
             <div className="panel panel-default">
@@ -40,6 +44,15 @@ class Student extends React.Component {
                         </div>
                         <div className='col-sm-2'>
                             {`${student.leaderFirstName} ${student.leaderLastName}`}
+                        </div>
+                        <div className='col-sm-1'>
+                            <Link to={`/students/courses/${student._id}`}>
+                                <FontAwesome
+                                    style={{ paddingRight : '5px', paddingLeft : '5px', color : 'darkgreen' }}
+                                    name="book"
+                                    title="Assign Classes"
+                                    size="2x"/>
+                            </Link>
                         </div>
                         <div className='col-sm-1'>
                             <Link to={`/students/register/${student._id}`}>

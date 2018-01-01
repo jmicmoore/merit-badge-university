@@ -1,10 +1,12 @@
 import {
-    GET_STUDENTS, GET_STUDENT_BY_ID, UPDATE_STUDENT, DELETE_STUDENT, RESET_CURRENT_STUDENT
+    GET_STUDENTS, GET_STUDENT_BY_ID, UPDATE_STUDENT, DELETE_STUDENT, RESET_CURRENT_STUDENT,
+    GET_SCHEDULED_COURSES
 } from './constants';
 
 const INITIAL_STATE = {
     students: [],
-    currentStudent: null
+    currentStudent: null,
+    scheduledCourses: []
 };
 
 export const studentReducer = ( state = INITIAL_STATE, action) => {
@@ -51,5 +53,17 @@ export const studentReducer = ( state = INITIAL_STATE, action) => {
     if (action.type === RESET_CURRENT_STUDENT) {
         newState.currentStudent = null;
     }
+
+    if (action.type === `${GET_SCHEDULED_COURSES}_PENDING`) {
+        newState.scheduledCourses = [];
+    }
+    if (action.type === `${GET_SCHEDULED_COURSES}_FULFILLED`) {
+        newState.scheduledCourses = action.payload.body;
+    }
+    if (action.type === `${GET_SCHEDULED_COURSES}_REJECTED`) {
+        console.log('Error getting scheduled courses.');
+        newState.scheduledCourses = [];
+    }
+
     return newState;
 };
