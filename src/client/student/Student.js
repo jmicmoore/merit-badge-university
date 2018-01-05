@@ -46,7 +46,7 @@ class Student extends React.Component {
                             {`${student.leaderFirstName} ${student.leaderLastName}`}
                         </div>
                         <div className='col-sm-1'>
-                            <Link to={`/students/courses/${student._id}`}>
+                            <Link to={`/students/edit-courses/${student._id}`}>
                                 <FontAwesome
                                     style={{ paddingRight : '5px', paddingLeft : '5px', color : 'darkgreen' }}
                                     name="book"

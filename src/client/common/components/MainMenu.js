@@ -52,6 +52,7 @@ class MainMenu extends React.Component {
                                 <ul className="dropdown-menu">
                                     <li><Link to="/students/register">Register Students</Link></li>
                                     <li><Link to="/students">View Students</Link></li>
+                                    <li><Link to="/checkin">Student Checkin</Link></li>
                                 </ul>
                             </li>
                         </ul>
@@ -62,6 +63,7 @@ class MainMenu extends React.Component {
                                 <ul className="dropdown-menu">
                                     <li><Link to="/students/register">Register Students</Link></li>
                                     <li><Link to="/students">View Students</Link></li>
+                                    <li><Link to="/checkin">Student Checkin</Link></li>
                                 </ul>
                             </li>
                         </ul>
