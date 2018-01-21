@@ -51,6 +51,7 @@
     "jest": "^17.0.3",
     "jest-cli": "^17.0.3",
     "opener": "^1.4.3",
+    "pdfmake": "^0.1.35",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-hot-loader": "^3.0.0-beta.2",

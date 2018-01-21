@@ -21,6 +21,8 @@ import EditStudentCourses from './student/EditStudentCourses';
 
 import StudentCheckin from './student/StudentCheckin';
 
+import PrintStudentSchedules from './student/PrintStudentSchedules';
+
 // Gotta put the routes with params first or the one without will match
 class Home extends React.Component {
 
@@ -35,6 +37,7 @@ class Home extends React.Component {
 
                     <Route path='/checkin' component={StudentCheckin}/>
 
+                    <Route path='/students/print-schedule' component={PrintStudentSchedules}/>
                     <Route path='/students/edit-courses/:studentId' component={EditStudentCourses}/>
                     <Route path='/students/register/:studentId' component={EditStudent}/>
                     <Route path='/students/register' component={EditStudent}/>

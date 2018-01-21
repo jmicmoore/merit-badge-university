@@ -106,7 +106,7 @@ class EditStudentCourses extends React.Component {
         }
 
         return (
-            _.map(this.state.myCourses, (course, index) => {
+            _.map(courses, (course, index) => {
                 return (
                     <div key={course.courseName} className="panel panel-default">
                         <div className="panel-body">
